@@ -13,7 +13,7 @@ Esta es mi primera entrada en este blog personal, un espacio donde planeo compar
 
 En este blog podrás encontrar:
 
-- **Tutoriales de desarrollo**: Guías paso a paso sobre tecnologías que uso en mi día a día
+- **Experiencias de desarrollo**: Aprendizajes y desafíos de mi día a día como desarrollador
 - **Actualizaciones de proyectos**: Progress reports de los proyectos en los que estoy trabajando
 - **Reflexiones técnicas**: Mis pensamientos sobre nuevas tecnologías, mejores prácticas y tendencias
 - **Experiencias personales**: Lecciones aprendidas, desafíos superados y consejos para otros desarrolladores
@@ -22,10 +22,12 @@ En este blog podrás encontrar:
 
 Actualmente trabajo principalmente con:
 
-- **Frontend**: React, Next.js, TypeScript, Tailwind CSS
-- **Backend**: Node.js, Express, Python
-- **Bases de datos**: PostgreSQL, MongoDB
-- **Herramientas**: Git, Docker, VS Code
+- **Desarrollo Web**: PHP, MySQL, WordPress con Elementor
+- **Proyectos Académicos**: Node.js con API REST
+- **Frontend**: HTML, CSS, JavaScript
+- **Herramientas**: Git, VS Code, Laragon
+
+Además, estoy ampliando mis conocimientos en tecnologías modernas como React y Next.js para proyectos personales.
 
 ## ¿Por qué un blog?
 
@@ -37,9 +39,10 @@ Además, escribir sobre lo que aprendo me ayuda a consolidar conocimientos y ref
 
 En las próximas semanas planeo publicar:
 
-1. Un tutorial sobre cómo crear un portfolio con Next.js y Tailwind CSS
-2. Mi experiencia migrando una aplicación de JavaScript a TypeScript
-3. Reflexiones sobre las mejores prácticas en desarrollo frontend
+1. Mi experiencia trabajando con WordPress y Elementor en MadisonMK
+2. Desarrollo de APIs REST con Node.js para proyectos académicos  
+3. Reflexiones sobre mi transición de trainee a becario en el desarrollo web
+4. Actualizaciones sobre mis proyectos personales y aprendizajes
 
 ¡Espero que este contenido te sea útil! Si tienes alguna pregunta o sugerencia, no dudes en [contactarme](/contact).
 

@@ -1,0 +1,26 @@
+{
+  "name": "Adrián Martín Pereira - Portfolio",
+  "short_name": "Adrian Portfolio",
+  "description": "Portfolio profesional de Adrián Martín Pereira, desarrollador backend junior",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/next.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": [
+    "portfolio",
+    "developer",
+    "backend"
+  ],
+  "lang": "es",
+  "scope": "/",
+  "prefer_related_applications": false
+}

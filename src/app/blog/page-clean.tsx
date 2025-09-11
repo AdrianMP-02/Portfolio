@@ -3,37 +3,38 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import PageWrapper from '@/components/PageWrapper';
-import { Calendar, Clock, Search, BookOpen, User, Tag } from 'lucide-react';
+import { Calendar, Clock, Search, BookOpen, Share2, User, Tag } from 'lucide-react';
 
 export default function BlogPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [email, setEmail] = useState('');
 
+  // Mock de datos del blog
+  const posts = [
+    {
+      slug: 'bienvenido-al-blog',
+      title: 'Bienvenido a mi Blog de Desarrollo',
+      excerpt: 'Un espacio donde comparto mis experiencias, aprendizajes y conocimientos sobre desarrollo web moderno.',
+      date: '2024-01-15',
+      readTime: '5',
+      category: 'Personal',
+      image: '/api/placeholder/600/300'
+    },
+    {
+      slug: 'tutorial-portfolio-nextjs',
+      title: 'Cómo crear un portfolio moderno con Next.js 15',
+      excerpt: 'Guía completa para construir un portfolio profesional utilizando Next.js, TypeScript y Tailwind CSS.',
+      date: '2024-01-10',
+      readTime: '12',
+      category: 'Tutorial',
+      image: '/api/placeholder/600/300'
+    }
+  ];
+
   const categories = ['Personal', 'Tutorial', 'JavaScript', 'React', 'Next.js'];
 
   const filteredPosts = useMemo(() => {
-    const posts = [
-      {
-        slug: 'bienvenido-al-blog',
-        title: 'Bienvenido a mi Blog de Desarrollo',
-        excerpt: 'Un espacio donde comparto mis experiencias, aprendizajes y conocimientos sobre desarrollo web moderno.',
-        date: '2024-01-15',
-        readTime: '5',
-        category: 'Personal',
-        image: '/api/placeholder/600/300'
-      },
-      {
-        slug: 'tutorial-portfolio-nextjs',
-        title: 'Cómo crear un portfolio moderno con Next.js 15',
-        excerpt: 'Guía completa para construir un portfolio profesional utilizando Next.js, TypeScript y Tailwind CSS.',
-        date: '2024-01-10',
-        readTime: '12',
-        category: 'Tutorial',
-        image: '/api/placeholder/600/300'
-      }
-    ];
-
     return posts.filter(post => {
       const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
@@ -167,17 +168,7 @@ export default function BlogPage() {
   );
 }
 
-interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  image: string;
-}
-
-function BlogCard({ post }: { post: BlogPost }) {
+function BlogCard({ post }: { post: any }) {
   return (
     <article className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl overflow-hidden">
       <Link href={`/blog/${post.slug}`}>

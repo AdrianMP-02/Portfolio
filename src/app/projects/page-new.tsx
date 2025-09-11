@@ -196,11 +196,10 @@ const FeaturedProjectCard = ({ project }: FeaturedProjectCardProps) => {
           </div>
         </div>
         <div className="absolute top-4 right-4">
-          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-            project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
-            project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
-            'bg-green-500/20 text-green-400'
-          }`}>
+          <span className={`px-3 py-1 rounded-full text-sm font-medium ${project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
+              project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
+                'bg-green-500/20 text-green-400'
+            }`}>
             {project.status}
           </span>
         </div>
@@ -279,11 +278,10 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           <Code className="text-gray-500" size={32} />
         </div>
         <div className="absolute top-3 right-3">
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-            project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
-            project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
-            'bg-green-500/20 text-green-400'
-          }`}>
+          <span className={`px-2 py-1 rounded-full text-xs font-medium ${project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
+              project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
+                'bg-green-500/20 text-green-400'
+            }`}>
             {project.status}
           </span>
         </div>

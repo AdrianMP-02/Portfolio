@@ -14,12 +14,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
+            <h3 className="text-2xl font-bold gradient-text mb-4">
               Mi Portfolio
             </h3>
             <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-              Desarrollador Backend Junior especializado en APIs, bases de datos y arquitecturas escalables.
-              Siempre aprendiendo y mejorando.
+              Desarrollador Web Junior especializado en PHP, MySQL, WordPress con Elementor.
+              Becario en MadisonMK, siempre aprendiendo y creciendo profesionalmente.
             </p>
 
             {/* Social Links */}
@@ -49,10 +49,11 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Navegación</h3>
             <ul className="space-y-3">
-              <FooterLink href="/about" text="Acerca de" />
-              <FooterLink href="/projects" text="Proyectos" />
-              <FooterLink href="/blog" text="Blog" />
-              <FooterLink href="/contact" text="Contacto" />
+              {['about', 'projects', 'blog', 'contact'].map((item) => (
+                <li key={item}>
+                  <FooterLink href={`/${item}`} text={item.charAt(0).toUpperCase() + item.slice(1)} />
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -62,15 +63,14 @@ const Footer = () => {
             <div className="space-y-3 text-gray-400">
               <p className="flex items-center gap-2">
                 <Mail size={16} />
-                <a href="mailto:adrian.m.p.02022002@gmail.com" className="hover:text-white transition-colors">
+                <a href="mailto:adrian.m.p.02022002@gmail.com" className="hover:text-white">
                   adrian.m.p.02022002@gmail.com
                 </a>
               </p>
               <p className="text-sm">
                 Disponible para freelance y colaboraciones
               </p>
-              <div className="inline-flex items-center gap-1 bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="status-active">
                 Abierto a oportunidades
               </div>
             </div>
@@ -81,16 +81,20 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm flex items-center gap-1">
             © 2025 Mi Portfolio. Hecho con
-            <Heart size={14} className="text-red-500 animate-pulse" />
+            <span className="inline-block">
+              <Heart size={14} className="text-red-500" />
+            </span>
             usando Next.js
           </p>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-all duration-300 group"
+            className="flex items-center gap-2 text-gray-400 hover:text-white group"
           >
             <span className="text-sm">Volver arriba</span>
-            <ArrowUp size={16} className="group-hover:-translate-y-1 transition-transform duration-300" />
+            <div>
+              <ArrowUp size={16} />
+            </div>
           </button>
         </div>
       </div>
@@ -111,7 +115,7 @@ const SocialButton = ({ href, icon, label, hoverColor }: SocialButtonProps) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`text-gray-400 ${hoverColor} p-3 rounded-lg hover:bg-gray-800/50 transition-all duration-300 hover:scale-110`}
+      className={`text-gray-400 ${hoverColor} p-3 rounded-lg glass`}
       aria-label={label}
     >
       {icon}
@@ -126,14 +130,14 @@ interface FooterLinkProps {
 
 const FooterLink = ({ href, text }: FooterLinkProps) => {
   return (
-    <li>
-      <Link
-        href={href}
-        className="text-gray-400 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block"
-      >
+    <Link
+      href={href}
+      className="text-gray-400 hover:text-white inline-block"
+    >
+      <span>
         {text}
-      </Link>
-    </li>
+      </span>
+    </Link>
   );
 };
 
