@@ -12,6 +12,7 @@ export interface BlogPost {
   content: string;
   tags: string[];
   readTime: number;
+  author: string;
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -37,6 +38,7 @@ export function getAllPosts(): BlogPost[] {
           content,
           tags: data.tags || [],
           readTime,
+          author: data.author || 'Adrián Martín',
         };
       });
 
@@ -64,6 +66,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       content,
       tags: data.tags || [],
       readTime,
+      author: data.author || 'Andrés García',
     };
   } catch {
     return null;

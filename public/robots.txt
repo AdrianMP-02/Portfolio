@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://portfolio-adrian.vercel.app/sitemap.xml
+
+# Archivos importantes
+Allow: /about
+Allow: /projects
+Allow: /blog
+Allow: /contact
+
+# Archivos estáticos
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico
+Allow: /*.webp
+
+# Crawl delay
+Crawl-delay: 1

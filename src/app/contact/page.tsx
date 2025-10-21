@@ -1,251 +1,362 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, MapPin, Send, Github, Linkedin, MessageSquare, User, Clock, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, MessageSquare, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+import AnimationWrapper, { StaggerContainer, StaggerItem } from '@/components/AnimationWrapper';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    website: '' // Honeypot field
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [formStartTime] = useState(Date.now());
+
+  // Funciones de validación anti-spam
+  const validateSpam = (): { isValid: boolean; error?: string } => {
+    if (formData.website) {
+      return { isValid: false, error: 'Solicitud inválida' };
+    }
+
+    const timeTaken = Date.now() - formStartTime;
+    if (timeTaken < 5000) {
+      return { isValid: false, error: 'Por favor, toma tu tiempo para llenar el formulario' };
+    }
+
+    const lastSubmission = localStorage.getItem('lastFormSubmission');
+    if (lastSubmission && Date.now() - parseInt(lastSubmission) < 30000) {
+      return { isValid: false, error: 'Por favor, espera 30 segundos antes de enviar otro mensaje' };
+    }
+
+    const suspiciousPatterns = [
+      /https?:\/\/[^\s]+/gi,
+      /\b(viagra|casino|loan|crypto|bitcoin)\b/gi,
+      /(.)\1{10,}/gi,
+    ];
+
+    const fullText = `${formData.name} ${formData.email} ${formData.subject} ${formData.message}`;
+
+    for (const pattern of suspiciousPatterns) {
+      if (pattern.test(fullText)) {
+        return { isValid: false, error: 'El contenido del mensaje parece sospechoso' };
+      }
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email)) {
+      return { isValid: false, error: 'Formato de email inválido' };
+    }
+
+    return { isValid: true };
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+
+    const validationResult = validateSpam();
+    if (!validationResult.isValid) {
+      setError(validationResult.error || 'Error de validación');
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simular envío de formulario
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: 'Adrián',
+        reply_to: formData.email,
+      };
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      const response = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+      );
 
-    // Resetear después de 3 segundos
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+      if (response.status === 200) {
+        setIsSubmitted(true);
+        localStorage.setItem('lastFormSubmission', Date.now().toString());
+        setFormData({ name: '', email: '', subject: '', message: '', website: '' });
+      } else {
+        throw new Error('Error en el envío');
+      }
+    } catch (err) {
+      console.error('Error al enviar el formulario:', err);
+      setError('Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value
-    }));
+    });
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 pt-24">
-      <div className="container mx-auto px-4 py-16">
-        {/* Header */}
-        <div className="text-center mb-16 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-white">
-            Contacto
-          </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            ¿Tienes una idea interesante? ¿Quieres colaborar en un proyecto?
-            ¡Me encantaría escuchar de ti! Hablemos y hagamos realidad algo increíble juntos.
-          </p>
-        </div>
+      <div className="container mx-auto px-2 sm:px-4 lg:px-6 py-16">
+        <div className="max-w-8xl mx-auto">
+          {/* Header */}
+          <AnimationWrapper animation="fade-in" className="text-center mb-16 space-y-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-gradient-animate">
+              Hablemos
+            </h1>
+            <AnimationWrapper animation="slide-up" delay={0.2}>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                ¿Tienes una idea genial? ¿Buscas colaborar en un proyecto? ¡Me encantaría escucharte!
+              </p>
+            </AnimationWrapper>
+          </AnimationWrapper>
 
-        <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info */}
-          <div className="lg:col-span-1 space-y-8">
-            {/* Contact Cards */}
-            <div className="space-y-6">
-              <ContactCard
-                icon={<Mail className="text-blue-400" size={24} />}
-                title="Email"
-                info="adrian.m.p.02022002@gmail.com"
-                description="Respondo usualmente en 24 horas"
-                action={() => window.open('mailto:adrian.m.p.02022002@gmail.com')}
-              />
+          {/* Contact Grid */}
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Info */}
+            <AnimationWrapper animation="slide-in-left" className="space-y-8">
+              <div className="card card-hover">
+                <AnimationWrapper animation="scale-in" delay={0.3}>
+                  <div className="flex items-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mr-4 hover-rotate animate-pulse-custom">
+                      <MessageSquare className="text-white" size={32} />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-white">Conectemos</h2>
+                      <p className="text-blue-400">Siempre abierto a nuevas oportunidades</p>
+                    </div>
+                  </div>
+                </AnimationWrapper>
 
-              <ContactCard
-                icon={<MapPin className="text-purple-400" size={24} />}
-                title="Ubicación"
-                info="Valladolid, España"
-                description="Disponible para proyectos remotos"
-              />
-            </div>
+                <div className="space-y-6">
+                  <AnimationWrapper animation="fade-in" delay={0.5}>
+                    <div className="text-gray-300 space-y-4 text-lg leading-relaxed">
+                      <p>
+                        Estoy siempre interesado en hablar sobre desarrollo web, nuevas tecnologías,
+                        oportunidades de colaboración y proyectos emocionantes.
+                      </p>
+                      <p>
+                        Ya sea que busques un desarrollador para tu equipo, tengas una idea de proyecto,
+                        o simplemente quieras charlar sobre programación, ¡no dudes en contactarme!
+                      </p>
+                    </div>
+                  </AnimationWrapper>
 
-            {/* Social Links */}
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <MessageSquare className="text-blue-400" size={20} />
-                Conecta conmigo
-              </h3>
-              <div className="space-y-3">
-                <SocialLink
-                  icon={<Github size={20} />}
-                  label="GitHub"
-                  href="https://github.com/AdrianMP-02"
-                  description="Ve mis proyectos y contribuciones"
-                />
-                <SocialLink
-                  icon={<Linkedin size={20} />}
-                  label="LinkedIn"
-                  href="https://www.linkedin.com/in/adrián-martín-pereira-167813222/"
-                  description="Conecta profesionalmente"
-                />
+                  <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <StaggerItem index={0}>
+                      <ContactMethod
+                        icon={<Mail size={20} />}
+                        title="Email"
+                        detail="adrian.m.p.02022002@gmail.com"
+                        link="mailto:adrian.m.p.02022002@gmail.com"
+                      />
+                    </StaggerItem>
+                    <StaggerItem index={1}>
+                      <ContactMethod
+                        icon={<MapPin size={20} />}
+                        title="Ubicación"
+                        detail="Valladolid, España"
+                        link=""
+                      />
+                    </StaggerItem>
+                    <StaggerItem index={2}>
+                      <ContactMethod
+                        icon={<Github size={20} />}
+                        title="GitHub"
+                        detail="/AdrianMP-02"
+                        link="https://github.com/AdrianMP-02"
+                      />
+                    </StaggerItem>
+                    <StaggerItem index={3}>
+                      <ContactMethod
+                        icon={<Linkedin size={20} />}
+                        title="LinkedIn"
+                        detail="Adrián Martín Pereira"
+                        link="https://www.linkedin.com/in/adrián-martín-pereira-167813222/"
+                      />
+                    </StaggerItem>
+                  </StaggerContainer>
+
+                  <AnimationWrapper animation="scale-in" delay={0.8}>
+                    <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-xl p-4 hover-scale transition-smooth">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse-custom"></div>
+                        <span className="text-green-400 font-semibold">Disponible para trabajar</span>
+                      </div>
+                      <p className="text-gray-300 text-sm">
+                        Actualmente abierto a nuevas oportunidades laborales y proyectos freelance
+                      </p>
+                    </div>
+                  </AnimationWrapper>
+                </div>
               </div>
-            </div>
 
-            {/* Availability */}
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <Clock className="text-yellow-400" size={20} />
-                Disponibilidad
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-300">Estado actual:</span>
-                  <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm border border-green-500/30">
-                    ● Disponible
-                  </span>
+              {/* Quick Response Card */}
+              <AnimationWrapper animation="slide-up" delay={0.6}>
+                <div className="card card-hover">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Clock className="text-blue-400 animate-float" size={24} />
+                    <h3 className="text-xl font-bold text-white gradient-text">Tiempo de respuesta</h3>
+                  </div>
+                  <StaggerContainer className="space-y-3 text-gray-300">
+                    <StaggerItem index={0}>
+                      <div className="flex justify-between items-center hover-scale transition-smooth">
+                        <span>Email:</span>
+                        <span className="text-blue-400 font-semibold">24-48 horas</span>
+                      </div>
+                    </StaggerItem>
+                    <StaggerItem index={1}>
+                      <div className="flex justify-between items-center hover-scale transition-smooth">
+                        <span>LinkedIn:</span>
+                        <span className="text-blue-400 font-semibold">1-2 días</span>
+                      </div>
+                    </StaggerItem>
+                    <StaggerItem index={2}>
+                      <div className="flex justify-between items-center hover-scale transition-smooth">
+                        <span>Urgente:</span>
+                        <span className="text-yellow-400 font-semibold">Mismo día</span>
+                      </div>
+                    </StaggerItem>
+                  </StaggerContainer>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-300">Tiempo de respuesta:</span>
-                  <span className="text-gray-400">24-48 horas</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-300">Proyectos nuevos:</span>
-                  <span className="text-green-400">Aceptando</span>
-                </div>
-              </div>
-            </div>
-          </div>
+              </AnimationWrapper>
+            </AnimationWrapper>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <Send className="text-blue-400" size={24} />
-                Envíame un mensaje
-              </h2>
+            {/* Contact Form */}
+            <AnimationWrapper animation="slide-in-right" className="card card-hover">
+              <AnimationWrapper animation="fade-in" delay={0.4} className="mb-8">
+                <h2 className="text-2xl font-bold text-white mb-2 gradient-text">Envíame un mensaje</h2>
+                <p className="text-gray-400">
+                  Completa este formulario y me pondré en contacto contigo lo antes posible
+                </p>
+              </AnimationWrapper>
 
               {isSubmitted ? (
-                <div className="text-center py-12 space-y-4">
-                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
-                    <CheckCircle className="text-green-400" size={32} />
+                <AnimationWrapper animation="scale-in" className="text-center py-12">
+                  <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-custom">
+                    <CheckCircle className="text-green-400" size={40} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">¡Mensaje enviado!</h3>
-                  <p className="text-gray-400">
-                    Gracias por contactarme. Te responderé pronto.
+                  <h3 className="text-2xl font-bold text-white mb-4 gradient-text">¡Mensaje enviado!</h3>
+                  <p className="text-gray-400 mb-6">
+                    Gracias por contactarme. Te responderé en las próximas 24-48 horas.
                   </p>
-                </div>
+                  <button
+                    onClick={() => setIsSubmitted(false)}
+                    className="btn-secondary hover-lift"
+                  >
+                    Enviar otro mensaje
+                  </button>
+                </AnimationWrapper>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Nombre completo
-                      </label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="w-full bg-gray-700/50 border border-gray-600 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors"
-                          placeholder="Tu nombre"
-                        />
-                      </div>
-                    </div>
+                  {/* Honeypot field */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Email
-                      </label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="w-full bg-gray-700/50 border border-gray-600 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors"
-                          placeholder="tu@email.com"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <AnimationWrapper animation="slide-up" delay={0.5}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        label="Nombre"
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        placeholder="Tu nombre completo"
+                      />
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Asunto
-                    </label>
-                    <input
+                      <FormField
+                        label="Email"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        placeholder="tu@email.com"
+                      />
+                    </div>
+                  </AnimationWrapper>
+
+                  <AnimationWrapper animation="slide-up" delay={0.6}>
+                    <FormField
+                      label="Asunto"
                       type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full bg-gray-700/50 border border-gray-600 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors"
-                      placeholder="¿En qué puedo ayudarte?"
+                      placeholder="¿De qué te gustaría hablar?"
                     />
-                  </div>
+                  </AnimationWrapper>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Mensaje
-                    </label>
-                    <textarea
+                  <AnimationWrapper animation="slide-up" delay={0.7}>
+                    <FormTextArea
+                      label="Mensaje"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       required
+                      placeholder="Cuéntame más sobre tu proyecto o idea..."
                       rows={6}
-                      className="w-full bg-gray-700/50 border border-gray-600 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors resize-none"
-                      placeholder="Cuéntame sobre tu proyecto, idea o cualquier cosa en la que pueda ayudarte..."
                     />
-                  </div>
+                  </AnimationWrapper>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        <Send size={18} />
-                        Enviar mensaje
-                      </>
-                    )}
-                  </button>
+                  {error && (
+                    <AnimationWrapper animation="scale-in">
+                      <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-4 flex items-center gap-3 animate-glow">
+                        <AlertCircle className="text-red-400 flex-shrink-0" size={20} />
+                        <p className="text-red-400">{error}</p>
+                      </div>
+                    </AnimationWrapper>
+                  )}
+
+                  <AnimationWrapper animation="slide-up" delay={0.8}>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || !formData.name || !formData.email || !formData.subject || !formData.message}
+                      className="w-full btn-primary btn-hover-effect flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Enviando...
+                        </>
+                      ) : (
+                        <>
+                          <Send size={20} className="icon-bounce" />
+                          Enviar mensaje
+                        </>
+                      )}
+                    </button>
+                  </AnimationWrapper>
+
+                  <AnimationWrapper animation="fade-in" delay={0.9}>
+                    <p className="text-gray-500 text-sm text-center">
+                      Al enviar este formulario, aceptas que me ponga en contacto contigo para responder a tu consulta.
+                    </p>
+                  </AnimationWrapper>
                 </form>
               )}
-            </div>
-
-            {/* FAQ */}
-            <div className="mt-8 bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-white mb-6">Preguntas frecuentes</h3>
-              <div className="space-y-4">
-                <FAQItem
-                  question="¿Cuánto tiempo toma un proyecto típico?"
-                  answer="Depende de la complejidad, pero la mayoría de proyectos web toman entre 2-8 semanas desde el concepto hasta el lanzamiento."
-                />
-                <FAQItem
-                  question="¿Trabajas con equipos remotos?"
-                  answer="¡Absolutamente! Tengo experiencia trabajando con equipos distribuidos y uso herramientas como Slack, Zoom y GitHub para colaborar efectivamente."
-                />
-                <FAQItem
-                  question="¿Qué tecnologías usas principalmente?"
-                  answer="Me especializo en React, Next.js, TypeScript, Node.js y bases de datos modernas. Siempre elijo la mejor tecnología para cada proyecto específico."
-                />
-              </div>
-            </div>
+            </AnimationWrapper>
           </div>
         </div>
       </div>
@@ -253,72 +364,93 @@ export default function Contact() {
   );
 }
 
-interface ContactCardProps {
+interface ContactMethodProps {
   icon: React.ReactNode;
   title: string;
-  info: string;
-  description: string;
-  action?: () => void;
+  detail: string;
+  link: string;
 }
 
-const ContactCard = ({ icon, title, info, description, action }: ContactCardProps) => {
-  return (
-    <div
-      className={`bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-gray-600 transition-all duration-300 ${action ? 'cursor-pointer hover:scale-105' : ''}`}
-      onClick={action}
-    >
-      <div className="flex items-start gap-4">
-        <div className="flex-shrink-0">
-          {icon}
-        </div>
+const ContactMethod = ({ icon, title, detail, link }: ContactMethodProps) => {
+  const content = (
+    <div className="glass p-4 rounded-xl group hover-lift hover-glow transition-smooth">
+      <div className="flex items-center gap-3">
+        <div className="text-blue-400 icon-bounce">{icon}</div>
         <div>
-          <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
-          <p className="text-gray-300 font-semibold">{info}</p>
-          <p className="text-gray-400 text-sm mt-1">{description}</p>
+          <h4 className="font-semibold text-white">{title}</h4>
+          <p className="text-gray-400 text-sm">{detail}</p>
         </div>
       </div>
     </div>
   );
+
+  if (link) {
+    return (
+      <a href={link} target="_blank" rel="noopener noreferrer">
+        {content}
+      </a>
+    );
+  }
+
+  return content;
 };
 
-interface SocialLinkProps {
-  icon: React.ReactNode;
+interface FormFieldProps {
   label: string;
-  href: string;
-  description: string;
+  type: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  placeholder?: string;
 }
 
-const SocialLink = ({ icon, label, href, description }: SocialLinkProps) => {
+const FormField = ({ label, type, name, value, onChange, required, placeholder }: FormFieldProps) => {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-700/50 transition-colors group"
-    >
-      <div className="text-gray-400 group-hover:text-white transition-colors">
-        {icon}
-      </div>
-      <div>
-        <div className="text-white font-semibold group-hover:text-blue-400 transition-colors">
-          {label}
-        </div>
-        <div className="text-gray-400 text-sm">{description}</div>
-      </div>
-    </a>
+    <div>
+      <label htmlFor={name} className="block text-sm font-semibold text-gray-300 mb-2">
+        {label} {required && <span className="text-red-400">*</span>}
+      </label>
+      <input
+        type={type}
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        placeholder={placeholder}
+        className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none form-input-focus transition-smooth"
+      />
+    </div>
   );
 };
 
-interface FAQItemProps {
-  question: string;
-  answer: string;
+interface FormTextAreaProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  required?: boolean;
+  placeholder?: string;
+  rows?: number;
 }
 
-const FAQItem = ({ question, answer }: FAQItemProps) => {
+const FormTextArea = ({ label, name, value, onChange, required, placeholder, rows = 4 }: FormTextAreaProps) => {
   return (
-    <div className="border-b border-gray-700 pb-4">
-      <h4 className="text-white font-semibold mb-2">{question}</h4>
-      <p className="text-gray-400 text-sm leading-relaxed">{answer}</p>
+    <div>
+      <label htmlFor={name} className="block text-sm font-semibold text-gray-300 mb-2">
+        {label} {required && <span className="text-red-400">*</span>}
+      </label>
+      <textarea
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        placeholder={placeholder}
+        rows={rows}
+        className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none resize-vertical form-input-focus transition-smooth"
+      />
     </div>
   );
 };

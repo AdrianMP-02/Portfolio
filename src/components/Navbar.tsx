@@ -20,64 +20,76 @@ const Navbar = () => {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-800/50 navbar-slide-down">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link
-            href="/"
-            className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:from-blue-300 hover:to-purple-400 transition-all duration-300"
-          >
-            Adrián M.P.
-          </Link>
+          <div className="animate-slide-in-left">
+            <Link
+              href="/"
+              className="text-xl font-bold text-gradient-animate hover-scale"
+            >
+              Adrián M.P.
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.href}
-                href={item.href}
-                icon={item.icon}
-                text={item.text}
-                isActive={isActive(item.href)}
-              />
+            {navItems.map((item, index) => (
+              <div key={item.href} className={`animate-slide-down animate-delay-${(index + 1) * 100}`}>
+                <NavLink
+                  href={item.href}
+                  icon={item.icon}
+                  text={item.text}
+                  isActive={isActive(item.href)}
+                />
+              </div>
             ))}
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden animate-slide-in-right">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-300"
+              className="text-gray-300 hover:text-white p-2 rounded-lg glass hover-scale transition-smooth"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? (
+                <X size={24} className="animate-rotate-in" />
+              ) : (
+                <Menu size={24} className="animate-scale-in" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden border-t border-gray-800">
-            <div className="py-4 space-y-2">
-              {navItems.map((item) => (
+        <div className={`md:hidden overflow-hidden border-t border-gray-800 transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+          <div className="py-4 space-y-2">
+            {navItems.map((item, index) => (
+              <div
+                key={item.href}
+                className={`transform transition-all duration-300 ${isOpen
+                    ? 'translate-x-0 opacity-100'
+                    : 'translate-x-4 opacity-0'
+                  }`}
+                style={{ transitionDelay: `${index * 50}ms` }}
+              >
                 <Link
-                  key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${isActive(item.href)
-                    ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-400 border border-blue-500/20'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-smooth hover-lift ${isActive(item.href)
+                      ? 'glass text-blue-400 border border-blue-500/20 animate-glow'
+                      : 'text-gray-300 hover:text-white hover:glass'
                     }`}
                 >
-                  <span className="transition-transform duration-300">
-                    {item.icon}
-                  </span>
+                  <span className="icon-bounce">{item.icon}</span>
                   <span>{item.text}</span>
                 </Link>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
@@ -92,18 +104,23 @@ interface NavLinkProps {
 
 const NavLink = ({ href, icon, text, isActive }: NavLinkProps) => {
   return (
-    <Link
-      href={href}
-      className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 group ${isActive
-        ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-400 border border-blue-500/20'
-        : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
-        }`}
-    >
-      <span className="group-hover:scale-110 transition-transform duration-300">
-        {icon}
-      </span>
-      <span>{text}</span>
-    </Link>
+    <div className="relative">
+      <Link
+        href={href}
+        className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium group transition-smooth hover-lift ${isActive
+            ? 'glass text-blue-400 border border-blue-500/20 animate-glow'
+            : 'text-gray-300 hover:text-white hover:glass hover-scale'
+          }`}
+      >
+        <span className="icon-bounce">{icon}</span>
+        <span>{text}</span>
+        {/* Efecto de hover underline */}
+        <div className={`absolute bottom-0 left-1/2 h-0.5 bg-blue-400 rounded-full transition-all duration-300 ${isActive
+            ? 'w-8 transform -translate-x-1/2'
+            : 'w-0 group-hover:w-6 transform -translate-x-1/2'
+          }`} />
+      </Link>
+    </div>
   );
 };
 

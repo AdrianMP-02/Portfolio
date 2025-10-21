@@ -109,8 +109,8 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
           <article className="grid lg:grid-cols-4 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-3">
-              <div className="prose prose-lg max-w-none">
-                <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8">
+              <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8">
+                <div className="prose prose-lg prose-invert max-w-none prose-headings:!text-white prose-p:!text-white prose-li:!text-white prose-strong:!text-white prose-code:text-blue-300 prose-pre:bg-gray-900 prose-blockquote:text-gray-300 prose-blockquote:border-gray-600 prose-a:text-blue-300 prose-a:hover:text-blue-200 [&>*]:!text-white [&_h1]:!text-white [&_h2]:!text-white [&_h3]:!text-white [&_p]:!text-white [&_li]:!text-white [&_strong]:!text-white [&_*]:!text-white">
                   <MDXRemote source={post.content} />
                 </div>
               </div>

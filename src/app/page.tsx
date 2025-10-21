@@ -1,130 +1,156 @@
+'use client';
+
 import Link from "next/link";
-import { ArrowRight, Code, Briefcase, BookOpen, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Code, Database, Globe } from "lucide-react";
+import AnimationWrapper, { StaggerContainer, StaggerItem } from "@/components/AnimationWrapper";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center space-y-8">
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-              <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 pt-24">
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <AnimationWrapper animation="fade-in" className="text-center mb-16 space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-gradient-animate animate-float">
+              Hola, soy Adrián Martín Pereira
+            </h1>
+            <AnimationWrapper animation="slide-up" delay={0.2}>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                Desarrollador Web Junior especializado en{" "}
+                <span className="text-blue-400 font-semibold hover-glow">PHP, MySQL y WordPress</span>{" "}
+                con experiencia en Node.js y desarrollo de aplicaciones web modernas
+              </p>
+            </AnimationWrapper>
+          </AnimationWrapper>
 
-            {/* Content */}
-            <div className="relative z-10 space-y-6">
-              <div className="inline-flex items-center space-x-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-full px-4 py-2 text-sm text-gray-300">
-                <Sparkles size={16} className="text-yellow-400" />
-                <span>Disponible para nuevos proyectos</span>
+          {/* Hero Section */}
+          <div className="grid lg:grid-cols-2 gap-12 mb-20">
+            {/* Profile Card */}
+            <AnimationWrapper animation="slide-in-left" className="space-y-8">
+              <div className="card card-hover">
+                <AnimationWrapper animation="scale-in" delay={0.3}>
+                  <div className="flex items-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mr-4 hover-rotate animate-pulse-custom">
+                      <Code className="text-white" size={32} />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-white">Desarrollador Web</h2>
+                      <p className="text-blue-400">Frontend & Backend</p>
+                    </div>
+                  </div>
+                </AnimationWrapper>
+
+                <AnimationWrapper animation="fade-in" delay={0.5}>
+                  <div className="text-gray-300 space-y-4 text-lg leading-relaxed">
+                    <p>
+                      Becario en MadisonMK con experiencia en desarrollo web moderno. Me especializo en crear
+                      soluciones funcionales y optimizadas usando las últimas tecnologías.
+                    </p>
+                    <p>
+                      Apasionado por el aprendizaje continuo y la implementación de mejores prácticas en cada proyecto.
+                    </p>
+                  </div>
+                </AnimationWrapper>
+
+                <AnimationWrapper animation="slide-up" delay={0.7}>
+                  <div className="flex flex-col sm:flex-row gap-3 pt-6">
+                    <Link
+                      href="/projects"
+                      className="btn-primary btn-hover-effect flex items-center"
+                    >
+                      Ver mis proyectos
+                      <ArrowRight size={20} className="ml-2 icon-bounce" />
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="btn-secondary hover-lift"
+                    >
+                      Contáctame
+                    </Link>
+                  </div>
+                </AnimationWrapper>
               </div>
+            </AnimationWrapper>
 
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white">
-                Hola, soy{" "}
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">
-                  Adrián Martín Pereira
-                </span>
-              </h1>
+            {/* Technologies Section */}
+            <AnimationWrapper animation="slide-in-right" className="space-y-8 mt-4">
+              {/* Backend */}
+              <AnimationWrapper animation="scale-in" delay={0.4}>
+                <div className="card card-hover">
+                  <div className="flex items-center mb-7">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3 hover-rotate">
+                      <Database className="text-white animate-float" size={24} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Backend</h3>
+                  </div>
+                  <StaggerContainer className="flex flex-wrap gap-3">
+                    {['PHP', 'Node.js', 'MySQL', 'API REST'].map((tech, index) => (
+                      <StaggerItem key={tech} index={index}>
+                        <span className="glass text-gray-300 px-3 py-1 rounded-full text-sm hover-scale transition-smooth">
+                          {tech}
+                        </span>
+                      </StaggerItem>
+                    ))}
+                  </StaggerContainer>
+                </div>
+              </AnimationWrapper>
 
-              <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Desarrollador Junior especializado en{" "}
-                <span className="text-blue-400 font-semibold">desarrollo backend</span>{" "}
-                y arquitecturas escalables con tecnologías modernas
-              </p>              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-                <Link
-                  href="/projects"
-                  className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
-                >
-                  Ver mis proyectos
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
-                </Link>
-                <Link
-                  href="/contact"
-                  className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-700/50 hover:border-gray-600 transition-all duration-300 hover:scale-105"
-                >
-                  Contáctame
-                </Link>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex justify-center space-x-6 pt-8">
-                <SocialLink href="https://github.com/AdrianMP-02" icon={<Github size={24} />} label="GitHub" />
-                <SocialLink href="https://www.linkedin.com/in/adrián-martín-pereira-167813222/" icon={<Linkedin size={24} />} label="LinkedIn" />
-                <SocialLink href="mailto:adrian.m.p.02022002@gmail.com" icon={<Mail size={24} />} label="Email" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              ¿Qué encontrarás aquí?
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Un espacio donde comparto mi experiencia, proyectos y conocimientos
-            </p>
+              {/* Frontend */}
+              <AnimationWrapper animation="scale-in" delay={0.6}>
+                <div className="card card-hover">
+                  <div className="flex items-center mb-7">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mr-3 hover-rotate">
+                      <Globe className="text-white animate-float" size={24} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Frontend</h3>
+                  </div>
+                  <StaggerContainer className="flex flex-wrap gap-3">
+                    {['React', 'Next.js', 'TypeScript', 'Tailwind CSS'].map((tech, index) => (
+                      <StaggerItem key={tech} index={index}>
+                        <span className="glass text-gray-300 px-3 py-1 rounded-full text-sm hover-scale transition-smooth">
+                          {tech}
+                        </span>
+                      </StaggerItem>
+                    ))}
+                  </StaggerContainer>
+                </div>
+              </AnimationWrapper>
+            </AnimationWrapper>
           </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<Code className="text-blue-400" size={32} />}
-              title="Desarrollo Backend"
-              description="Especializado en la creación de APIs REST robustas, gestión de bases de datos relacionales y no relacionales, desarrollo de microservicios y arquitecturas escalables. Experiencia con Node.js, PHP, Express, MySQL, MongoDB y herramientas de despliegue modernas como Docker y servicios cloud."
-              gradient="from-blue-500/20 to-cyan-500/20"
-            />
-
-            <FeatureCard
-              icon={<Briefcase className="text-green-400" size={32} />}
-              title="Proyectos"
-              description="Explora mi portfolio completo de proyectos. Cada proyecto incluye documentación técnica detallada, arquitectura del sistema, tecnologías utilizadas y acceso al código fuente en GitHub para una transparencia total."
-              gradient="from-green-500/20 to-emerald-500/20"
-            />
-
-            <FeatureCard
-              icon={<BookOpen className="text-purple-400" size={32} />}
-              title="Blog & Actualizaciones"
-              description="Mantente al día con mis últimos proyectos, experimentos con nuevas tecnologías, tutoriales de desarrollo backend, reflexiones sobre mejores prácticas de programación y actualizaciones sobre mi crecimiento profesional en el mundo del desarrollo de software."
-              gradient="from-purple-500/20 to-pink-500/20"
-            />
+          {/* Social Links Section */}
+          <AnimationWrapper animation="slide-up" delay={0.8}>
+            <div className="text-center max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-white mb-8 gradient-text">
+                Conectemos
+              </h3>
+              <StaggerContainer className="flex justify-center items-center space-x-8 md:space-x-12">
+                <StaggerItem index={0}>
+                  <SocialLink
+                    href="https://github.com/AdrianMP-02"
+                    icon={<Github size={28} />}
+                    label="GitHub"
+                  />
+                </StaggerItem>
+                <StaggerItem index={1}>
+                  <SocialLink
+                    href="https://www.linkedin.com/in/adrián-martín-pereira-167813222/"
+                    icon={<Linkedin size={28} />}
+                    label="LinkedIn"
+                  />
+                </StaggerItem>
+                <StaggerItem index={2}>
+                  <SocialLink
+                    href="mailto:adrian.m.p.02022002@gmail.com"
+                    icon={<Mail size={28} />}
+                    label="Email"
+                  />
+                </StaggerItem>
+              </StaggerContainer>
             </div>
+          </AnimationWrapper>
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 md:p-12 text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              ¿Tienes un proyecto en mente?
-            </h2>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              Estoy siempre interesado en nuevos desafíos y oportunidades de colaboración.
-              ¡Hablemos sobre tu próximo proyecto!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
-              >
-                Iniciar conversación
-              </Link>
-              <Link
-                href="/blog"
-                className="text-gray-300 hover:text-white border border-gray-600 hover:border-gray-500 px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-gray-800/50"
-              >
-                Ver últimas entradas
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }
@@ -141,35 +167,10 @@ const SocialLink = ({ href, icon, label }: SocialLinkProps) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-gray-400 hover:text-white p-3 rounded-full hover:bg-gray-800/50 transition-all duration-300 hover:scale-110"
+      className="text-gray-400 hover:text-white p-4 rounded-full glass hover-lift hover-glow transition-smooth icon-spin w-16 h-16 flex items-center justify-center"
       aria-label={label}
     >
       {icon}
     </a>
-  );
-};
-
-interface FeatureCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  gradient: string;
-}
-
-const FeatureCard = ({ icon, title, description, gradient }: FeatureCardProps) => {
-  return (
-    <div className={`group relative p-6 rounded-2xl bg-gradient-to-br ${gradient} border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl`}>
-      <div className="space-y-4">
-        <div className="w-16 h-16 bg-gray-800/50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          {icon}
-        </div>
-        <h3 className="text-xl font-bold text-white">
-          {title}
-        </h3>
-        <p className="text-gray-300 leading-relaxed">
-          {description}
-        </p>
-      </div>
-    </div>
   );
 };
