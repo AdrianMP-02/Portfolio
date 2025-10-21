@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Analytics from "@/components/Analytics";
+import GoogleAnalytics from "@/components/Analytics";
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { generateJsonLd } from "@/lib/seo";
 
 const geistSans = Geist({
@@ -115,7 +117,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-900 text-white`}
       >
-        <Analytics />
+        {/* Google Analytics */}
+        <GoogleAnalytics />
+
+        {/* Vercel Analytics & Speed Insights */}
+        <VercelAnalytics />
+        <SpeedInsights />
+
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
           <Navbar />
           <main>
