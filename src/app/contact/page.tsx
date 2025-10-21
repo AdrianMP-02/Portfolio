@@ -63,13 +63,15 @@ export default function Contact() {
     // Validar que las variables de entorno existan
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const autoReplyTemplateId = process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID;
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
     if (!serviceId || !templateId || !publicKey) {
       console.error('❌ EmailJS configuration missing:', {
         serviceId: !!serviceId,
         templateId: !!templateId,
-        publicKey: !!publicKey
+        publicKey: !!publicKey,
+        autoReplyTemplateId: !!autoReplyTemplateId
       });
       setError('Error de configuración del servicio de email. Por favor, contacta al administrador del sitio.');
       return;
@@ -103,6 +105,34 @@ export default function Contact() {
 
       if (response.status === 200) {
         console.log('✅ Email enviado exitosamente');
+
+        // Enviar auto-respuesta al usuario si está configurada
+        if (autoReplyTemplateId) {
+          try {
+            console.log('📧 Enviando auto-respuesta al usuario...');
+            const autoReplyParams = {
+              to_name: formData.name,
+              to_email: formData.email,
+              from_name: 'Adrián Martín Pereira',
+              subject: formData.subject,
+            };
+
+            const autoReplyResponse = await emailjs.send(
+              serviceId,
+              autoReplyTemplateId,
+              autoReplyParams,
+              publicKey
+            );
+
+            if (autoReplyResponse.status === 200) {
+              console.log('✅ Auto-respuesta enviada exitosamente');
+            }
+          } catch (autoReplyError) {
+            // No fallar el proceso si la auto-respuesta falla
+            console.warn('⚠️ No se pudo enviar la auto-respuesta:', autoReplyError);
+          }
+        }
+
         setIsSubmitted(true);
         localStorage.setItem('lastFormSubmission', Date.now().toString());
         setFormData({ name: '', email: '', subject: '', message: '', website: '' });
