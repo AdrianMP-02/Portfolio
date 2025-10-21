@@ -79,10 +79,10 @@ export default function Contact() {
       };
 
       const response = await emailjs.send(
-        'service_4s7tkse',
-        'template_oqnh6kh',
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
         templateParams,
-        'wI7-qgK51V0zJ-JZz'
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
       );
 
       if (response.status === 200) {
@@ -109,8 +109,8 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 pt-24">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-6xl mx-auto">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-6 py-16">
+        <div className="max-w-8xl mx-auto">
           {/* Header */}
           <AnimationWrapper animation="fade-in" className="text-center mb-16 space-y-6">
             <h1 className="text-4xl md:text-5xl font-bold text-gradient-animate">

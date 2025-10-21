@@ -200,7 +200,7 @@ interface FeaturedProjectCardProps {
 
 const FeaturedProjectCard = ({ project }: FeaturedProjectCardProps) => {
   return (
-    <div className="card card-hover group">
+    <div className="card card-hover group h-full flex flex-col justify-between">
       <div className="relative overflow-hidden rounded-xl mb-6">
         <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
           <div className="text-center">
@@ -210,15 +210,15 @@ const FeaturedProjectCard = ({ project }: FeaturedProjectCardProps) => {
         </div>
         <div className="absolute top-4 right-4">
           <span className={`px-3 py-1 rounded-full text-sm font-medium hover-scale transition-smooth ${project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
-              project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
-                'bg-green-500/20 text-green-400'
+            project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
+              'bg-green-500/20 text-green-400'
             }`}>
             {project.status}
           </span>
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 flex-grow">
         <div>
           <h3 className="text-2xl font-bold text-white mb-2 gradient-text">{project.title}</h3>
           <p className="text-gray-300 leading-relaxed">{project.description}</p>
@@ -249,29 +249,29 @@ const FeaturedProjectCard = ({ project }: FeaturedProjectCardProps) => {
             ))}
           </StaggerContainer>
         </div>
+      </div>
 
-        <div className="flex gap-4 pt-4">
+      <div className="flex gap-4 pt-4">
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-gray-400 hover:text-white hover-scale transition-smooth"
+        >
+          <Github size={20} className="icon-spin" />
+          <span>Código</span>
+        </a>
+        {project.liveUrl && (
           <a
-            href={project.githubUrl}
+            href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-gray-400 hover:text-white hover-scale transition-smooth"
           >
-            <Github size={20} className="icon-spin" />
-            <span>Código</span>
+            <Globe size={20} className="icon-spin" />
+            <span>Demo</span>
           </a>
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-400 hover:text-white hover-scale transition-smooth"
-            >
-              <Globe size={20} className="icon-spin" />
-              <span>Demo</span>
-            </a>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
@@ -283,22 +283,22 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <div className="card card-hover group">
+    <div className="card card-hover group h-full flex flex-col justify-between">
       <div className="relative overflow-hidden rounded-lg mb-4">
         <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
           <Code className="text-gray-500 animate-float" size={32} />
         </div>
         <div className="absolute top-3 right-3">
           <span className={`px-2 py-1 rounded-full text-xs font-medium hover-scale transition-smooth ${project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
-              project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
-                'bg-green-500/20 text-green-400'
+            project.status === 'En mejora' ? 'bg-blue-500/20 text-blue-400' :
+              'bg-green-500/20 text-green-400'
             }`}>
             {project.status}
           </span>
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 flex-grow">
         <h3 className="text-xl font-bold text-white gradient-text">{project.title}</h3>
         <p className="text-gray-300 text-sm leading-relaxed">{project.description}</p>
 
@@ -317,29 +317,29 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             </span>
           )}
         </div>
+      </div>
 
-        <div className="flex gap-3 pt-2">
+      <div className="flex gap-3 pt-2">
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1 text-gray-400 hover:text-white text-sm hover-scale transition-smooth"
+        >
+          <Github size={16} className="icon-spin" />
+          <span>Código</span>
+        </a>
+        {project.liveUrl && (
           <a
-            href={project.githubUrl}
+            href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-gray-400 hover:text-white text-sm hover-scale transition-smooth"
           >
-            <Github size={16} className="icon-spin" />
-            <span>Código</span>
+            <Globe size={16} className="icon-spin" />
+            <span>Demo</span>
           </a>
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-gray-400 hover:text-white text-sm hover-scale transition-smooth"
-            >
-              <Globe size={16} className="icon-spin" />
-              <span>Demo</span>
-            </a>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
@@ -354,14 +354,14 @@ interface SkillCategoryProps {
 
 const SkillCategory = ({ title, icon, skills, color }: SkillCategoryProps) => {
   return (
-    <div className="card card-hover">
+    <div className="card card-hover h-full flex flex-col justify-between">
       <div className="flex items-center gap-3 mb-4">
         <div className={`w-10 h-10 bg-gradient-to-r ${color} rounded-lg flex items-center justify-center hover-rotate`}>
           {icon}
         </div>
         <h3 className="text-lg font-bold text-white gradient-text">{title}</h3>
       </div>
-      <StaggerContainer className="space-y-2">
+      <StaggerContainer className="space-y-2 flex-grow">
         {skills.map((skill, index) => (
           <StaggerItem key={skill} index={index}>
             <div className="glass text-gray-300 px-3 py-2 rounded-lg text-sm hover-scale transition-smooth">

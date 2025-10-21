@@ -45,20 +45,22 @@ export const metadata: Metadata = {
     siteName: "Adrián Martín Pereira - Portfolio",
     title: "Adrián Martín Pereira - Desarrollador Web Junior",
     description: "Portfolio profesional de Adrián Martín Pereira, desarrollador web junior especializado en PHP, MySQL, WordPress y Node.js. Becario en MadisonMK.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Adrián Martín Pereira - Desarrollador Backend Junior",
-      },
-    ],
+    // TODO: Crear imagen og-image.jpg de 1200x630px
+    // images: [
+    //   {
+    //     url: "/og-image.jpg",
+    //     width: 1200,
+    //     height: 630,
+    //     alt: "Adrián Martín Pereira - Desarrollador Backend Junior",
+    //   },
+    // ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Adrián Martín Pereira - Desarrollador Web Junior",
     description: "Desarrollador web junior especializado en PHP, MySQL, WordPress y Node.js. Explora mi portfolio y proyectos.",
-    images: ["/og-image.jpg"],
+    // TODO: Usar la misma imagen og-image.jpg cuando se cree
+    // images: ["/og-image.jpg"],
   },
   verification: {
     google: "google-site-verification-code", // Añadir después

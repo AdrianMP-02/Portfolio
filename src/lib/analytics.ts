@@ -46,62 +46,7 @@ export const trackPageView = (url: string, title: string) => {
   });
 };
 
-// Track custom events
-export const trackEvent = (action: string, category: string, label?: string, value?: number) => {
-  if (!GA_MEASUREMENT_ID || typeof window.gtag === 'undefined') return;
-
-  window.gtag('event', action, {
-    event_category: category,
-    event_label: label,
-    value: value,
-  });
-};
-
-// Predefined event tracking functions
-export const analytics = {
-  // Contact form events
-  contactFormStart: () => trackEvent('contact_form_start', 'engagement'),
-  contactFormComplete: () => trackEvent('contact_form_complete', 'engagement'),
-  contactFormError: (error: string) => trackEvent('contact_form_error', 'engagement', error),
-
-  // Project interactions
-  projectView: (projectName: string) => trackEvent('project_view', 'projects', projectName),
-  projectCodeClick: (projectName: string) => trackEvent('project_code_click', 'projects', projectName),
-  projectLiveClick: (projectName: string) => trackEvent('project_live_click', 'projects', projectName),
-
-  // Blog interactions
-  blogPostView: (postTitle: string) => trackEvent('blog_post_view', 'blog', postTitle),
-  blogShare: (postTitle: string, platform: string) => trackEvent('blog_share', 'blog', `${postTitle} - ${platform}`),
-
-  // Navigation events
-  navClick: (section: string) => trackEvent('nav_click', 'navigation', section),
-  socialClick: (platform: string) => trackEvent('social_click', 'social', platform),
-
-  // Download events
-  cvDownload: () => trackEvent('cv_download', 'downloads'),
-};
-
-// GDPR-compliant analytics (for EU users)
-export const enableAnalytics = () => {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('analytics_consent', 'true');
-    initGA();
-  }
-};
-
-export const disableAnalytics = () => {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('analytics_consent', 'false');
-    // Disable GA
-    if (GA_MEASUREMENT_ID && window.gtag) {
-      window.gtag('config', GA_MEASUREMENT_ID, {
-        anonymize_ip: true,
-        storage: 'none',
-      });
-    }
-  }
-};
-
+// Check analytics consent
 export const hasAnalyticsConsent = (): boolean => {
   if (typeof window === 'undefined') return false;
   return localStorage.getItem('analytics_consent') === 'true';

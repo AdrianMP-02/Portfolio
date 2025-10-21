@@ -2,7 +2,7 @@
 title: "Por qué elegí Next.js y Tailwind CSS para mi Portfolio"
 date: "2025-01-08"
 excerpt: "Reflexiones sobre las decisiones tecnológicas y de diseño detrás de mi portfolio personal, y por qué opté por tecnologías modernas."
-tags: ["nextjs", "experiencia", "tailwind", "portfolio", "decisiones"]
+tags: ["nextjs", "experiencia", "tailwind"]
 ---
 
 # Por qué elegí Next.js y Tailwind CSS para mi Portfolio

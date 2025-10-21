@@ -26,11 +26,11 @@ const Footer = () => {
             </AnimationWrapper>
 
             {/* Social Links */}
-            <StaggerContainer className="flex space-x-4">
+            <StaggerContainer className="flex items-center space-x-4 md:space-x-6 ml-25">
               <StaggerItem index={0}>
                 <SocialButton
                   href="https://github.com/AdrianMP-02"
-                  icon={<Github size={20} />}
+                  icon={<Github size={24} />}
                   label="GitHub"
                   hoverColor="hover:text-gray-300"
                 />
@@ -38,7 +38,7 @@ const Footer = () => {
               <StaggerItem index={1}>
                 <SocialButton
                   href="https://www.linkedin.com/in/adrián-martín-pereira-167813222/"
-                  icon={<Linkedin size={20} />}
+                  icon={<Linkedin size={24} />}
                   label="LinkedIn"
                   hoverColor="hover:text-blue-400"
                 />
@@ -46,7 +46,7 @@ const Footer = () => {
               <StaggerItem index={2}>
                 <SocialButton
                   href="mailto:adrian.m.p.02022002@gmail.com"
-                  icon={<Mail size={20} />}
+                  icon={<Mail size={24} />}
                   label="Email"
                   hoverColor="hover:text-purple-400"
                 />
@@ -130,13 +130,13 @@ interface SocialButtonProps {
   hoverColor: string;
 }
 
-const SocialButton = ({ href, icon, label, hoverColor }: SocialButtonProps) => {
+const SocialButton = ({ href, icon, label }: SocialButtonProps) => {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`text-gray-400 ${hoverColor} p-3 rounded-lg glass hover-lift hover-glow transition-smooth icon-spin`}
+      className={`text-gray-400 hover:text-white p-4 rounded-full glass hover-lift hover-glow transition-smooth icon-spin w-16 h-16 flex items-center justify-center`}
       aria-label={label}
     >
       {icon}

@@ -53,10 +53,10 @@ export default function Home() {
                 </AnimationWrapper>
 
                 <AnimationWrapper animation="slide-up" delay={0.7}>
-                  <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                  <div className="flex flex-col sm:flex-row gap-3 pt-6">
                     <Link
                       href="/projects"
-                      className="btn-primary btn-hover-effect"
+                      className="btn-primary btn-hover-effect flex items-center"
                     >
                       Ver mis proyectos
                       <ArrowRight size={20} className="ml-2 icon-bounce" />
@@ -73,17 +73,17 @@ export default function Home() {
             </AnimationWrapper>
 
             {/* Technologies Section */}
-            <AnimationWrapper animation="slide-in-right" className="space-y-8">
+            <AnimationWrapper animation="slide-in-right" className="space-y-8 mt-4">
               {/* Backend */}
               <AnimationWrapper animation="scale-in" delay={0.4}>
                 <div className="card card-hover">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-center mb-7">
                     <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3 hover-rotate">
                       <Database className="text-white animate-float" size={24} />
                     </div>
                     <h3 className="text-xl font-bold text-white">Backend</h3>
                   </div>
-                  <StaggerContainer className="flex flex-wrap gap-2">
+                  <StaggerContainer className="flex flex-wrap gap-3">
                     {['PHP', 'Node.js', 'MySQL', 'API REST'].map((tech, index) => (
                       <StaggerItem key={tech} index={index}>
                         <span className="glass text-gray-300 px-3 py-1 rounded-full text-sm hover-scale transition-smooth">
@@ -98,13 +98,13 @@ export default function Home() {
               {/* Frontend */}
               <AnimationWrapper animation="scale-in" delay={0.6}>
                 <div className="card card-hover">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-center mb-7">
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mr-3 hover-rotate">
                       <Globe className="text-white animate-float" size={24} />
                     </div>
                     <h3 className="text-xl font-bold text-white">Frontend</h3>
                   </div>
-                  <StaggerContainer className="flex flex-wrap gap-2">
+                  <StaggerContainer className="flex flex-wrap gap-3">
                     {['React', 'Next.js', 'TypeScript', 'Tailwind CSS'].map((tech, index) => (
                       <StaggerItem key={tech} index={index}>
                         <span className="glass text-gray-300 px-3 py-1 rounded-full text-sm hover-scale transition-smooth">
@@ -120,29 +120,29 @@ export default function Home() {
 
           {/* Social Links Section */}
           <AnimationWrapper animation="slide-up" delay={0.8}>
-            <div className="text-center">
+            <div className="text-center max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-8 gradient-text">
                 Conectemos
               </h3>
-              <StaggerContainer className="flex justify-center space-x-6">
+              <StaggerContainer className="flex justify-center items-center space-x-8 md:space-x-12">
                 <StaggerItem index={0}>
                   <SocialLink
                     href="https://github.com/AdrianMP-02"
-                    icon={<Github size={24} />}
+                    icon={<Github size={28} />}
                     label="GitHub"
                   />
                 </StaggerItem>
                 <StaggerItem index={1}>
                   <SocialLink
                     href="https://www.linkedin.com/in/adrián-martín-pereira-167813222/"
-                    icon={<Linkedin size={24} />}
+                    icon={<Linkedin size={28} />}
                     label="LinkedIn"
                   />
                 </StaggerItem>
                 <StaggerItem index={2}>
                   <SocialLink
                     href="mailto:adrian.m.p.02022002@gmail.com"
-                    icon={<Mail size={24} />}
+                    icon={<Mail size={28} />}
                     label="Email"
                   />
                 </StaggerItem>
@@ -167,7 +167,7 @@ const SocialLink = ({ href, icon, label }: SocialLinkProps) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-gray-400 hover:text-white p-3 rounded-full glass hover-lift hover-glow transition-smooth icon-spin"
+      className="text-gray-400 hover:text-white p-4 rounded-full glass hover-lift hover-glow transition-smooth icon-spin w-16 h-16 flex items-center justify-center"
       aria-label={label}
     >
       {icon}

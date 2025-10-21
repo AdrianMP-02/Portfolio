@@ -13,9 +13,16 @@ export default function AboutContent() {
 
   const experience = [
     {
+      title: "Desarrollador Web Junior",
+      company: "MadisonMK",
+      period: "Octubre 2025 - Presente",
+      description: "Ascendido a Desarrollador Junior tras demostrar capacidad y compromiso. Desarrollo de soluciones web con PHP y MySQL, gestión de proyectos WordPress con Elementor, optimización de bases de datos y mejora continua del rendimiento de aplicaciones.",
+      color: "from-indigo-500 to-blue-500"
+    },
+    {
       title: "Becario Desarrollador",
       company: "MadisonMK",
-      period: "Mayo 2025 - Presente",
+      period: "Mayo 2025 - Octubre 2025",
       description: "Desarrollo con PHP, gestión de bases de datos MySQL, creación y mantenimiento de sitios web con WordPress y Elementor, optimización de consultas y mejoras de rendimiento.",
       color: "from-blue-500 to-cyan-500"
     },
@@ -52,9 +59,9 @@ export default function AboutContent() {
           </AnimationWrapper>
 
           {/* Hero Section */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-20">
+          <div className="grid lg:grid-cols-2 gap-12 mb-10">
             {/* Profile Info */}
-            <AnimationWrapper animation="slide-in-left" className="space-y-8">
+            <AnimationWrapper animation="slide-in-left" className="space-y-7">
               <div className="card card-hover">
                 <AnimationWrapper animation="scale-in" delay={0.3}>
                   <div className="flex items-center mb-6">
@@ -72,17 +79,17 @@ export default function AboutContent() {
                   <div className="text-gray-300 space-y-4 text-lg leading-relaxed">
                     <p>
                       ¡Hola! Soy Adrián, un desarrollador web junior apasionado por la tecnología y el desarrollo de
-                      aplicaciones web. Actualmente trabajo como becario en MadisonMK, donde me especializo en
+                      aplicaciones web. Actualmente trabajo como Desarrollador Junior en MadisonMK, donde me especializo en
                       desarrollo con PHP, MySQL y WordPress con Elementor.
                     </p>
                     <p>
-                      Durante mi formación en Desarrollo de Aplicaciones Web, realicé mi TFG con Node.js y API REST,
-                      lo que me ha dado una base sólida tanto en backend como en frontend. Disfruto creando soluciones
-                      web funcionales y optimizando el rendimiento de las aplicaciones.
+                      Comencé mi trayectoria como becario y, tras demostrar mi capacidad y compromiso, fui ascendido a
+                      Desarrollador Junior en octubre de 2025. Durante mi formación en Desarrollo de Aplicaciones Web,
+                      realicé mi TFG con Node.js y API REST, lo que me ha dado una base sólida tanto en backend como en frontend.
                     </p>
                     <p>
-                      Cuando no estoy programando, me gusta explorar nuevas tecnologías web, mejorar mis conocimientos
-                      en desarrollo fullstack y documentar mi aprendizaje en proyectos personales.
+                      Disfruto creando soluciones web funcionales, optimizando el rendimiento de las aplicaciones y
+                      explorando nuevas tecnologías para mejorar continuamente mis habilidades.
                     </p>
                   </div>
                 </AnimationWrapper>
@@ -101,23 +108,10 @@ export default function AboutContent() {
                 </AnimationWrapper>
               </div>
 
-              {/* Quick Stats */}
-              <StaggerContainer className="grid grid-cols-2 gap-4">
-                {[
-                  { number: "< 1", label: "Años aprendiendo" },
-                  { number: "3+", label: "Proyectos completados" },
-                  { number: "5+", label: "Tecnologías backend" },
-                  { number: "100%", label: "Dedicación al aprendizaje" }
-                ].map((stat, index) => (
-                  <StaggerItem key={stat.label} index={index}>
-                    <StatCard number={stat.number} label={stat.label} />
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
             </AnimationWrapper>
 
             {/* Skills Section */}
-            <AnimationWrapper animation="slide-in-right" className="space-y-6">
+            <AnimationWrapper animation="slide-in-right" className="space-y-6 mt-10">
               {[
                 { title: "Backend", skills: skills.backend, color: "from-blue-500 to-cyan-500" },
                 { title: "Bases de Datos", skills: skills.database, color: "from-green-500 to-emerald-500" },
@@ -129,6 +123,22 @@ export default function AboutContent() {
                 </AnimationWrapper>
               ))}
             </AnimationWrapper>
+          </div>
+
+          <div className="flex sm:flex-col flex-col gap-6 mb-10">
+            {/* Quick Stats */}
+            <StaggerContainer className="grid grid-cols-4 gap-4">
+              {[
+                { number: "< 1", label: "Años de experiencia" },
+                { number: "3+", label: "Proyectos completados" },
+                { number: "5+", label: "Tecnologías backend" },
+                { number: "100%", label: "Dedicación al aprendizaje" }
+              ].map((stat, index) => (
+                <StaggerItem key={stat.label} index={index}>
+                  <StatCard number={stat.number} label={stat.label} />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           </div>
 
           {/* Experience Timeline */}
