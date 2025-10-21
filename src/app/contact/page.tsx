@@ -60,6 +60,21 @@ export default function Contact() {
     e.preventDefault();
     setError(null);
 
+    // Validar que las variables de entorno existan
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      console.error('❌ EmailJS configuration missing:', {
+        serviceId: !!serviceId,
+        templateId: !!templateId,
+        publicKey: !!publicKey
+      });
+      setError('Error de configuración del servicio de email. Por favor, contacta al administrador del sitio.');
+      return;
+    }
+
     const validationResult = validateSpam();
     if (!validationResult.isValid) {
       setError(validationResult.error || 'Error de validación');
@@ -78,14 +93,16 @@ export default function Contact() {
         reply_to: formData.email,
       };
 
+      console.log('📧 Enviando email con EmailJS...');
       const response = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        serviceId,
+        templateId,
         templateParams,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+        publicKey
       );
 
       if (response.status === 200) {
+        console.log('✅ Email enviado exitosamente');
         setIsSubmitted(true);
         localStorage.setItem('lastFormSubmission', Date.now().toString());
         setFormData({ name: '', email: '', subject: '', message: '', website: '' });
@@ -93,8 +110,8 @@ export default function Contact() {
         throw new Error('Error en el envío');
       }
     } catch (err) {
-      console.error('Error al enviar el formulario:', err);
-      setError('Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
+      console.error('❌ Error al enviar el formulario:', err);
+      setError('Error al enviar el mensaje. Por favor, verifica tu conexión e inténtalo de nuevo más tarde.');
     } finally {
       setIsSubmitting(false);
     }
