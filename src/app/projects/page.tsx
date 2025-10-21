@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Github, Code, Database, Globe, Star } from 'lucide-react';
 import AnimationWrapper, { StaggerContainer, StaggerItem } from '@/components/AnimationWrapper';
 
@@ -9,7 +11,7 @@ const projects = [
     id: 1,
     title: "Portfolio Personal",
     description: "Mi portfolio personal desarrollado con Next.js 15, TypeScript y Tailwind CSS. Incluye sistema de blog con MDX, formulario de contacto avanzado con EmailJS y auto-reply, sistema de seguridad anti-spam robusto, y diseño responsive completamente optimizado.",
-    image: "/images/portfolio-project.jpg",
+    image: "/images/portfolio_home.png",
     technologies: ["Next.js 15", "TypeScript", "Tailwind CSS", "MDX", "EmailJS", "React"],
     githubUrl: "https://github.com/AdrianMP-02/Portfolio",
     liveUrl: "",
@@ -21,7 +23,7 @@ const projects = [
     id: 2,
     title: "ProyectFlow - TFG Sistema de Gestión",
     description: "Mi Trabajo de Fin de Grado: una plataforma de gestión de proyectos con tableros Kanban, sistema de tareas, comentarios y gestión de usuarios. Desarrollado con Node.js y MySQL, actualmente en proceso de mejoras y optimización.",
-    image: "/images/proyectflow.jpg",
+    image: "",
     technologies: ["Node.js", "Express", "EJS", "MySQL", "JavaScript", "CSS Grid"],
     githubUrl: "https://github.com/AdrianMP-02/ProyectFlow",
     liveUrl: "",
@@ -199,14 +201,28 @@ interface FeaturedProjectCardProps {
 }
 
 const FeaturedProjectCard = ({ project }: FeaturedProjectCardProps) => {
+  const [imageError, setImageError] = useState(false);
+  const showPlaceholder = !project.image || imageError;
+
   return (
     <div className="card card-hover group h-full flex flex-col justify-between">
       <div className="relative overflow-hidden rounded-xl mb-6">
-        <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
-          <div className="text-center">
-            <Code className="text-gray-500 mx-auto mb-2 animate-float" size={48} />
-            <p className="text-gray-500 text-sm">Imagen del proyecto</p>
-          </div>
+        <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 relative">
+          {!showPlaceholder ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <Code className="text-gray-500 mb-3 animate-float" size={48} />
+              <p className="text-gray-500 text-sm font-medium">Imagen próximamente</p>
+            </div>
+          )}
         </div>
         <div className="absolute top-4 right-4">
           <span className={`px-3 py-1 rounded-full text-sm font-medium hover-scale transition-smooth ${project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
@@ -282,11 +298,28 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
+  const [imageError, setImageError] = useState(false);
+  const showPlaceholder = !project.image || imageError;
+
   return (
     <div className="card card-hover group h-full flex flex-col justify-between">
       <div className="relative overflow-hidden rounded-lg mb-4">
-        <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
-          <Code className="text-gray-500 animate-float" size={32} />
+        <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 relative">
+          {!showPlaceholder ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <Code className="text-gray-500 mb-2 animate-float" size={32} />
+              <p className="text-gray-500 text-xs font-medium">Imagen próximamente</p>
+            </div>
+          )}
         </div>
         <div className="absolute top-3 right-3">
           <span className={`px-2 py-1 rounded-full text-xs font-medium hover-scale transition-smooth ${project.status === 'En desarrollo' ? 'bg-yellow-500/20 text-yellow-400' :
