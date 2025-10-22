@@ -12,9 +12,9 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-t from-black to-gray-900 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
-          <AnimationWrapper animation="slide-in-left" className="md:col-span-2">
+          <AnimationWrapper animation="slide-in-left" className="lg:col-span-1">
             <h3 className="text-2xl font-bold text-gradient-animate mb-4">
               Mi Portfolio
             </h3>
@@ -66,6 +66,30 @@ const Footer = () => {
                     </li>
                   </StaggerItem>
                 ))}
+              </ul>
+            </StaggerContainer>
+          </AnimationWrapper>
+
+          {/* Legal Links */}
+          <AnimationWrapper animation="slide-up" delay={0.35}>
+            <h3 className="text-lg font-semibold text-white mb-4">Legal</h3>
+            <StaggerContainer>
+              <ul className="space-y-3">
+                <StaggerItem index={0}>
+                  <li>
+                    <FooterLink href="/legal/aviso-legal" text="Aviso Legal" />
+                  </li>
+                </StaggerItem>
+                <StaggerItem index={1}>
+                  <li>
+                    <FooterLink href="/legal/privacidad" text="Privacidad" />
+                  </li>
+                </StaggerItem>
+                <StaggerItem index={2}>
+                  <li>
+                    <FooterLink href="/legal/cookies" text="Cookies" />
+                  </li>
+                </StaggerItem>
               </ul>
             </StaggerContainer>
           </AnimationWrapper>

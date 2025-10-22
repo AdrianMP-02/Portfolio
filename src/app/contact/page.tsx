@@ -11,7 +11,8 @@ export default function Contact() {
     email: '',
     subject: '',
     message: '',
-    website: '' // Honeypot field
+    website: '', // Honeypot field
+    privacyAccepted: false // RGPD consent checkbox
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -95,7 +96,6 @@ export default function Contact() {
         reply_to: formData.email,
       };
 
-      console.log('📧 Enviando email con EmailJS...');
       const response = await emailjs.send(
         serviceId,
         templateId,
@@ -104,38 +104,31 @@ export default function Contact() {
       );
 
       if (response.status === 200) {
-        console.log('✅ Email enviado exitosamente');
-
         // Enviar auto-respuesta al usuario si está configurada
         if (autoReplyTemplateId) {
           try {
-            console.log('📧 Enviando auto-respuesta al usuario...');
             const autoReplyParams = {
               to_name: formData.name,
-              to_email: formData.email,
+              from_email: formData.email,
               from_name: 'Adrián Martín Pereira',
               subject: formData.subject,
             };
 
-            const autoReplyResponse = await emailjs.send(
+            await emailjs.send(
               serviceId,
               autoReplyTemplateId,
               autoReplyParams,
               publicKey
             );
-
-            if (autoReplyResponse.status === 200) {
-              console.log('✅ Auto-respuesta enviada exitosamente');
-            }
-          } catch (autoReplyError) {
+          } catch {
             // No fallar el proceso si la auto-respuesta falla
-            console.warn('⚠️ No se pudo enviar la auto-respuesta:', autoReplyError);
+            // El error se ignora silenciosamente
           }
         }
 
         setIsSubmitted(true);
         localStorage.setItem('lastFormSubmission', Date.now().toString());
-        setFormData({ name: '', email: '', subject: '', message: '', website: '' });
+        setFormData({ name: '', email: '', subject: '', message: '', website: '', privacyAccepted: false });
       } else {
         throw new Error('Error en el envío');
       }
@@ -148,9 +141,13 @@ export default function Contact() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
+    const name = target.name;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
@@ -367,6 +364,38 @@ export default function Contact() {
                     />
                   </AnimationWrapper>
 
+                  {/* Información de Primera Capa - RGPD */}
+                  <AnimationWrapper animation="fade-in" delay={0.75}>
+                    <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-sm text-gray-300">
+                      <p className="font-semibold text-blue-400 mb-2">📋 Información sobre Protección de Datos</p>
+                      <ul className="space-y-1 text-xs">
+                        <li><strong>Responsable:</strong> Adrián Martín Pereira</li>
+                        <li><strong>Finalidad:</strong> Responder a tu consulta o solicitud de contacto</li>
+                        <li><strong>Legitimación:</strong> Tu consentimiento al marcar la casilla de aceptación</li>
+                        <li><strong>Destinatarios:</strong> No se cederán datos a terceros, salvo obligación legal</li>
+                        <li><strong>Derechos:</strong> Acceso, rectificación, supresión, portabilidad, limitación y oposición. Más información en nuestra <a href="/legal/privacidad" className="text-blue-400 hover:underline">Política de Privacidad</a></li>
+                      </ul>
+                    </div>
+                  </AnimationWrapper>
+
+                  {/* Checkbox de Consentimiento - RGPD */}
+                  <AnimationWrapper animation="slide-up" delay={0.77}>
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="privacyAccepted"
+                        name="privacyAccepted"
+                        checked={formData.privacyAccepted}
+                        onChange={handleChange}
+                        required
+                        className="mt-1 w-4 h-4 text-blue-500 bg-gray-800/50 border-gray-700 rounded focus:ring-blue-500 focus:ring-2 cursor-pointer"
+                      />
+                      <label htmlFor="privacyAccepted" className="text-sm text-gray-300 cursor-pointer">
+                        He leído y acepto la <a href="/legal/privacidad" className="text-blue-400 hover:underline font-semibold">Política de Privacidad</a> y el <a href="/legal/aviso-legal" className="text-blue-400 hover:underline font-semibold">Aviso Legal</a> <span className="text-red-400">*</span>
+                      </label>
+                    </div>
+                  </AnimationWrapper>
+
                   {error && (
                     <AnimationWrapper animation="scale-in">
                       <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-4 flex items-center gap-3 animate-glow">
@@ -379,7 +408,7 @@ export default function Contact() {
                   <AnimationWrapper animation="slide-up" delay={0.8}>
                     <button
                       type="submit"
-                      disabled={isSubmitting || !formData.name || !formData.email || !formData.subject || !formData.message}
+                      disabled={isSubmitting || !formData.name || !formData.email || !formData.subject || !formData.message || !formData.privacyAccepted}
                       className="w-full btn-primary btn-hover-effect flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (

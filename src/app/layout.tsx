@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import GoogleAnalytics from "@/components/Analytics";
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { generateJsonLd } from "@/lib/seo";
@@ -117,10 +116,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-900 text-white`}
       >
-        {/* Google Analytics */}
-        <GoogleAnalytics />
-
-        {/* Vercel Analytics & Speed Insights */}
+        {/* Vercel Analytics & Speed Insights - Privacy-friendly, no cookies required */}
         <VercelAnalytics />
         <SpeedInsights />
 
