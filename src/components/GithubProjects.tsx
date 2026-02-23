@@ -18,8 +18,8 @@ interface GithubRepo {
 export default async function GithubProjects({ dict }: { dict?: Record<string, string> }) {
   let repos: GithubRepo[] = [];
   try {
-    const res = await fetch('https://api.github.com/users/AdrianMP-02/repos?sort=updated&per_page=6', {
-      next: { revalidate: 3600 },
+    const res = await fetch('https://api.github.com/users/AdrianMP-02/repos?type=public&sort=updated&per_page=6', {
+      cache: 'no-store',
     });
     if (res.ok) {
       repos = await res.json();
