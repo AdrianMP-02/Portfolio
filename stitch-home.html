@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Adrián M. P. | Premium Desktop Portfolio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&amp;family=Inter:wght@300;400;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00f2ff",
+                        "secondary": "#ff00e5",
+                        "accent": "#4f46e5",
+                        "dark-bg": "#050505",
+                    },
+                    fontFamily: {
+                        "display": ["Outfit", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-dark-bg text-white font-sans overflow-x-hidden;
+            }
+        }
+        @layer components {
+            .glass-morphism {
+                @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)];
+            }
+            .hero-text {
+                @apply font-black tracking-tighter leading-[0.9] text-[clamp(4rem,12vw,12rem)];
+            }
+            .mesh-gradient-bg {
+                background: radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.15) 0%, transparent 40%),
+                            radial-gradient(circle at 80% 70%, rgba(255, 0, 229, 0.15) 0%, transparent 40%);
+            }
+            .star-field {
+                background-image: 
+                    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+                background-size: 550px 550px, 350px 350px, 250px 250px;
+                background-position: 0 0, 40px 60px, 130px 270px;
+            }
+            .grid-bg {
+                background-size: 50px 50px;
+                background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                                  linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            }
+            .bento-card {
+                @apply relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] glass-morphism;
+            }
+            .glow-pulse {
+                box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            }
+            .project-card:nth-child(even) {
+                @apply md:flex-row-reverse;
+            }
+            .liquid-hover {
+                background-size: 200% 100%;
+                background-image: linear-gradient(to right, transparent 50%, rgba(0, 242, 255, 0.1) 50%);
+                transition: background-position 0.5s ease-out;
+            }
+            .liquid-hover:hover {
+                background-position: -100% 0;
+            }
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="selection:bg-primary/30">
+    <div class="fixed inset-0 -z-10 bg-dark-bg mesh-gradient-bg">
+        <div class="absolute inset-0 grid-bg opacity-30"></div>
+        <div class="absolute inset-0 star-field opacity-20 animate-pulse-slow"></div>
+        <div
+            class="absolute top-0 left-0 w-full h-full opacity-30 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]">
+        </div>
+    </div>
+    <nav
+        class="fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-8 flex justify-between items-center pointer-events-none">
+        <div
+            class="glass-morphism px-6 py-3 rounded-full font-display font-black text-2xl tracking-tighter pointer-events-auto">
+            A<span class="text-primary">.</span>M<span class="text-secondary">.</span>P
+        </div>
+        <div class="flex gap-4 pointer-events-auto">
+            <button
+                class="glass-morphism size-14 rounded-full flex items-center justify-center group hover:bg-white/10 transition-colors">
+                <span
+                    class="material-symbols-outlined text-white group-hover:rotate-90 transition-transform">grid_view</span>
+            </button>
+        </div>
+    </nav>
+    <header class="relative min-h-screen flex items-center px-6 lg:px-24 overflow-hidden pt-20 lg:pt-0">
+        <div class="grid lg:grid-cols-2 w-full gap-12 items-center">
+            <div class="relative z-10 space-y-8 text-center lg:text-left">
+                <p class="text-primary font-display font-bold tracking-[0.5em] uppercase text-sm opacity-80">Premium
+                    Experience 2026</p>
+                <h1 class="hero-text font-display">
+                    Adrián <br /> M. P.
+                </h1>
+                <p class="text-xl lg:text-2xl text-slate-400 font-light max-w-lg leading-relaxed mx-auto lg:mx-0">
+                    Crafting digital universes through high-performance <span
+                        class="text-white font-medium italic underline decoration-primary/50 underline-offset-8">code
+                        and creative engineering.</span>
+                </p>
+                <div class="pt-6">
+                    <button
+                        class="group relative inline-flex items-center gap-6 bg-white text-black px-10 py-6 rounded-2xl font-black text-xl transition-all hover:scale-105 active:scale-95 glow-pulse">
+                        Explore My Universe
+                        <span
+                            class="material-symbols-outlined font-black group-hover:translate-x-2 transition-transform">east</span>
+                    </button>
+                </div>
+            </div>
+            <div class="relative hidden lg:flex items-center justify-center">
+                <div class="relative size-[500px]">
+                    <div
+                        class="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 via-secondary/20 to-accent/20 blur-3xl animate-pulse">
+                    </div>
+                    <div class="absolute inset-0 border-[0.5px] border-white/10 rounded-full scale-110"></div>
+                    <div class="absolute inset-0 border-[0.5px] border-primary/20 rounded-full scale-125 opacity-50">
+                    </div>
+                    <div
+                        class="absolute inset-10 rounded-full glass-morphism overflow-hidden flex items-center justify-center group animate-float">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-50">
+                        </div>
+                        <div
+                            class="size-64 rounded-full border border-white/20 flex items-center justify-center animate-[spin_20s_linear_infinite]">
+                            <div class="size-48 rounded-full border-t-2 border-primary/40"></div>
+                        </div>
+                        <div
+                            class="absolute size-80 border border-secondary/20 rounded-full animate-[spin_15s_linear_infinite_reverse]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="py-24 lg:py-48 px-6 lg:px-24">
+        <div class="grid lg:grid-cols-2 gap-24 items-start">
+            <div class="sticky top-32 hidden lg:block">
+                <h2 class="text-8xl font-black font-display tracking-tight text-white/10 leading-none">
+                    <span class="text-white">Storytelling</span> <br />
+                    <span class="text-primary italic">Through</span> <br />
+                    Interaction.
+                </h2>
+            </div>
+            <div class="block lg:hidden text-center mb-12">
+                <h2 class="text-6xl font-black font-display tracking-tight leading-none">
+                    <span class="text-white">Storytelling</span> <br />
+                    <span class="text-primary italic">Through</span> Interaction.
+                </h2>
+            </div>
+            <div class="space-y-16">
+                <p class="text-3xl lg:text-5xl leading-[1.3] text-slate-300 font-light font-sans">
+                    Every pixel has a purpose. Currently shaping the future as an
+                    <span class="text-white font-bold border-b-4 border-primary/50 pb-1">Intern at MadisonMK</span>,
+                    bridging the gap between robust logic and premium aesthetics.
+                </p>
+                <div class="h-px w-full bg-gradient-to-r from-primary via-secondary to-transparent"></div>
+                <p class="text-xl lg:text-2xl text-slate-500 font-light max-w-2xl leading-relaxed">
+                    Focused on creating high-performance web applications that don't just work, but feel alive. My
+                    philosophy centers on speed, security, and cinematic user experiences.
+                </p>
+            </div>
+        </div>
+        <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+                class="glass-morphism p-8 rounded-3xl text-center group hover:border-primary/50 transition-colors relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+                <div
+                    class="text-6xl font-black font-display text-white mb-2 group-hover:text-primary transition-colors">
+                    12+</div>
+                <div class="text-xs uppercase tracking-[0.3em] font-bold text-slate-500">Projects Completed</div>
+            </div>
+            <div
+                class="glass-morphism p-8 rounded-3xl text-center group hover:border-secondary/50 transition-colors relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+                <div
+                    class="text-6xl font-black font-display text-white mb-2 group-hover:text-secondary transition-colors">
+                    45k</div>
+                <div class="text-xs uppercase tracking-[0.3em] font-bold text-slate-500">Lines of Code</div>
+            </div>
+            <div
+                class="glass-morphism p-8 rounded-3xl text-center group hover:border-accent/50 transition-colors relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+                <div class="text-6xl font-black font-display text-white mb-2 group-hover:text-accent transition-colors">
+                    08</div>
+                <div class="text-xs uppercase tracking-[0.3em] font-bold text-slate-500">Technologies Mastered</div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 px-6 lg:px-24 bg-white/[0.01]">
+        <div class="mb-20 text-center lg:text-left">
+            <h3 class="text-5xl lg:text-6xl font-display font-black mb-4">The Arsenal</h3>
+            <p class="text-slate-500 text-lg lg:text-xl max-w-2xl mx-auto lg:mx-0">A sophisticated tech stack engineered
+                for elite digital solutions and scalable architectures.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="md:col-span-2 bento-card p-10 group">
+                <div
+                    class="absolute -right-10 -top-10 size-40 bg-primary/10 blur-3xl rounded-full group-hover:bg-primary/20 transition-all">
+                </div>
+                <div class="flex justify-between items-start mb-20">
+                    <div
+                        class="size-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-4xl">terminal</span>
+                    </div>
+                    <span
+                        class="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black tracking-widest uppercase">Backend
+                        Infrastructure</span>
+                </div>
+                <div>
+                    <h4 class="text-4xl lg:text-5xl font-black mb-4">Node.js</h4>
+                    <p class="text-slate-400 text-base lg:text-lg leading-relaxed">Scalable server-side logic and
+                        high-concurrency API development with enterprise-grade security.</p>
+                </div>
+            </div>
+            <div class="md:col-span-2 bento-card p-10 group">
+                <div
+                    class="absolute -left-10 -bottom-10 size-40 bg-secondary/10 blur-3xl rounded-full group-hover:bg-secondary/20 transition-all">
+                </div>
+                <div class="flex justify-between items-start mb-20">
+                    <div
+                        class="size-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
+                        <span class="material-symbols-outlined text-4xl">layers</span>
+                    </div>
+                    <span
+                        class="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black tracking-widest uppercase">UI/UX
+                        Engine</span>
+                </div>
+                <div>
+                    <h4 class="text-4xl lg:text-5xl font-black mb-4">React</h4>
+                    <p class="text-slate-400 text-base lg:text-lg leading-relaxed">Building immersive, component-driven
+                        user interfaces with state-of-the-art interactivity.</p>
+                </div>
+            </div>
+            <div class="bento-card p-8 group">
+                <div
+                    class="size-12 rounded-xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:bg-primary/20 transition-colors">
+                    <span class="font-black italic text-primary">PHP</span>
+                </div>
+                <h4 class="text-2xl font-black mb-2">Legacy &amp; Core</h4>
+                <p class="text-slate-500 text-sm">Robust server-side processing and historical framework mastery.</p>
+            </div>
+            <div class="bento-card p-8 group">
+                <div
+                    class="size-12 rounded-xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:bg-secondary/20 transition-colors">
+                    <span class="material-symbols-outlined text-secondary">database</span>
+                </div>
+                <h4 class="text-2xl font-black mb-2">Data Integrity</h4>
+                <p class="text-slate-500 text-sm">Complex relational database modeling and query optimization.</p>
+            </div>
+            <div class="bento-card p-8 group">
+                <div
+                    class="size-12 rounded-xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:bg-white/20 transition-colors">
+                    <span class="material-symbols-outlined text-white">bolt</span>
+                </div>
+                <h4 class="text-2xl font-black mb-2">Modern Web</h4>
+                <p class="text-slate-500 text-sm">Full-stack React framework for high-performance deployment.</p>
+            </div>
+            <div class="bento-card p-8 group">
+                <div
+                    class="size-12 rounded-xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:bg-accent/20 transition-colors">
+                    <span class="material-symbols-outlined text-accent">api</span>
+                </div>
+                <h4 class="text-2xl font-black mb-2">API Design</h4>
+                <p class="text-slate-500 text-sm">Crafting seamless connections between disparate digital systems.</p>
+            </div>
+            <div class="col-span-1 md:col-span-4 mt-8">
+                <h4 class="text-xl font-display font-bold text-white mb-6 pl-2 border-l-4 border-primary/50">Tools &amp;
+                    Workflow</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div
+                        class="glass-morphism p-4 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors cursor-default">
+                        <img alt="Git" class="w-8 h-8 opacity-80"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsRDZCR5QVWyNGxr6dhJVZgo-7eJN-i4mnn64uomIQdn0d92xWv5PDIOjUd1r87Jn2smtwDKOYGFbWzoErbpZ4ETEMqRDexmR504UiJuWLdbClG0IvqZ-bobcXIIfPdb-1JXhNP7BBD1mTxwPQAzs8sP6iTU5TtkMBGt5nVTi6nc_pCRlxCDMyfpLQPva53D3HezB1uodu0G3kSrLPaYSZa65cmkU98UatPjx4niIAGkVJSMavt3p5rnkoJNbU_XeCMhyT6qjGQMGC" />
+                        <span class="font-bold text-sm text-slate-300">Git Version</span>
+                    </div>
+                    <div
+                        class="glass-morphism p-4 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors cursor-default">
+                        <img alt="Docker" class="w-8 h-8 opacity-80"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgN1AKPl8dx-xcMW3TxVNF6hha9dgceCrtNaBdGqgAZ1OxWIE3wjZAH6w9UL5fHWwQVEiW8ARfqJEamVYDb8f3QhNrUKBsrg0ikft90eMGMBJM5m9KOIuEWtPGSGsHGIoHBtUf0NmnWfsiG6F2cAUgOAzR6iCXl3dSTG4GmtCHuJ_Mm4hoVkNAmnH-0AJFdMW39lAcQZ5xxUtQVOmro9DNeIiQu-TR3rTYk2yecQxOnjYbYl95V1smOz-EJFwrE4Krfi7Hjyw35ngh" />
+                        <span class="font-bold text-sm text-slate-300">Docker</span>
+                    </div>
+                    <div
+                        class="glass-morphism p-4 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors cursor-default">
+                        <img alt="Figma" class="w-8 h-8 opacity-80"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_NzmnBf89WNkQvIdvMJFrIlBxKKA_k2LncKrYsp-C40f-Gdt8YQ0q3RYRdw_CZotJWur-EX65N0niYuC3jm9H9kA63PUg-jlYUQOudOOBhSCyxKZq7bJrfGxJZ4HV31ReCoM1i72DlhvMheykuIJbS4lzAYWp2um34sqs7t60tRWKX4SQkZYpQStEgDnydcAZXKY7KD853Qji8M5vJNOMaqAAH63biXbts5R3VA_He6BCijGumnEJVGp3aQtNA8qoI6AUuCsb8Dp5" />
+                        <span class="font-bold text-sm text-slate-300">Figma</span>
+                    </div>
+                    <div
+                        class="glass-morphism p-4 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors cursor-default">
+                        <img alt="VS Code" class="w-8 h-8 opacity-80"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBcfeLUWjmvVn-SlrLkH8xf2AoQ-sX0FvJoOOpVu6bUInjdHcVqaqWgAOMXQoIujfjUi43C1EVV27edn_-e3yv1Mm6ku1bsCIyZNhltshyivt6j4E915u5TfX10s89N7xlGBrsDisjx1WxEmQF2keyn_sPZJYt9wHuCfxAbd_HwsVYh197rXtmtzzvL5OCFiH7L5ArNZcKsb0K5nkxVWk_q1P4BW2jCc8lSaKcJyWxO7YhDpJ822PYTb5FknhISP2UIbEjxAb1bFkb" />
+                        <span class="font-bold text-sm text-slate-300">VS Code</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 lg:py-48 px-6 lg:px-24">
+        <div class="flex items-end justify-between mb-24 lg:mb-32">
+            <div>
+                <h3 class="text-6xl lg:text-8xl font-display font-black leading-[0.8]">Latest <br /><span
+                        class="text-primary italic">Creations</span></h3>
+            </div>
+            <div class="hidden lg:block text-right">
+                <span class="text-slate-500 font-black text-sm uppercase tracking-[0.4em]">Curated Projects</span>
+                <p class="text-white font-display text-xl mt-2 italic">2023 — Present</p>
+            </div>
+        </div>
+        <div class="space-y-48">
+            <div class="project-card flex flex-col md:flex-row gap-16 items-start group">
+                <div
+                    class="w-full md:w-3/5 relative overflow-hidden rounded-[2rem] lg:rounded-[3rem] aspect-video glass-morphism border border-white/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+                    <img alt="Project Mockup"
+                        class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZHFgnwtjgCDqoAr0c0_LcGclW-85aQ7d0KHqZAzFZeCPjD-c4V19vO-wlsD7FJGYLs_bEfd1ZUXt-AzBIZYpXTD2WzkuzNE4rXMp3kZFTYEYwAVUmkwuZQ4H83EVx8E5q6XJN4HRLPovYDOgXC81b34jymSrjnRDGWMAI5y6D09t5AnrbHPeV6pB3Dw8oTRhNYnfd_8dD-kU2T4X30Z3ncfSLxmKD5rZr8gMcJXAo84pfxHguQY0fUebTiWq9ZkX5BDhRK9trMhnE" />
+                    <div
+                        class="absolute bottom-8 left-8 z-20 flex gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                        <span
+                            class="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">Tailwind</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">Redux</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">Stripe</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/5 space-y-8">
+                    <div class="flex flex-wrap gap-3">
+                        <span
+                            class="px-4 py-2 rounded-full glass-morphism text-xs font-black uppercase tracking-widest text-primary">Architecture</span>
+                        <span
+                            class="px-4 py-2 rounded-full glass-morphism text-xs font-black uppercase tracking-widest text-white/50">Next.js</span>
+                    </div>
+                    <h4
+                        class="text-4xl lg:text-6xl font-display font-black leading-none group-hover:text-primary transition-colors">
+                        Nexus E-Commerce</h4>
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4">
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-primary text-xl mt-1">warning</span>
+                            <div>
+                                <h5 class="text-sm font-bold text-white uppercase tracking-wider mb-1">Technical
+                                    Challenge</h5>
+                                <p class="text-slate-400 text-sm leading-relaxed">Handling real-time inventory updates
+                                    across thousands of concurrent users without database locking issues.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-green-400 text-xl mt-1">check_circle</span>
+                            <div>
+                                <h5 class="text-sm font-bold text-white uppercase tracking-wider mb-1">Solution</h5>
+                                <p class="text-slate-400 text-sm leading-relaxed">Implemented optimistic UI updates with
+                                    eventual consistency using Redis pub/sub channels.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="flex items-center gap-4 text-white font-black uppercase tracking-widest text-sm group-hover:gap-6 transition-all pt-4">
+                        View Case Study <span class="material-symbols-outlined text-primary">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+            <div class="project-card flex flex-col md:flex-row gap-16 items-start group">
+                <div
+                    class="w-full md:w-3/5 relative overflow-hidden rounded-[2rem] lg:rounded-[3rem] aspect-video glass-morphism border border-white/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+                    <img alt="Project Mockup"
+                        class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD1oMgplsNvT7iZdSYcSwyAbL5Bm67xQ52oy6dfCrFYS8KS7U9JchMjmbQv2IZYj9_h_T2ZWHSElpCIkI2_RGIAf-IrIatMowheLIi5sAyBA8QwLBFyR7zjGft4Pp9mq46O6KRt6X7yplq6KSKPliJmbTghtwSjy2b2SOwNRpM4oKN3jpYCVtUxsmX2smliGjEKaT0cRY0PO_um0b27M1SKn-QbiAJHI2r2CA7E2xSicQJqZSxREcAognrCYv3qmp0oYaScnmjeUF0" />
+                    <div
+                        class="absolute bottom-8 left-8 z-20 flex gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                        <span
+                            class="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">D3.js</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">GraphQL</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white">AWS
+                            Lambda</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/5 space-y-8">
+                    <div class="flex flex-wrap gap-3">
+                        <span
+                            class="px-4 py-2 rounded-full glass-morphism text-xs font-black uppercase tracking-widest text-secondary">Analytics</span>
+                        <span
+                            class="px-4 py-2 rounded-full glass-morphism text-xs font-black uppercase tracking-widest text-white/50">React
+                            + Node</span>
+                    </div>
+                    <h4
+                        class="text-4xl lg:text-6xl font-display font-black leading-none group-hover:text-secondary transition-colors">
+                        Quantum Metrics</h4>
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4">
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-secondary text-xl mt-1">warning</span>
+                            <div>
+                                <h5 class="text-sm font-bold text-white uppercase tracking-wider mb-1">Technical
+                                    Challenge</h5>
+                                <p class="text-slate-400 text-sm leading-relaxed">Visualizing millions of data points in
+                                    the browser without crashing the main thread.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-green-400 text-xl mt-1">check_circle</span>
+                            <div>
+                                <h5 class="text-sm font-bold text-white uppercase tracking-wider mb-1">Solution</h5>
+                                <p class="text-slate-400 text-sm leading-relaxed">Utilized Web Workers for data
+                                    processing and WebGL for hardware-accelerated rendering.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="flex items-center gap-4 text-white font-black uppercase tracking-widest text-sm group-hover:gap-6 transition-all pt-4">
+                        Explore Interface <span class="material-symbols-outlined text-secondary">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="mt-20 lg:mt-40 px-6 lg:px-24 pb-20">
+        <div
+            class="relative glass-morphism p-10 lg:p-20 rounded-[2rem] lg:rounded-[4rem] border-white/5 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-30">
+            </div>
+            <div class="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto">
+                <span class="text-xs font-black uppercase tracking-[0.5em] text-slate-500 mb-12">Start a
+                    conversation</span>
+                <a class="block text-[clamp(1.5rem,5vw,5rem)] font-display font-black tracking-tighter text-white hover:text-primary transition-all duration-500 mb-12 lg:mb-20 leading-none break-all liquid-hover p-4 rounded-xl"
+                    href="mailto:adrian.m.p.02022002@gmail.com">
+                    adrian.m.p.02022002@gmail.com
+                </a>
+                <div class="grid grid-cols-2 gap-12 w-full max-w-2xl border-t border-white/10 pt-12 lg:pt-20">
+                    <a class="group flex flex-col items-center gap-6" href="#">
+                        <div
+                            class="size-20 lg:size-24 rounded-full glass-morphism flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(0,242,255,0.4)] transition-all duration-500">
+                            <span class="material-symbols-outlined text-3xl lg:text-4xl">code</span>
+                        </div>
+                        <span
+                            class="text-xs lg:text-sm font-black uppercase tracking-[0.3em] opacity-40 group-hover:opacity-100 transition-opacity">GitHub</span>
+                    </a>
+                    <a class="group flex flex-col items-center gap-6" href="#">
+                        <div
+                            class="size-20 lg:size-24 rounded-full glass-morphism flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(255,0,229,0.4)] transition-all duration-500">
+                            <span class="material-symbols-outlined text-3xl lg:text-4xl">person</span>
+                        </div>
+                        <span
+                            class="text-xs lg:text-sm font-black uppercase tracking-[0.3em] opacity-40 group-hover:opacity-100 transition-opacity">LinkedIn</span>
+                    </a>
+                </div>
+                <div
+                    class="flex flex-wrap justify-center gap-8 lg:gap-12 mt-16 text-sm font-bold uppercase tracking-widest text-slate-400">
+                    <a class="hover:text-primary transition-colors" href="#">Home</a>
+                    <a class="hover:text-primary transition-colors" href="#">Projects</a>
+                    <a class="hover:text-primary transition-colors" href="#">The Stack</a>
+                </div>
+            </div>
+            <div
+                class="mt-20 lg:mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] lg:text-[11px] font-bold text-slate-600 uppercase tracking-widest">
+                <div class="flex gap-6 lg:gap-12">
+                    <a class="hover:text-white transition-colors" href="#">Aviso Legal</a>
+                    <a class="hover:text-white transition-colors" href="#">Privacidad</a>
+                    <a class="hover:text-white transition-colors" href="#">Cookies</a>
+                </div>
+                <p class="text-center md:text-right">© 2024 Adrián Martín Pereira — All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+    <div class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]">
+        <div
+            class="glass-morphism px-8 lg:px-10 py-5 rounded-full flex items-center gap-10 lg:gap-16 shadow-[0_30px_60px_rgba(0,0,0,0.8)] border-white/20 backdrop-blur-xl">
+            <a class="text-primary hover:scale-125 transition-transform" href="#"><span
+                    class="material-symbols-outlined fill-1 text-2xl lg:text-3xl">home</span></a>
+            <a class="text-slate-400 hover:text-white hover:scale-125 transition-all" href="#"><span
+                    class="material-symbols-outlined text-2xl lg:text-3xl">work</span></a>
+            <a class="text-slate-400 hover:text-white hover:scale-125 transition-all" href="#"><span
+                    class="material-symbols-outlined text-2xl lg:text-3xl">person</span></a>
+            <a class="text-slate-400 hover:text-white hover:scale-125 transition-all" href="#"><span
+                    class="material-symbols-outlined text-2xl lg:text-3xl">alternate_email</span></a>
+        </div>
+    </div>
+</body>
+
+</html>

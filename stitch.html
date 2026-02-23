@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Adrián Martín Pereira - Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4725f4",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#0a0a0c",
+                        "card-dark": "#16161e",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(71, 37, 244, 0.3);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display selection:bg-primary/30">
+<!-- Top Navigation Bar (Glassmorphic) -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-4 py-3">
+<div class="glass flex items-center justify-between px-4 py-2 rounded-2xl max-w-lg mx-auto">
+<div class="flex items-center gap-2">
+<div class="bg-primary size-8 rounded-lg flex items-center justify-center text-white font-black text-sm">AM</div>
+<span class="font-bold tracking-tight text-slate-100">Portfolio</span>
+</div>
+<button class="text-slate-400">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main class="relative pt-24 pb-32 overflow-x-hidden">
+<!-- Background Accents -->
+<div class="absolute top-[-10%] left-[-20%] w-[80%] h-[40%] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute top-[20%] right-[-20%] w-[60%] h-[30%] bg-blue-500/10 blur-[100px] rounded-full"></div>
+<!-- Hero Section -->
+<section class="px-6 mb-12 relative z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-6">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                Available for projects
+            </div>
+<h1 class="text-5xl font-black tracking-tight leading-[1.1] mb-4 gradient-text">
+                Adrián Martín Pereira
+            </h1>
+<p class="text-lg font-medium text-slate-400 mb-2 leading-snug">
+                Junior Web Developer | PHP, MySQL, WordPress &amp; Node.js
+            </p>
+<p class="text-slate-500 text-sm mb-8">
+                Building scalable web solutions &amp; continuous learner.
+            </p>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-14 rounded-xl flex items-center justify-center gap-2 transition-all neon-glow">
+                    View Projects
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="w-full glass text-slate-100 font-bold h-14 rounded-xl flex items-center justify-center gap-2 transition-all">
+                    Contact Me
+                </button>
+</div>
+</section>
+<!-- About Section -->
+<section class="px-6 mb-12">
+<div class="glass p-6 rounded-2xl border-white/5">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">work</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-100">Intern at MadisonMK</h3>
+<p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Current Role</p>
+</div>
+</div>
+<p class="text-slate-400 leading-relaxed text-sm">
+                    Passionate about modern web technologies and building robust backend solutions. Currently focusing on scalable PHP and Node.js architectures to deliver seamless digital experiences.
+                </p>
+</div>
+</section>
+<!-- Tech Stack Bento Grid -->
+<section class="px-6 mb-12">
+<h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+                Tech Stack
+            </h2>
+<div class="grid grid-cols-2 gap-3">
+<!-- Backend Group -->
+<div class="glass p-4 rounded-2xl col-span-2 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Backend Systems</span>
+<div class="flex gap-1">
+<div class="size-1 bg-primary rounded-full"></div>
+<div class="size-1 bg-primary/30 rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="flex flex-col items-center gap-2 flex-1 min-w-[60px]">
+<div class="size-12 rounded-xl bg-slate-800/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">database</span>
+</div>
+<span class="text-xs font-semibold">MySQL</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 min-w-[60px]">
+<div class="size-12 rounded-xl bg-slate-800/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">php</span>
+</div>
+<span class="text-xs font-semibold">PHP</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 min-w-[60px]">
+<div class="size-12 rounded-xl bg-slate-800/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">javascript</span>
+</div>
+<span class="text-xs font-semibold">Node.js</span>
+</div>
+</div>
+</div>
+<!-- Frontend Group -->
+<div class="glass p-4 rounded-2xl flex flex-col gap-3">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Modern UI</span>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+<span class="material-symbols-outlined text-xl">layers</span>
+</div>
+<span class="text-xs font-bold">React</span>
+</div>
+</div>
+<div class="glass p-4 rounded-2xl flex flex-col gap-3">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Frameworks</span>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">bolt</span>
+</div>
+<span class="text-xs font-bold">Next.js</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Projects -->
+<section class="px-6 mb-12">
+<h2 class="text-xl font-bold mb-6 flex items-center justify-between">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+                    Projects
+                </span>
+<span class="text-xs text-primary font-bold">View All</span>
+</h2>
+<div class="flex flex-col gap-6">
+<!-- Project Card 1 -->
+<div class="group relative bg-card-dark rounded-2xl overflow-hidden border border-white/5">
+<div class="aspect-video w-full bg-slate-800 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover" data-alt="Screenshot of a complex dashboard interface" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZHFgnwtjgCDqoAr0c0_LcGclW-85aQ7d0KHqZAzFZeCPjD-c4V19vO-wlsD7FJGYLs_bEfd1ZUXt-AzBIZYpXTD2WzkuzNE4rXMp3kZFTYEYwAVUmkwuZQ4H83EVx8E5q6XJN4HRLPovYDOgXC81b34jymSrjnRDGWMAI5y6D09t5AnrbHPeV6pB3Dw8oTRhNYnfd_8dD-kU2T4X30Z3ncfSLxmKD5rZr8gMcJXAo84pfxHguQY0fUebTiWq9ZkX5BDhRK9trMhnE');"></div>
+</div>
+<div class="p-5 relative z-20">
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 rounded bg-primary/20 text-primary text-[10px] font-bold uppercase">PHP</span>
+<span class="px-2 py-1 rounded bg-slate-700 text-slate-300 text-[10px] font-bold uppercase">MySQL</span>
+</div>
+<h3 class="text-lg font-bold text-slate-100 mb-2">E-Commerce Architecture</h3>
+<ul class="text-sm text-slate-400 space-y-1">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                                Optimized database queries
+                            </li>
+</ul>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="group relative bg-card-dark rounded-2xl overflow-hidden border border-white/5">
+<div class="aspect-video w-full bg-slate-800 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover" data-alt="A clean code editor workspace" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCD1oMgplsNvT7iZdSYcSwyAbL5Bm67xQ52oy6dfCrFYS8KS7U9JchMjmbQv2IZYj9_h_T2ZWHSElpCIkI2_RGIAf-IrIatMowheLIi5sAyBA8QwLBFyR7zjGft4Pp9mq46O6KRt6X7yplq6KSKPliJmbTghtwSjy2b2SOwNRpM4oKN3jpYCVtUxsmX2smliGjEKaT0cRY0PO_um0b27M1SKn-QbiAJHI2r2CA7E2xSicQJqZSxREcAognrCYv3qmp0oYaScnmjeUF0');"></div>
+</div>
+<div class="p-5 relative z-20">
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-[10px] font-bold uppercase">React</span>
+<span class="px-2 py-1 rounded bg-green-500/20 text-green-400 text-[10px] font-bold uppercase">Node.js</span>
+</div>
+<h3 class="text-lg font-bold text-slate-100 mb-2">Real-time Analytics</h3>
+<ul class="text-sm text-slate-400 space-y-1">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                                99.9% uptime monitoring system
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer / Contact -->
+<footer class="px-6 pb-24 text-center">
+<div class="glass p-8 rounded-3xl relative overflow-hidden">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-primary/30 rounded-full"></div>
+<h2 class="text-2xl font-black mb-2">Let's connect</h2>
+<p class="text-slate-500 text-sm mb-6">Interested in collaborating or just want to say hi?</p>
+<a class="block text-primary font-semibold text-sm mb-8 break-all" href="mailto:adrian.m.p.02022002@gmail.com">
+                    adrian.m.p.02022002@gmail.com
+                </a>
+<div class="flex justify-center gap-4 mb-10">
+<a class="size-12 rounded-2xl glass flex items-center justify-center hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">code</span>
+</a>
+<a class="size-12 rounded-2xl glass flex items-center justify-center hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</div>
+<div class="flex flex-col gap-2 text-[10px] uppercase tracking-widest font-bold text-slate-600">
+<div class="flex justify-center gap-4">
+<a class="hover:text-primary transition-colors" href="#">Aviso Legal</a>
+<a class="hover:text-primary transition-colors" href="#">Privacidad</a>
+</div>
+<p class="mt-4 opacity-50">© 2024 Adrián Martín Pereira</p>
+</div>
+</div>
+</footer>
+</main>
+<!-- Bottom Navigation Bar (iOS Style) -->
+<div class="fixed bottom-0 left-0 right-0 z-50 p-4">
+<div class="glass px-6 py-3 rounded-full flex justify-between items-center max-w-sm mx-auto shadow-2xl">
+<a class="text-primary flex flex-col items-center" href="#">
+<span class="material-symbols-outlined fill-1">home</span>
+</a>
+<a class="text-slate-500 flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+</a>
+<a class="text-slate-500 flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">mail</span>
+</a>
+<a class="text-slate-500 flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</div>
+</div>
+</body></html>

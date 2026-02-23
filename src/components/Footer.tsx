@@ -1,189 +1,45 @@
 'use client';
 
-import Link from 'next/link';
-import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react';
-import AnimationWrapper, { StaggerContainer, StaggerItem } from './AnimationWrapper';
+import { motion } from 'framer-motion';
 
-const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+export default function Footer({ dict }: { dict: Record<string, string | string[]> }) {
+  if (!dict) return null;
 
   return (
-    <footer className="bg-gradient-to-t from-black to-gray-900 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand */}
-          <AnimationWrapper animation="slide-in-left" className="lg:col-span-1">
-            <h3 className="text-2xl font-bold text-gradient-animate mb-4">
-              Mi Portfolio
-            </h3>
-            <AnimationWrapper animation="fade-in" delay={0.2}>
-              <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-                Desarrollador Web Junior especializado en PHP, MySQL, WordPress con Elementor.
-                Becario en MadisonMK, siempre aprendiendo y creciendo profesionalmente.
-              </p>
-            </AnimationWrapper>
+    <footer id="contact" className="mt-20 lg:mt-40 px-6 lg:px-24 pb-20 relative z-10 w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="relative glass-morphism p-10 lg:p-20 rounded-[2rem] lg:rounded-[4rem] border-white/5 overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-30"></div>
+        <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto">
+          <span className="text-xs font-black uppercase tracking-[0.5em] text-slate-500 mb-12">{dict.start_conversation}</span>
+          <a className="block text-[clamp(1.5rem,4vw,3.5rem)] font-display font-black tracking-tighter text-white hover:text-primary transition-all duration-500 mb-12 lg:mb-20 leading-none break-all liquid-hover p-4 rounded-xl" href="mailto:adrian.m.p.02022002@gmail.com">
+            adrian.m.p.02022002@gmail.com
+          </a>
 
-            {/* Social Links */}
-            <StaggerContainer className="flex items-center space-x-4 md:space-x-6 ml-25">
-              <StaggerItem index={0}>
-                <SocialButton
-                  href="https://github.com/AdrianMP-02"
-                  icon={<Github size={24} />}
-                  label="GitHub"
-                  hoverColor="hover:text-gray-300"
-                />
-              </StaggerItem>
-              <StaggerItem index={1}>
-                <SocialButton
-                  href="https://www.linkedin.com/in/adrián-martín-pereira-167813222/"
-                  icon={<Linkedin size={24} />}
-                  label="LinkedIn"
-                  hoverColor="hover:text-blue-400"
-                />
-              </StaggerItem>
-              <StaggerItem index={2}>
-                <SocialButton
-                  href="mailto:adrian.m.p.02022002@gmail.com"
-                  icon={<Mail size={24} />}
-                  label="Email"
-                  hoverColor="hover:text-purple-400"
-                />
-              </StaggerItem>
-            </StaggerContainer>
-          </AnimationWrapper>
-
-          {/* Quick Links */}
-          <AnimationWrapper animation="slide-up" delay={0.3}>
-            <h3 className="text-lg font-semibold text-white mb-4">Navegación</h3>
-            <StaggerContainer>
-              <ul className="space-y-3">
-                {['about', 'projects', 'blog', 'contact'].map((item, index) => (
-                  <StaggerItem key={item} index={index}>
-                    <li>
-                      <FooterLink href={`/${item}`} text={item.charAt(0).toUpperCase() + item.slice(1)} />
-                    </li>
-                  </StaggerItem>
-                ))}
-              </ul>
-            </StaggerContainer>
-          </AnimationWrapper>
-
-          {/* Legal Links */}
-          <AnimationWrapper animation="slide-up" delay={0.35}>
-            <h3 className="text-lg font-semibold text-white mb-4">Legal</h3>
-            <StaggerContainer>
-              <ul className="space-y-3">
-                <StaggerItem index={0}>
-                  <li>
-                    <FooterLink href="/legal/aviso-legal" text="Aviso Legal" />
-                  </li>
-                </StaggerItem>
-                <StaggerItem index={1}>
-                  <li>
-                    <FooterLink href="/legal/privacidad" text="Privacidad" />
-                  </li>
-                </StaggerItem>
-                <StaggerItem index={2}>
-                  <li>
-                    <FooterLink href="/legal/cookies" text="Cookies" />
-                  </li>
-                </StaggerItem>
-              </ul>
-            </StaggerContainer>
-          </AnimationWrapper>
-
-          {/* Contact Info */}
-          <AnimationWrapper animation="slide-in-right" delay={0.4}>
-            <h3 className="text-lg font-semibold text-white mb-4">Contacto</h3>
-            <div className="space-y-3 text-gray-400">
-              <AnimationWrapper animation="fade-in" delay={0.5}>
-                <p className="flex items-center gap-2 hover-scale transition-smooth">
-                  <Mail size={16} className="animate-float" />
-                  <a href="mailto:adrian.m.p.02022002@gmail.com" className="hover:text-white transition-smooth">
-                    adrian.m.p.02022002@gmail.com
-                  </a>
-                </p>
-              </AnimationWrapper>
-              <AnimationWrapper animation="fade-in" delay={0.6}>
-                <p className="text-sm">
-                  Disponible para freelance y colaboraciones
-                </p>
-              </AnimationWrapper>
-              <AnimationWrapper animation="scale-in" delay={0.7}>
-                <div className="status-active hover-scale">
-                  Abierto a oportunidades
-                </div>
-              </AnimationWrapper>
-            </div>
-          </AnimationWrapper>
+          <div className="grid grid-cols-2 gap-12 w-full max-w-2xl border-t border-white/10 pt-12 lg:pt-20">
+            <a className="group flex flex-col items-center gap-6" target="_blank" href="https://github.com/AdrianMP-02" rel="noreferrer">
+              <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full glass-morphism flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(0,242,255,0.4)] transition-all duration-500">
+                <span className="material-symbols-outlined text-3xl lg:text-4xl text-primary">code</span>
+              </div>
+              <span className="text-xs lg:text-sm font-black uppercase tracking-[0.3em] opacity-40 group-hover:opacity-100 transition-opacity text-primary">GitHub</span>
+            </a>
+            <a className="group flex flex-col items-center gap-6" target="_blank" href="https://www.linkedin.com/in/adrián-martín-pereira-167813222/" rel="noreferrer">
+              <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full glass-morphism flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(255,0,229,0.4)] transition-all duration-500">
+                <span className="material-symbols-outlined text-3xl lg:text-4xl text-secondary">person</span>
+              </div>
+              <span className="text-xs lg:text-sm font-black uppercase tracking-[0.3em] opacity-40 group-hover:opacity-100 transition-opacity text-secondary">LinkedIn</span>
+            </a>
+          </div>
         </div>
 
-        {/* Bottom Section */}
-        <AnimationWrapper animation="slide-up" delay={0.8}>
-          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm flex items-center gap-1">
-              © 2025 Mi Portfolio. Hecho con
-              <span className="inline-block animate-pulse-custom">
-                <Heart size={14} className="text-red-500" />
-              </span>
-              usando Next.js
-            </p>
-
-            <button
-              onClick={scrollToTop}
-              className="flex items-center gap-2 text-gray-400 hover:text-white group hover-lift transition-smooth"
-            >
-              <span className="text-sm">Volver arriba</span>
-              <div className="icon-bounce">
-                <ArrowUp size={16} />
-              </div>
-            </button>
-          </div>
-        </AnimationWrapper>
-      </div>
+        <div className="mt-20 lg:mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] lg:text-[11px] font-bold text-slate-600 uppercase tracking-widest">
+          <p className="text-center md:text-right">© {new Date().getFullYear()} {dict.rights}</p>
+        </div>
+      </motion.div>
     </footer>
   );
-};
-
-interface SocialButtonProps {
-  href: string;
-  icon: React.ReactNode;
-  label: string;
-  hoverColor: string;
 }
-
-const SocialButton = ({ href, icon, label }: SocialButtonProps) => {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`text-gray-400 hover:text-white p-4 rounded-full glass hover-lift hover-glow transition-smooth icon-spin w-16 h-16 flex items-center justify-center`}
-      aria-label={label}
-    >
-      {icon}
-    </a>
-  );
-};
-
-interface FooterLinkProps {
-  href: string;
-  text: string;
-}
-
-const FooterLink = ({ href, text }: FooterLinkProps) => {
-  return (
-    <Link
-      href={href}
-      className="text-gray-400 hover:text-white inline-block hover-scale transition-smooth"
-    >
-      <span>
-        {text}
-      </span>
-    </Link>
-  );
-};
-
-export default Footer;

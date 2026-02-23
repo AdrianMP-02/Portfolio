@@ -1,19 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Inter, Outfit } from "next/font/google";
+import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { generateJsonLd } from "@/lib/seo";
+import { getDictionary } from "@/lib/dictionaries";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -46,25 +47,11 @@ export const metadata: Metadata = {
     siteName: "Adrián Martín Pereira - Portfolio",
     title: "Adrián Martín Pereira - Desarrollador Web Junior",
     description: "Portfolio profesional de Adrián Martín Pereira, desarrollador web junior especializado en PHP, MySQL, WordPress y Node.js. Becario en MadisonMK.",
-    // TODO: Crear imagen og-image.jpg de 1200x630px
-    // images: [
-    //   {
-    //     url: "/og-image.jpg",
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "Adrián Martín Pereira - Desarrollador Backend Junior",
-    //   },
-    // ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Adrián Martín Pereira - Desarrollador Web Junior",
     description: "Desarrollador web junior especializado en PHP, MySQL, WordPress y Node.js. Explora mi portfolio y proyectos.",
-    // TODO: Usar la misma imagen og-image.jpg cuando se cree
-    // images: ["/og-image.jpg"],
-  },
-  verification: {
-    google: "google-site-verification-code", // Añadir después
   },
   alternates: {
     canonical: "https://portfolio-adrian.vercel.app",
@@ -77,11 +64,21 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return [{ lang: 'es' }, { lang: 'en' }]
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }>) {
+  const { lang } = await params;
+  const validLang = lang === 'en' ? 'en' : 'es';
+  const dict = await getDictionary(validLang);
+
   const personJsonLd = generateJsonLd({
     type: 'Person',
     name: 'Adrián Martín Pereira',
@@ -97,7 +94,7 @@ export default function RootLayout({
   });
 
   return (
-    <html lang="es" className="dark" data-scroll-behavior="smooth">
+    <html lang={validLang} className="dark" data-scroll-behavior="smooth">
       <head>
         <script
           type="application/ld+json"
@@ -112,20 +109,20 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Adrian Portfolio" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-900 text-white`}
+        className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-dark-bg text-white selection:bg-primary/30`}
       >
-        {/* Vercel Analytics & Speed Insights - Privacy-friendly, no cookies required */}
         <VercelAnalytics />
         <SpeedInsights />
 
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
-          <Navbar />
+        <div className="min-h-screen">
+          <Navbar dict={dict.navbar} currentLang={validLang} />
           <main>
             {children}
           </main>
-          <Footer />
+          <Footer dict={dict.footer} />
         </div>
       </body>
     </html>

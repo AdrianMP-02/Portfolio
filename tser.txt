@@ -1,0 +1,8 @@
+﻿.next/types/validator.ts(54,11): error TS1360: Type 'typeof import("C:/Users/adria/OneDrive/Documentos/Proyectos Docker/Portfolio/src/app/[lang]/layout")' does not satisfy the expected type 'LayoutConfig<"/[lang]">'.
+  Types of property 'default' are incompatible.
+    Type '({ children, params, }: Readonly<{ children: ReactNode; params: { lang: string; }; }>) => Promise<Element>' is not assignable to type 'ComponentType<LayoutProps<"/[lang]">> | ((props: LayoutProps<"/[lang]">) => void | ReactNode | Promise<ReactNode> | Promise<...>)'.
+      Type '({ children, params, }: Readonly<{ children: ReactNode; params: { lang: string; }; }>) => Promise<Element>' is not assignable to type 'FunctionComponent<LayoutProps<"/[lang]">>'.
+        Types of parameters '__0' and 'props' are incompatible.
+          Type 'LayoutProps<"/[lang]">' is not assignable to type 'Readonly<{ children: ReactNode; params: { lang: string; }; }>'.
+            Types of property 'params' are incompatible.
+              Property 'lang' is missing in type 'Promise<{ lang: string; }>' but required in type '{ lang: string; }'.
