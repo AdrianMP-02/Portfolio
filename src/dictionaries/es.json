@@ -1,0 +1,95 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "stack": "El Stack",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "badge": "Premium Experience 2026",
+    "subtitle": "Creando universos digitales mediante",
+    "highlight": "código de alto rendimiento e ingeniería creativa.",
+    "cta": "Explora Mi Universo"
+  },
+  "about": {
+    "title_1": "Storytelling",
+    "title_2": "Through",
+    "title_3": "Interaction.",
+    "p1_1": "Cada píxel tiene un propósito. Actualmente dando forma al futuro como",
+    "p1_highlight": "Intern en MadisonMK",
+    "p1_2": ", conectando la lógica robusta con la estética premium.",
+    "p2": "Enfocado en crear aplicaciones web de alto rendimiento que no solo funcionan, sino que se sienten vivas. Mi filosofía se centra en la velocidad, seguridad y experiencias de usuario cinematográficas.",
+    "stats": [
+      {
+        "value": "12+",
+        "label": "Proyectos Completados"
+      },
+      {
+        "value": "45k",
+        "label": "Líneas de Código"
+      },
+      {
+        "value": "08",
+        "label": "Tecnologías Dominadas"
+      }
+    ]
+  },
+  "arsenal": {
+    "title": "El Arsenal",
+    "subtitle": "Un stack tecnológico sofisticado diseñado para arquitecturas escalables y soluciones de élite.",
+    "items": [
+      {
+        "icon": "terminal",
+        "badge": "Backend",
+        "title": "Node.js",
+        "desc": "Lógica escalable del lado del servidor y desarrollo de APIs de alta concurrencia."
+      },
+      {
+        "icon": "layers",
+        "badge": "Frontend",
+        "title": "React",
+        "desc": "Creación de interfaces de usuario inmersivas e interactivas."
+      },
+      {
+        "icon": "PHP",
+        "badge": "Legacy & Core",
+        "desc": "Procesamiento robusto y dominio de frameworks históricos."
+      },
+      {
+        "icon": "database",
+        "badge": "Integridad de Datos",
+        "desc": "Modelado de bases de datos complejas y optimización en MySQL."
+      },
+      {
+        "icon": "bolt",
+        "badge": "Web Moderna",
+        "desc": "Next.js framework para despliegues super rápidos."
+      },
+      {
+        "icon": "api",
+        "badge": "Diseño de APIs",
+        "desc": "Conectando sistemas digitales de forma segura."
+      }
+    ],
+    "tools_title": "Flujo de trabajo"
+  },
+  "projects": {
+    "title_1": "Últimas",
+    "title_2": "Creaciones",
+    "badge": "Proyectos Seleccionados",
+    "subtitle": "Feed de GitHub en tiempo real",
+    "error": "Error al cargar los proyectos.",
+    "view_github": "Ver en GitHub",
+    "updated": "Actualizado"
+  },
+  "footer": {
+    "start_conversation": "Inicia una conversación",
+    "rights": "Adrián Martín Pereira — Todos los Derechos Reservados",
+    "legal": [
+      "Aviso Legal",
+      "Privacidad",
+      "Cookies"
+    ]
+  }
+}

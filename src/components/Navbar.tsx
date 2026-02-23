@@ -1,127 +1,57 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, User, Briefcase, BookOpen, Mail, Menu, X } from 'lucide-react';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Navbar({ dict, currentLang }: { dict: Record<string, string>, currentLang: string }) {
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  const navItems = [
-    { href: '/', icon: <Home size={18} />, text: 'Inicio' },
-    { href: '/about', icon: <User size={18} />, text: 'Acerca de' },
-    { href: '/projects', icon: <Briefcase size={18} />, text: 'Proyectos' },
-    { href: '/blog', icon: <BookOpen size={18} />, text: 'Blog' },
-    { href: '/contact', icon: <Mail size={18} />, text: 'Contacto' },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const isActive = (href: string) => pathname === href;
+  // Simple language toggler (assuming we only have /es and /en)
+  const toggleLang = currentLang === 'es' ? 'en' : 'es';
+  const newPath = pathname ? pathname.replace(`/${currentLang}`, `/${toggleLang}`) : `/${toggleLang}`;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-800/50 navbar-slide-down">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="animate-slide-in-left">
-            <Link
-              href="/"
-              className="text-xl font-bold text-gradient-animate hover-scale"
-            >
-              Adrián M.P.
-            </Link>
-          </div>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-8 flex justify-between items-center transition-all duration-500 ease-out pointer-events-none ${scrolled ? 'py-4' : ''}`}>
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="glass-morphism px-6 py-3 rounded-full font-[family-name:var(--font-outfit)] font-black text-2xl tracking-tighter pointer-events-auto"
+        style={{
+          boxShadow: '0 10px 30px -10px rgba(0, 242, 255, 0.2)',
+          backgroundColor: scrolled ? 'rgba(5, 5, 5, 0.8)' : 'rgba(255, 255, 255, 0.05)'
+        }}
+      >
+        A<span className="text-[#00f2ff]">.</span>M<span className="text-[#ff00e5]">.</span>P
+      </motion.div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item, index) => (
-              <div key={item.href} className={`animate-slide-down animate-delay-${(index + 1) * 100}`}>
-                <NavLink
-                  href={item.href}
-                  icon={item.icon}
-                  text={item.text}
-                  isActive={isActive(item.href)}
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden animate-slide-in-right">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white p-2 rounded-lg glass hover-scale transition-smooth"
-            >
-              {isOpen ? (
-                <X size={24} className="animate-rotate-in" />
-              ) : (
-                <Menu size={24} className="animate-scale-in" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div className={`md:hidden overflow-hidden border-t border-gray-800 transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-          }`}>
-          <div className="py-4 space-y-2">
-            {navItems.map((item, index) => (
-              <div
-                key={item.href}
-                className={`transform transition-all duration-300 ${isOpen
-                    ? 'translate-x-0 opacity-100'
-                    : 'translate-x-4 opacity-0'
-                  }`}
-                style={{ transitionDelay: `${index * 50}ms` }}
-              >
-                <Link
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-smooth hover-lift ${isActive(item.href)
-                      ? 'glass text-blue-400 border border-blue-500/20 animate-glow'
-                      : 'text-gray-300 hover:text-white hover:glass'
-                    }`}
-                >
-                  <span className="icon-bounce">{item.icon}</span>
-                  <span>{item.text}</span>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="flex gap-4 pointer-events-auto">
+        <Link href={newPath} className="glass-morphism h-12 lg:h-14 px-6 rounded-full flex items-center justify-center group hover:bg-white/10 transition-colors"
+          style={{
+            backgroundColor: scrolled ? 'rgba(5, 5, 5, 0.8)' : 'rgba(255, 255, 255, 0.05)'
+          }}
+        >
+          <span className="font-bold tracking-widest text-xs lg:text-sm uppercase opacity-70 group-hover:opacity-100">{currentLang === 'es' ? 'EN' : 'ES'}</span>
+        </Link>
+        <Link href="#contact" className="glass-morphism h-12 lg:h-14 px-6 rounded-full flex items-center justify-center group hover:bg-white/10 transition-colors"
+          style={{
+            backgroundColor: scrolled ? 'rgba(5, 5, 5, 0.8)' : 'rgba(255, 255, 255, 0.05)'
+          }}
+        >
+          <span className="font-bold tracking-[0.2em] lg:tracking-widest text-xs lg:text-sm uppercase">{dict?.contact || "Contact"}</span>
+        </Link>
       </div>
     </nav>
   );
-};
-
-interface NavLinkProps {
-  href: string;
-  icon: React.ReactNode;
-  text: string;
-  isActive: boolean;
 }
-
-const NavLink = ({ href, icon, text, isActive }: NavLinkProps) => {
-  return (
-    <div className="relative">
-      <Link
-        href={href}
-        className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium group transition-smooth hover-lift ${isActive
-            ? 'glass text-blue-400 border border-blue-500/20 animate-glow'
-            : 'text-gray-300 hover:text-white hover:glass hover-scale'
-          }`}
-      >
-        <span className="icon-bounce">{icon}</span>
-        <span>{text}</span>
-        {/* Efecto de hover underline */}
-        <div className={`absolute bottom-0 left-1/2 h-0.5 bg-blue-400 rounded-full transition-all duration-300 ${isActive
-            ? 'w-8 transform -translate-x-1/2'
-            : 'w-0 group-hover:w-6 transform -translate-x-1/2'
-          }`} />
-      </Link>
-    </div>
-  );
-};
-
-export default Navbar;

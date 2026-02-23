@@ -1,0 +1,95 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "stack": "The Stack",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Premium Experience 2026",
+    "subtitle": "Crafting digital universes through",
+    "highlight": "high-performance code and creative engineering.",
+    "cta": "Explore My Universe"
+  },
+  "about": {
+    "title_1": "Storytelling",
+    "title_2": "Through",
+    "title_3": "Interaction.",
+    "p1_1": "Every pixel has a purpose. Currently shaping the future as an",
+    "p1_highlight": "Intern at MadisonMK",
+    "p1_2": ", bridging the gap between robust logic and premium aesthetics.",
+    "p2": "Focused on creating high-performance web applications that don't just work, but feel alive. My philosophy centers on speed, security, and cinematic user experiences.",
+    "stats": [
+      {
+        "value": "12+",
+        "label": "Projects Completed"
+      },
+      {
+        "value": "45k",
+        "label": "Lines of Code"
+      },
+      {
+        "value": "08",
+        "label": "Technologies Mastered"
+      }
+    ]
+  },
+  "arsenal": {
+    "title": "The Arsenal",
+    "subtitle": "A sophisticated tech stack engineered for elite digital solutions and scalable architectures.",
+    "items": [
+      {
+        "icon": "terminal",
+        "badge": "Backend",
+        "title": "Node.js",
+        "desc": "Scalable server-side logic and high-concurrency API development."
+      },
+      {
+        "icon": "layers",
+        "badge": "Frontend",
+        "title": "React",
+        "desc": "Building immersive, component-driven user interfaces."
+      },
+      {
+        "icon": "PHP",
+        "badge": "Legacy & Core",
+        "desc": "Robust server-side processing and historical framework mastery."
+      },
+      {
+        "icon": "database",
+        "badge": "Data Integrity",
+        "desc": "Complex relational database modeling and query optimization."
+      },
+      {
+        "icon": "bolt",
+        "badge": "Modern Web",
+        "desc": "Next.js framework for fast, SEO-friendly SSR deployments."
+      },
+      {
+        "icon": "api",
+        "badge": "API Design",
+        "desc": "Crafting seamless connections between disparate digital systems."
+      }
+    ],
+    "tools_title": "Tools & Workflow"
+  },
+  "projects": {
+    "title_1": "Latest",
+    "title_2": "Creations",
+    "badge": "Curated Projects",
+    "subtitle": "Real-time GitHub Feed",
+    "error": "Failed to load projects.",
+    "view_github": "View on GitHub",
+    "updated": "Updated"
+  },
+  "footer": {
+    "start_conversation": "Start a conversation",
+    "rights": "Adrián Martín Pereira — All Rights Reserved",
+    "legal": [
+      "Legal Notice",
+      "Privacy",
+      "Cookies"
+    ]
+  }
+}
