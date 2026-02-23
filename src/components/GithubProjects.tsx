@@ -80,6 +80,13 @@ export default async function GithubProjects({ dict }: { dict?: Record<string, s
             {/* Subtle glow effect on hover */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
+            {/* In Development Ribbon */}
+            {repo.topics?.includes('wip') && (
+              <div className="absolute -right-[3.25rem] top-7 font-display rotate-45 bg-gradient-to-r from-amber-500/80 to-orange-600/80 text-white text-[10px] font-black tracking-widest py-1 w-44 text-center shadow-lg backdrop-blur-md border border-white/20 z-20">
+                EN DESARROLLO
+              </div>
+            )}
+
             <div className="flex-1 relative z-10">
               <div className="flex justify-between items-start mb-6">
                 <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-primary/50 group-hover:shadow-[0_0_15px_rgba(0,242,255,0.4)] transition-all duration-300">
@@ -113,7 +120,7 @@ export default async function GithubProjects({ dict }: { dict?: Record<string, s
                     {repo.language}
                   </span>
                 )}
-                {repo.topics?.slice(0, 3).map(topic => (
+                {repo.topics?.filter(t => t.toLowerCase() !== 'wip').slice(0, 3).map(topic => (
                   <span key={topic} className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20">
                     {topic}
                   </span>
