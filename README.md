@@ -1,54 +1,27 @@
-# Mi Portfolio Personal
+# AdrianMP-02 Portfolio
 
-Un portfolio moderno y profesional con blog integrado, desarrollado con Next.js, TypeScript y Tailwind CSS. Incluye sistema de contacto avanzado con EmailJS y funcionalidades de seguridad robustas.
+Mi portfolio web personal interactivo enfocado en diseño moderno (glassmorphism/neón), animaciones fluidas y alto rendimiento. Construido con Next.js, React, Tailwind CSS y Framer Motion. 🚀
+
+## 🏷️ GitHub Topics
+`portfolio` `nextjs` `react` `tailwindcss` `framer-motion` `typescript` `glassmorphism` `ui-design`
 
 ## 🚀 Características
 
-- **Portfolio Personal**: Página principal con presentación profesional
-- **Sección Acerca de**: Información detallada sobre experiencia y habilidades
-- **Proyectos**: Portfolio con proyectos reales y características de seguridad
-- **Blog Integrado**: Sistema de blog con posts en Markdown
-- **Formulario de Contacto Avanzado**: EmailJS con auto-reply y sistema anti-spam
-- **Sistema de Seguridad**: Headers HTTP seguros, validaciones múltiples y protección anti-spam
-- **Diseño Responsivo**: Optimizado para todos los dispositivos
-- **SEO Optimizado**: Metadatos y estructura optimizada para buscadores
-- **Rendimiento**: Optimizaciones automáticas de Next.js
+- **Portfolio Personal**: Página principal con presentación profesional interactiva
+- **Proyectos de GitHub**: Obtención automática de proyectos usando la API de GitHub
+- **Animaciones Fluidas**: Componentes y transiciones animadas con Framer Motion
+- **Diseño Responsivo**: Optimizado para móviles, tablets y escritorio
+- **Estilo Moderno**: Diseño elegante tipo glassmorphism/neon
+- **SEO Optimizado**: Estructura optimizada para buscadores
+- **Rendimiento**: Rutas y cargas rápidas gracias a Next.js 15
 
-## 🛡️ Funcionalidades de Seguridad
-
-- **Sistema Anti-Spam Avanzado**: 
-  - Honeypot field invisible para detectar bots
-  - Rate limiting (1 envío cada 30 segundos)
-  - Validación de tiempo mínimo (5 segundos)
-  - Detección de contenido sospechoso con regex
-  
-- **EmailJS Profesional**:
-  - Templates HTML responsive para emails
-  - Sistema de auto-reply automático
-  - Confirmación dual (para ti y para el remitente)
-  - Manejo de errores robusto
-
-- **Headers de Seguridad HTTP**:
-  - Content Security Policy (CSP)
-  - X-Frame-Options (protección clickjacking)
-  - Strict-Transport-Security (HSTS)
-  - X-XSS-Protection
-  - Referrer-Policy
-
-- **Validaciones Múltiples**:
-  - Regex estricto para emails
-  - Sanitización de entrada
-  - Longitud mínima de mensajes
-  - Prevención de caracteres peligrosos
 
 ## 🛠️ Tecnologías Utilizadas
 
 - **Framework**: Next.js 15 con App Router
 - **Lenguaje**: TypeScript
 - **Estilos**: Tailwind CSS
-- **Blog**: Markdown con gray-matter y next-mdx-remote
-- **Email**: EmailJS con templates profesionales
-- **Seguridad**: Headers HTTP, validaciones, anti-spam
+- **Animaciones**: Framer Motion
 - **Iconos**: Lucide React
 - **Linting**: ESLint
 - **Deployment**: Optimizado para Vercel
@@ -58,22 +31,12 @@ Un portfolio moderno y profesional con blog integrado, desarrollado con Next.js,
 ```
 src/
 ├── app/                    # Páginas de la aplicación (App Router)
-│   ├── about/             # Página "Acerca de"
-│   ├── blog/              # Blog principal y posts individuales
-│   ├── contact/           # Página de contacto
-│   ├── projects/          # Página de proyectos
 │   ├── layout.tsx         # Layout principal
 │   └── page.tsx           # Página de inicio
 ├── components/            # Componentes reutilizables
 │   ├── Footer.tsx         # Pie de página
 │   └── Navbar.tsx         # Navegación principal
 └── lib/                   # Utilidades
-    └── blog.ts            # Funciones para manejar el blog
-
-content/
-└── blog/                  # Posts del blog en Markdown
-    ├── bienvenido-al-blog.md
-    └── tutorial-portfolio-nextjs.md
 ```
 
 ## 🚀 Inicio Rápido
@@ -117,25 +80,7 @@ npm run start        # Inicia el servidor de producción
 npm run lint         # Ejecuta ESLint
 ```
 
-## ✍️ Agregar Nuevos Posts al Blog
 
-1. Crea un nuevo archivo `.md` en `content/blog/`
-2. Agrega el frontmatter al inicio del archivo:
-
-```markdown
----
-title: "Título del Post"
-date: "2025-01-09"
-excerpt: "Breve descripción del post"
-tags: ["tag1", "tag2", "tag3"]
----
-
-# Contenido del post en Markdown
-
-Tu contenido aquí...
-```
-
-3. El post aparecerá automáticamente en el blog.
 
 ## 🎨 Personalización
 
