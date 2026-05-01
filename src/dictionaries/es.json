@@ -83,6 +83,17 @@
     "view_github": "Ver en GitHub",
     "updated": "Actualizado"
   },
+  "production": {
+    "live_badge": "En activo",
+    "section_label": "Experiencia Profesional",
+    "company": "MadisonMK · 2026",
+    "title_1": "Proyectos en",
+    "title_2": "Producción",
+    "live_status": "En producción",
+    "role": "Desarrollador Full Stack",
+    "view_site": "Ver sitio",
+    "internal": "Uso interno"
+  },
   "footer": {
     "start_conversation": "Inicia una conversación",
     "rights": "Adrián Martín Pereira — Todos los Derechos Reservados",

@@ -4,8 +4,9 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ReactNode } from "react";
 import type { Dictionary } from "@/types/i18n";
+import ProductionProjects from "@/components/ProductionProjects";
 
-export default function HomeClient({ children, dict }: { children: ReactNode, dict: Dictionary }) {
+export default function HomeClient({ children, dict, lang }: { children: ReactNode, dict: Dictionary, lang: 'es' | 'en' }) {
   const { scrollYProgress } = useScroll();
   const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
@@ -272,6 +273,9 @@ export default function HomeClient({ children, dict }: { children: ReactNode, di
 
         {children}
       </section>
+
+      {/* PRODUCTION PROJECTS */}
+      <ProductionProjects dict={dict.production} lang={lang} />
 
     </>
   );

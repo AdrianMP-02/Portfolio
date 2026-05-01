@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505"></stop>
+      <stop offset="100%" stop-color="#0d0d0d"></stop>
+    </linearGradient>
+    <linearGradient id="dot1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2ff"></stop>
+      <stop offset="100%" stop-color="#00c8d4"></stop>
+    </linearGradient>
+    <linearGradient id="dot2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff00e5"></stop>
+      <stop offset="100%" stop-color="#cc00b8"></stop>
+    </linearGradient>
+  </defs>
+  
+  <rect width="32" height="32" rx="8" fill="url(#bg)"></rect>
+  
+  <rect width="32" height="32" rx="8" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"></rect>
+  
+  <text x="4" y="22" font-family="&#39;Outfit&#39;, &#39;Arial Black&#39;, sans-serif" font-weight="900" font-size="15" fill="white" letter-spacing="-1">A</text>
+  
+  <circle cx="14.5" cy="19.5" r="2" fill="url(#dot1)"></circle>
+  
+  <text x="16" y="22" font-family="&#39;Outfit&#39;, &#39;Arial Black&#39;, sans-serif" font-weight="900" font-size="15" fill="white" letter-spacing="-1">M</text>
+  
+  <circle cx="27.5" cy="19.5" r="2" fill="url(#dot2)"></circle>
+</svg>

@@ -9,6 +9,12 @@
   --font-sans: var(--font-inter), var(--font-geist-sans), sans-serif;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-float: float 6s ease-in-out infinite;
+  --animate-live-pulse: livePulse 2s ease-in-out infinite;
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.5); }
+  }
 
   @keyframes float {
 
@@ -105,6 +111,17 @@ body {
 
   .project-card:nth-child(even) {
     flex-direction: row-reverse;
+  }
+
+  .prod-card-title {
+    transition: all 0.3s ease;
+  }
+
+  .group:hover .prod-card-title {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .liquid-hover {
