@@ -3,9 +3,13 @@ import { Inter, Outfit } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
+import EasterEgg from "@/components/EasterEgg";
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { generateJsonLd } from "@/lib/seo";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { getDictionary } from "@/lib/dictionaries";
 
 const inter = Inter({
@@ -120,18 +124,24 @@ export default async function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-dark-bg text-white selection:bg-primary/30`}
+        className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-dark-bg text-white selection:bg-primary/30 transition-colors duration-300`}
       >
         <VercelAnalytics />
         <SpeedInsights />
 
-        <div className="min-h-screen">
-          <Navbar dict={dict.navbar} currentLang={validLang} />
-          <main>
-            {children}
-          </main>
-          <Footer dict={dict.footer} />
-        </div>
+        <ScrollProgress />
+        <BackToTop />
+        <EasterEgg />
+
+        <ThemeProvider>
+          <div className="min-h-screen">
+            <Navbar dict={dict.navbar} currentLang={validLang} />
+            <main>
+              {children}
+            </main>
+            <Footer dict={dict.footer} lang={validLang} />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

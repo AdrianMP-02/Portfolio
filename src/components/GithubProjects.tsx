@@ -76,7 +76,7 @@ export default async function GithubProjects({ dict }: { dict?: Record<string, s
     <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
       {repos.map((repo, index) => (
         <StaggerItem key={repo.id} index={index}>
-          <div className="glass-morphism h-full flex flex-col group border border-white/10 hover:border-primary/50 rounded-3xl p-8 relative overflow-hidden transition-all duration-500 hover:-translate-y-2">
+          <div className="glass-morphism h-full flex flex-col group border-glass hover:border-primary/50 rounded-3xl p-8 relative overflow-hidden transition-all duration-500 hover:-translate-y-2">
             {/* Subtle glow effect on hover */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -89,16 +89,16 @@ export default async function GithubProjects({ dict }: { dict?: Record<string, s
 
             <div className="flex-1 relative z-10">
               <div className="flex justify-between items-start mb-6">
-                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-primary/50 group-hover:shadow-[0_0_15px_rgba(0,242,255,0.4)] transition-all duration-300">
-                  <Code className="text-slate-400 group-hover:text-primary transition-colors" size={28} />
+                <div className="w-14 h-14 bg-subtle rounded-2xl flex items-center justify-center border-glass group-hover:border-primary/50 group-hover:shadow-[0_0_15px_var(--glow-primary-40)] transition-all duration-300">
+                  <Code className="text-muted-light group-hover:text-primary transition-colors" size={28} />
                 </div>
                 <div className="flex gap-2">
                   {repo.homepage && repo.homepage !== "" && (
-                    <Link href={repo.homepage} target="_blank" className="p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/20 border border-white/10 rounded-full transition-colors">
+                    <Link href={repo.homepage} target="_blank" className="p-2 text-muted-light hover:text-heading bg-subtle bg-subtle-hover border-glass rounded-full transition-colors">
                       <ExternalLink size={18} />
                     </Link>
                   )}
-                  <Link href={repo.html_url} target="_blank" className="p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/20 border border-white/10 rounded-full transition-colors">
+                  <Link href={repo.html_url} target="_blank" className="p-2 text-muted-light hover:text-heading bg-subtle bg-subtle-hover border-glass rounded-full transition-colors">
                     <Github size={18} />
                   </Link>
                 </div>

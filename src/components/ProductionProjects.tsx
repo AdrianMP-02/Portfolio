@@ -136,7 +136,7 @@ function LiveBadge({ text }: { text: string }) {
 
 function CardIcon({ icon }: { icon: string }) {
   return (
-    <div className="w-[52px] h-[52px] rounded-2xl bg-secondary/[0.08] border border-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary/[0.15] group-hover:shadow-[0_0_20px_rgba(255,0,229,0.3)] transition-all duration-300 flex-shrink-0">
+    <div className="w-[52px] h-[52px] rounded-2xl bg-secondary/[0.08] border border-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary/[0.15] group-hover:shadow-[0_0_20px_var(--glow-secondary-30)] transition-all duration-300 flex-shrink-0">
       <span className="material-symbols-outlined text-2xl">{icon}</span>
     </div>
   );
@@ -168,14 +168,14 @@ function CardFooter({
   internalText: string;
 }) {
   return (
-    <div className="flex items-center justify-between pt-4 border-t border-white/[0.07] flex-wrap gap-2 mt-auto">
+    <div className="flex items-center justify-between pt-4 border-t border-glass flex-wrap gap-2 mt-auto">
       <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-500">{role}</span>
       {url ? (
         <a
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 hover:text-white hover:bg-white/[0.12] hover:border-white/20 transition-all tracking-wider"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-muted-light px-4 py-1.5 rounded-full bg-subtle border-glass hover:text-heading bg-subtle-hover transition-all tracking-wider"
         >
           <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
             open_in_new
@@ -183,7 +183,7 @@ function CardFooter({
           {viewSiteText}
         </a>
       ) : (
-        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] tracking-wider cursor-default">
+        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 px-4 py-1.5 rounded-full         bg-subtle border-glass tracking-wider cursor-default">
           <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
             lock
           </span>
