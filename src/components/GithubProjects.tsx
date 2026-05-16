@@ -19,7 +19,7 @@ export default async function GithubProjects({ dict }: { dict?: Record<string, s
   let repos: GithubRepo[] = [];
   try {
     const res = await fetch('https://api.github.com/users/AdrianMP-02/repos?type=public&sort=updated&per_page=6', {
-      cache: 'no-store',
+      next: { revalidate: 3600 },
     });
     if (res.ok) {
       repos = await res.json();
