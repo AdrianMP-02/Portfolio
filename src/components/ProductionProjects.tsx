@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 interface ProductionProject {
   id: string;
@@ -23,88 +24,6 @@ interface ProductionDict {
   view_site: string;
   internal: string;
 }
-
-// ─── EDIT YOUR PRODUCTION PROJECTS HERE ──────────────────────────────────────
-const PROJECTS: ProductionProject[] = [
-  {
-    id: 'bibliotecas',
-    title: 'Bibliotecas CM',
-    description: {
-      es: 'Plataforma de reservas culturales para las Bibliotecas Públicas de la Comunidad de Madrid. Desarrollo full stack, mantenimiento y soporte 24/7. Logro clave: migración del código legacy a PHP 8.3 con arquitectura MVC y optimización de consultas MySQL para alta demanda.',
-      en: 'Cultural booking platform for the Public Libraries of the Community of Madrid. Full stack development, maintenance and 24/7 support. Key achievement: legacy code migration to PHP 8.3 with MVC architecture and MySQL query optimisation for high-demand periods.',
-    },
-    url: 'https://actividadesbibliotecascm.es/',
-    icon: 'menu_book',
-    tags: [
-      { label: 'PHP 8.3', variant: 'cyan' },
-      { label: 'MySQL 8.0', variant: 'magenta' },
-      { label: 'MVC', variant: 'cyan' },
-      { label: 'AWS', variant: 'magenta' },
-    ],
-    featured: true,
-  },
-  {
-    id: 'patrimonio',
-    title: 'Patrimonio Cultural CM',
-    description: {
-      es: 'Portal de reservas para visitas guiadas y recorridos urbanos de la Dirección General de Patrimonio Cultural de la Comunidad de Madrid. Desarrollo full stack, mantenimiento continuo y soporte 24/7.',
-      en: 'Booking portal for guided tours and urban routes of the Directorate General of Cultural Heritage of the Community of Madrid. Full stack development, ongoing maintenance and 24/7 support.',
-    },
-    url: 'https://actividadespatrimoniocm.es/',
-    icon: 'account_balance',
-    tags: [
-      { label: 'PHP 8.3', variant: 'cyan' },
-      { label: 'MySQL 8.0', variant: 'magenta' },
-      { label: 'MVC', variant: 'cyan' },
-    ],
-  },
-  {
-    id: 'bmw',
-    title: 'BMW — Lead Management',
-    description: {
-      es: 'Plataforma interna para la gestión de eventos y leads de BMW, dando soporte a eventos de gran escala como BMW Motorrad Days — celebrado en Peñíscola en 2025. Gestión de captación, seguimiento y conversión de clientes potenciales.',
-      en: 'Internal platform for BMW event and lead management, supporting large-scale events such as BMW Motorrad Days — held in Peñíscola in 2025. Handles prospect capture, follow-up and conversion workflows.',
-    },
-    icon: 'directions_car',
-    tags: [
-      { label: 'PHP 8.3', variant: 'cyan' },
-      { label: 'MySQL 8.0', variant: 'magenta' },
-      { label: 'MVC', variant: 'cyan' },
-    ],
-  },
-  {
-    id: 'dorueda',
-    title: 'D.O. Rueda',
-    description: {
-      es: 'Sitio web oficial de la Denominación de Origen Rueda, organismo regulador y promotor de los vinos de la región de Valladolid. Desarrollo full stack, mantenimiento y soporte 24/7.',
-      en: 'Official website of Denominación de Origen Rueda, the regulatory and promotional body for wines from the Valladolid region. Full stack development, maintenance and 24/7 support.',
-    },
-    url: 'https://dorueda.com/',
-    icon: 'wine_bar',
-    tags: [
-      { label: 'WordPress', variant: 'cyan' },
-      { label: 'Elementor', variant: 'magenta' },
-      { label: 'PHP', variant: 'cyan' },
-      { label: 'MySQL', variant: 'magenta' },
-    ],
-  },
-  {
-    id: 'bellas-artes',
-    title: 'Bellas Artes CM',
-    description: {
-      es: 'Central de reservas para museos y espacios culturales de la Comunidad de Madrid, incluyendo Alcalá 31 y Canal de Isabel II. Desarrollo full stack, mantenimiento continuo y soporte 24/7.',
-      en: 'Booking centre for museums and cultural venues of the Community of Madrid, including Alcalá 31 and Canal de Isabel II. Full stack development, ongoing maintenance and 24/7 support.',
-    },
-    url: 'https://actividadesbellasartes.es/',
-    icon: 'palette',
-    tags: [
-      { label: 'PHP 8.3', variant: 'cyan' },
-      { label: 'MySQL 8.0', variant: 'magenta' },
-      { label: 'MVC', variant: 'cyan' },
-    ],
-  },
-];
-// ─────────────────────────────────────────────────────────────────────────────
 
 const cardVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -194,6 +113,28 @@ function CardFooter({
   );
 }
 
+function SkeletonCard({ featured }: { featured?: boolean }) {
+  return (
+    <div className={`glass-morphism rounded-3xl p-8 overflow-hidden animate-pulse ${featured ? 'lg:col-span-2' : ''}`}>
+      <div className="flex items-start justify-between gap-3 mb-5">
+        <div className="w-[52px] h-[52px] rounded-2xl bg-white/5" />
+        <div className="w-24 h-6 rounded-full bg-white/5" />
+      </div>
+      <div className="h-8 w-3/4 rounded-lg bg-white/5 mb-4" />
+      <div className="space-y-2 mb-6">
+        <div className="h-4 w-full rounded bg-white/5" />
+        <div className="h-4 w-5/6 rounded bg-white/5" />
+      </div>
+      <div className="flex gap-2 mb-6">
+        <div className="h-5 w-20 rounded-full bg-white/5" />
+        <div className="h-5 w-16 rounded-full bg-white/5" />
+      </div>
+      <div className="h-px w-full bg-white/5 mb-4" />
+      <div className="h-5 w-24 rounded bg-white/5" />
+    </div>
+  );
+}
+
 export default function ProductionProjects({
   dict,
   lang,
@@ -201,6 +142,19 @@ export default function ProductionProjects({
   dict: ProductionDict;
   lang: 'es' | 'en';
 }) {
+  const [projects, setProjects] = useState<ProductionProject[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then((res) => res.json())
+      .then((data) => {
+        setProjects(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
   return (
     <section id="production" className="pb-24 lg:pb-48 px-6 lg:px-24">
       {/* Divider */}
@@ -250,7 +204,16 @@ export default function ProductionProjects({
         variants={{ visible: { transition: { staggerChildren: 0.12 } }, hidden: {} }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
-        {PROJECTS.map((project) => (
+        {loading ? (
+          <>
+            <SkeletonCard featured />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </>
+        ) : (
+          projects.map((project) => (
           <motion.div
             key={project.id}
             variants={cardVariants}
@@ -310,7 +273,7 @@ export default function ProductionProjects({
               </>
             )}
           </motion.div>
-        ))}
+        )))}
       </motion.div>
     </section>
   );

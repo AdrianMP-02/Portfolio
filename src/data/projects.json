@@ -1,0 +1,79 @@
+[
+  {
+    "id": "bibliotecas",
+    "title": "Bibliotecas CM",
+    "description": {
+      "es": "Plataforma de reservas culturales para las Bibliotecas Públicas de la Comunidad de Madrid. Desarrollo full stack, mantenimiento y soporte 24/7. Logro clave: migración del código legacy a PHP 8.3 con arquitectura MVC y optimización de consultas MySQL para alta demanda.",
+      "en": "Cultural booking platform for the Public Libraries of the Community of Madrid. Full stack development, maintenance and 24/7 support. Key achievement: legacy code migration to PHP 8.3 with MVC architecture and MySQL query optimisation for high-demand periods."
+    },
+    "url": "https://actividadesbibliotecascm.es/",
+    "icon": "menu_book",
+    "tags": [
+      { "label": "PHP 8.3", "variant": "cyan" },
+      { "label": "MySQL 8.0", "variant": "magenta" },
+      { "label": "MVC", "variant": "cyan" },
+      { "label": "AWS", "variant": "magenta" }
+    ],
+    "featured": true
+  },
+  {
+    "id": "patrimonio",
+    "title": "Patrimonio Cultural CM",
+    "description": {
+      "es": "Portal de reservas para visitas guiadas y recorridos urbanos de la Dirección General de Patrimonio Cultural de la Comunidad de Madrid. Desarrollo full stack, mantenimiento continuo y soporte 24/7.",
+      "en": "Booking portal for guided tours and urban routes of the Directorate General of Cultural Heritage of the Community of Madrid. Full stack development, ongoing maintenance and 24/7 support."
+    },
+    "url": "https://actividadespatrimoniocm.es/",
+    "icon": "account_balance",
+    "tags": [
+      { "label": "PHP 8.3", "variant": "cyan" },
+      { "label": "MySQL 8.0", "variant": "magenta" },
+      { "label": "MVC", "variant": "cyan" }
+    ]
+  },
+  {
+    "id": "bmw",
+    "title": "BMW — Lead Management",
+    "description": {
+      "es": "Plataforma interna para la gestión de eventos y leads de BMW, dando soporte a eventos de gran escala como BMW Motorrad Days — celebrado en Peñíscola en 2025. Gestión de captación, seguimiento y conversión de clientes potenciales.",
+      "en": "Internal platform for BMW event and lead management, supporting large-scale events such as BMW Motorrad Days — held in Peñíscola in 2025. Handles prospect capture, follow-up and conversion workflows."
+    },
+    "icon": "directions_car",
+    "tags": [
+      { "label": "PHP 8.3", "variant": "cyan" },
+      { "label": "MySQL 8.0", "variant": "magenta" },
+      { "label": "MVC", "variant": "cyan" }
+    ]
+  },
+  {
+    "id": "dorueda",
+    "title": "D.O. Rueda",
+    "description": {
+      "es": "Sitio web oficial de la Denominación de Origen Rueda, organismo regulador y promotor de los vinos de la región de Valladolid. Desarrollo full stack, mantenimiento y soporte 24/7.",
+      "en": "Official website of Denominación de Origen Rueda, the regulatory and promotional body for wines from the Valladolid region. Full stack development, maintenance and 24/7 support."
+    },
+    "url": "https://dorueda.com/",
+    "icon": "wine_bar",
+    "tags": [
+      { "label": "WordPress", "variant": "cyan" },
+      { "label": "Elementor", "variant": "magenta" },
+      { "label": "PHP", "variant": "cyan" },
+      { "label": "MySQL", "variant": "magenta" }
+    ]
+  },
+  {
+    "id": "bellas-artes",
+    "title": "Bellas Artes CM",
+    "description": {
+      "es": "Central de reservas para museos y espacios culturales de la Comunidad de Madrid, incluyendo Alcalá 31 y Canal de Isabel II. Desarrollo full stack, mantenimiento continuo y soporte 24/7.",
+      "en": "Booking centre for museums and cultural venues of the Community of Madrid, including Alcalá 31 and Canal de Isabel II. Full stack development, ongoing maintenance and 24/7 support."
+    },
+    "url": "https://actividadesbellasartes.es/",
+    "icon": "palette",
+    "tags": [
+      { "label": "PHP 8.3", "variant": "cyan" },
+      { "label": "MySQL 8.0", "variant": "magenta" },
+      { "label": "MVC", "variant": "cyan" }
+    ]
+  }
+]
