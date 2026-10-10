@@ -1,13 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import type { MouseEvent } from 'react';
+import ProjectSlider from './ProjectSlider';
+import { SLIDE, SLIDE_WIDE } from './slideClasses';
 
 interface ProductionProject {
   id: string;
   title: string;
   description: { es: string; en: string };
   url?: string;
+  preview?: string;
   icon: string;
   tags: { label: string; variant: 'cyan' | 'magenta' }[];
   featured?: boolean;
@@ -25,112 +30,35 @@ interface ProductionDict {
   internal: string;
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] },
-  },
-};
-
-function LiveDot({ color = 'green' }: { color?: 'green' | 'magenta' }) {
-  return (
-    <span
-      className={`inline-block w-1.5 h-1.5 rounded-full animate-live-pulse flex-shrink-0 ${
-        color === 'green' ? 'bg-green-400' : 'bg-secondary'
-      }`}
-    />
-  );
-}
-
-function LiveBadge({ text }: { text: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-[10px] font-black tracking-[0.15em] uppercase flex-shrink-0">
-      <LiveDot />
-      {text}
-    </span>
-  );
-}
-
-function CardIcon({ icon }: { icon: string }) {
-  return (
-    <div className="w-[52px] h-[52px] rounded-2xl bg-secondary/[0.08] border border-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary/[0.15] group-hover:shadow-[0_0_20px_var(--glow-secondary-30)] transition-all duration-300 flex-shrink-0">
-      <span className="material-symbols-outlined text-2xl">{icon}</span>
-    </div>
-  );
-}
-
-function TagChip({ label, variant }: { label: string; variant: 'cyan' | 'magenta' }) {
-  return (
-    <span
-      className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full ${
-        variant === 'cyan'
-          ? 'bg-primary/10 text-primary border border-primary/20'
-          : 'bg-secondary/10 text-secondary border border-secondary/20'
-      }`}
-    >
-      {label}
-    </span>
-  );
-}
-
-function CardFooter({
-  role,
-  url,
-  viewSiteText,
-  internalText,
-}: {
-  role: string;
-  url?: string;
-  viewSiteText: string;
-  internalText: string;
-}) {
-  return (
-    <div className="flex items-center justify-between pt-4 border-t border-glass flex-wrap gap-2 mt-auto">
-      <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-500">{role}</span>
-      {url ? (
-        <a
-          href={url}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-muted-light px-4 py-1.5 rounded-full bg-subtle border-glass hover:text-heading bg-subtle-hover transition-all tracking-wider"
-        >
-          <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
-            open_in_new
-          </span>
-          {viewSiteText}
-        </a>
-      ) : (
-        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 px-4 py-1.5 rounded-full         bg-subtle border-glass tracking-wider cursor-default">
-          <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
-            lock
-          </span>
-          {internalText}
-        </span>
-      )}
-    </div>
-  );
+function onSpot(e: MouseEvent<HTMLElement>) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
 }
 
 function SkeletonCard({ featured }: { featured?: boolean }) {
   return (
-    <div className={`glass-morphism rounded-3xl p-8 overflow-hidden animate-pulse ${featured ? 'lg:col-span-2' : ''}`}>
-      <div className="flex items-start justify-between gap-3 mb-5">
-        <div className="w-[52px] h-[52px] rounded-2xl bg-white/5" />
-        <div className="w-24 h-6 rounded-full bg-white/5" />
+    <div
+      className={`panel clip-cut p-6 flex flex-col gap-4 ${
+        featured ? SLIDE_WIDE : SLIDE
+      }`}
+    >
+      <div className={`${featured ? 'h-[260px]' : 'h-[180px]'} -mx-6 -mt-6 mb-2 bg-line animate-pulse`} />
+      <div className="flex items-center justify-between">
+        <div className="w-11 h-11 bg-line animate-pulse" />
+        <div className="w-20 h-4 bg-line animate-pulse" />
       </div>
-      <div className="h-8 w-3/4 rounded-lg bg-white/5 mb-4" />
-      <div className="space-y-2 mb-6">
-        <div className="h-4 w-full rounded bg-white/5" />
-        <div className="h-4 w-5/6 rounded bg-white/5" />
+      <div className="h-7 w-3/4 bg-line animate-pulse" />
+      <div className="space-y-2">
+        <div className="h-4 w-full bg-line animate-pulse" />
+        <div className="h-4 w-5/6 bg-line animate-pulse" />
       </div>
-      <div className="flex gap-2 mb-6">
-        <div className="h-5 w-20 rounded-full bg-white/5" />
-        <div className="h-5 w-16 rounded-full bg-white/5" />
+      <div className="flex gap-2">
+        <div className="h-6 w-16 bg-line animate-pulse" />
+        <div className="h-6 w-14 bg-line animate-pulse" />
       </div>
-      <div className="h-px w-full bg-white/5 mb-4" />
-      <div className="h-5 w-24 rounded bg-white/5" />
+      <div className="h-px w-full bg-line mt-auto" />
+      <div className="h-4 w-24 bg-line animate-pulse" />
     </div>
   );
 }
@@ -149,131 +77,151 @@ export default function ProductionProjects({
     fetch('/api/projects')
       .then((res) => res.json())
       .then((data) => {
-        setProjects(data);
+        setProjects(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
 
   return (
-    <section id="production" className="pb-24 lg:pb-48 px-6 lg:px-24">
-      {/* Divider */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-secondary/35 to-primary/20 mb-20 lg:mb-24" />
-
-      {/* Header */}
-      <div className="flex items-end justify-between mb-20 flex-wrap gap-6">
+    <section id="production" className="scroll-mt-20 max-w-7xl mx-auto px-6 py-24 lg:py-32">
+      <div className="flex items-end justify-between border-b border-line pb-5 mb-10">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-100px' }}
         >
-          <div className="mb-5">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-[11px] font-black tracking-[0.2em] uppercase">
-              <LiveDot />
-              {dict.live_badge}
-            </span>
-          </div>
-          <h2 className="text-6xl lg:text-8xl font-display font-black leading-[0.85] tracking-tight">
-            {dict.title_1}
-            <br />
-            <span className="text-secondary italic">{dict.title_2}</span>
+          <div className="section-index">{`// 04 — ${dict.section_label}`}</div>
+          <h2 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl break-words leading-none mt-2">
+            {dict.title_1} <span className="text-primary">{dict.title_2}</span>
           </h2>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          className="hidden lg:block text-right"
-        >
-          <span className="block text-[11px] font-black uppercase tracking-[0.4em] text-slate-500">
-            {dict.section_label}
-          </span>
-          <span className="inline-flex items-center gap-2 mt-3 px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/25 text-secondary text-sm font-bold tracking-wider">
-            <LiveDot color="magenta" />
-            {dict.company}
-          </span>
-        </motion.div>
+        <div className="hidden md:flex items-center gap-2 font-mono text-[12px] text-muted">
+          <span className="dot-live" /> {dict.live_badge} · {dict.company}
+        </div>
       </div>
 
-      {/* Cards grid */}
       <motion.div
-        initial="hidden"
-        whileInView="visible"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
-        variants={{ visible: { transition: { staggerChildren: 0.12 } }, hidden: {} }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        transition={{ duration: 0.5 }}
       >
         {loading ? (
-          <>
+          <div className="flex gap-4 overflow-hidden">
             <SkeletonCard featured />
             <SkeletonCard />
             <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </>
+          </div>
         ) : (
-          projects.map((project) => (
-          <motion.div
-            key={project.id}
-            variants={cardVariants}
-            className={`group glass-morphism rounded-3xl p-8 flex flex-col gap-5 overflow-hidden relative hover:-translate-y-2 hover:border-secondary/35 hover:shadow-[0_24px_56px_rgba(0,0,0,0.5)] transition-all duration-[450ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
-              project.featured ? 'lg:col-span-2' : ''
-            }`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-primary/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-[450ms] pointer-events-none" />
+          <ProjectSlider label={`${dict.title_1} ${dict.title_2}`} lang={lang}>
+            {[...projects].sort((a, b) => Number(!!b.featured) - Number(!!a.featured)).map((project, i) => (
+            <div
+              key={project.id}
+              onMouseMove={onSpot}
+              className={`group panel clip-cut spotlight relative p-6 flex flex-col gap-4 hover:border-primary transition-[border-color] duration-[250ms] ${
+                project.featured ? SLIDE_WIDE : SLIDE
+              }`}
+            >
+              <span aria-hidden="true" className="absolute z-10 top-3 right-[30px] font-mono text-[11px] text-muted bg-dark-bg/70 px-1.5 py-0.5">
+                {`P_0${i + 1}`}
+              </span>
 
-            {project.featured ? (
-              <div className="grid lg:grid-cols-2 gap-9 items-start">
-                <div className="flex flex-col gap-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <CardIcon icon={project.icon} />
-                    <LiveBadge text={dict.live_status} />
+              <div
+                className={`relative overflow-hidden border-b border-line -mx-6 -mt-6 mb-2 ${
+                  project.featured ? 'h-[260px]' : 'h-[180px]'
+                }`}
+              >
+                {project.preview && project.url ? (
+                  <>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      className="absolute inset-0 block"
+                    >
+                      <Image
+                        src={project.preview}
+                        alt={lang === 'es' ? `Captura de ${project.title}` : `Screenshot of ${project.title}`}
+                        fill
+                        sizes="(min-width:1024px) 60vw, 85vw"
+                        className="object-cover object-top grayscale brightness-[.45] contrast-125 transition-[filter,scale] duration-500 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-[1.03] [@media(hover:none)]:brightness-75 [@media(hover:none)]:grayscale-[.4]"
+                      />
+                    </a>
+                    <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-primary/15 mix-blend-color transition-opacity duration-500 group-hover:opacity-0" />
+                    <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(0,0,0,.25)_0_1px,transparent_1px_3px)] opacity-60 group-hover:opacity-20 transition-opacity" />
+                    <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-panel via-transparent to-transparent" />
+                    <span className="pointer-events-none absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-widest text-primary bg-dark-bg/70 border border-line px-2 py-1">
+                      {new URL(project.url).hostname.replace(/^www\./, '')}
+                    </span>
+                  </>
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#14141c] to-[#1b1b26] flex flex-col items-center justify-center gap-2">
+                    <span
+                      className="material-symbols-outlined text-line"
+                      style={{ fontSize: project.featured ? '96px' : '72px' }}
+                    >
+                      {project.icon}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted">
+                      <span className="material-symbols-outlined" style={{ fontSize: '13px' }}>
+                        lock
+                      </span>
+                      {dict.internal}
+                    </span>
                   </div>
-                  <h3 className="prod-card-title font-display text-2xl font-black tracking-tight leading-tight">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{project.description[lang]}</p>
-                </div>
-                <div className="flex flex-col gap-5 justify-between h-full">
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <TagChip key={tag.label} {...tag} />
-                    ))}
-                  </div>
-                  <CardFooter
-                    role={dict.role}
-                    url={project.url}
-                    viewSiteText={dict.view_site}
-                    internalText={dict.internal}
-                  />
-                </div>
+                )}
               </div>
-            ) : (
-              <>
-                <div className="flex items-start justify-between gap-3">
-                  <CardIcon icon={project.icon} />
-                  <LiveBadge text={dict.live_status} />
+
+              <div className="flex items-center justify-between gap-3">
+                <div className="w-11 h-11 border border-line text-secondary flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined">{project.icon}</span>
                 </div>
-                <h3 className="prod-card-title font-display text-2xl font-black tracking-tight leading-tight">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-slate-400 leading-relaxed flex-1">{project.description[lang]}</p>
-                <div className="flex flex-wrap gap-1.5 mt-auto">
-                  {project.tags.map((tag) => (
-                    <TagChip key={tag.label} {...tag} />
-                  ))}
-                </div>
-                <CardFooter
-                  role={dict.role}
-                  url={project.url}
-                  viewSiteText={dict.view_site}
-                  internalText={dict.internal}
-                />
-              </>
-            )}
-          </motion.div>
-        )))}
+                <span className="inline-flex items-center gap-2 font-mono text-[11px] text-primary">
+                  <span className="dot-live" /> {dict.live_status}
+                </span>
+              </div>
+
+              <h3 className="font-display uppercase text-2xl text-heading">{project.title}</h3>
+              <p className="text-[14px] text-muted leading-relaxed">{project.description[lang]}</p>
+
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag.label}
+                    className="font-mono text-[11px] border border-line text-muted px-2 py-1"
+                  >
+                    {tag.label}
+                  </span>
+                ))}
+              </div>
+
+              <div className="border-t border-line pt-4 mt-auto flex items-center justify-between flex-wrap gap-2">
+                <span className="font-mono text-[11px] text-muted">{dict.role}</span>
+                {project.url ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono text-[12px] text-heading hover:text-primary transition-colors"
+                  >
+                    {dict.view_site} ↗
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[12px] text-muted">
+                    <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                      lock
+                    </span>
+                    {dict.internal}
+                  </span>
+                )}
+              </div>
+            </div>
+            ))}
+          </ProjectSlider>
+        )}
       </motion.div>
     </section>
   );

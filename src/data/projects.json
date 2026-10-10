@@ -7,6 +7,7 @@
       "en": "Cultural booking platform for the Public Libraries of the Community of Madrid. Full stack development, maintenance and 24/7 support. Key achievement: legacy code migration to PHP 8.3 with MVC architecture and MySQL query optimisation for high-demand periods."
     },
     "url": "https://actividadesbibliotecascm.es/",
+    "preview": "/images/projects/bibliotecas.jpg",
     "icon": "menu_book",
     "tags": [
       { "label": "PHP 8.3", "variant": "cyan" },
@@ -24,6 +25,7 @@
       "en": "Booking portal for guided tours and urban routes of the Directorate General of Cultural Heritage of the Community of Madrid. Full stack development, ongoing maintenance and 24/7 support."
     },
     "url": "https://actividadespatrimoniocm.es/",
+    "preview": "/images/projects/patrimonio.jpg",
     "icon": "account_balance",
     "tags": [
       { "label": "PHP 8.3", "variant": "cyan" },
@@ -53,6 +55,7 @@
       "en": "Official website of Denominación de Origen Rueda, the regulatory and promotional body for wines from the Valladolid region. Full stack development, maintenance and 24/7 support."
     },
     "url": "https://dorueda.com/",
+    "preview": "/images/projects/dorueda.jpg",
     "icon": "wine_bar",
     "tags": [
       { "label": "WordPress", "variant": "cyan" },
@@ -69,6 +72,7 @@
       "en": "Booking centre for museums and cultural venues of the Community of Madrid, including Alcalá 31 and Canal de Isabel II. Full stack development, ongoing maintenance and 24/7 support."
     },
     "url": "https://actividadesbellasartes.es/",
+    "preview": "/images/projects/bellas-artes.jpg",
     "icon": "palette",
     "tags": [
       { "label": "PHP 8.3", "variant": "cyan" },

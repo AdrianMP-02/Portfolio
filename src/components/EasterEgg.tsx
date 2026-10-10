@@ -5,14 +5,14 @@ import { useEffect } from 'react';
 const STYLES = [
   'font-size: 28px',
   'font-weight: 900',
-  'color: #00f2ff',
+  'color: #f3e600',
   'font-family: monospace',
   'letter-spacing: -1px',
 ].join(';');
 
 const SUBTLE = [
   'font-size: 13px',
-  'color: #64748b',
+  'color: #8a8a99',
   'font-family: sans-serif',
 ].join(';');
 

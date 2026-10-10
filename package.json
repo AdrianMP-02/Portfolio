@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "previews": "node scripts/capture-previews.mjs"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.8.1",
@@ -31,6 +32,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^16.1.6",
+    "playwright": "^1.64.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
