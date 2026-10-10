@@ -21,7 +21,7 @@ export default function BackToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 z-[150] w-14 h-14 rounded-full glass-morphism flex items-center justify-center text-primary hover:shadow-[0_0_30px_var(--glow-primary-40)] transition-shadow duration-300 cursor-pointer"
+          className="fixed bottom-8 right-8 z-[150] w-12 h-12 bg-panel border border-line clip-cut-sm flex items-center justify-center text-primary hover:border-primary transition-colors duration-300 cursor-pointer"
           aria-label="Volver arriba"
         >
           <ChevronUp size={24} />

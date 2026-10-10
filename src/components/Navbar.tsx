@@ -17,18 +17,15 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar({ dict, currentLang }: { dict: Record<string, string>, currentLang: string }) {
-  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -49,7 +46,7 @@ export default function Navbar({ dict, currentLang }: { dict: Record<string, str
     setMenuOpen(false);
     const el = document.getElementById(section);
     if (el) {
-      const offset = 120;
+      const offset = 80;
       const top = el.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
@@ -58,42 +55,47 @@ export default function Navbar({ dict, currentLang }: { dict: Record<string, str
   const toggleLang = currentLang === 'es' ? 'en' : 'es';
   const newPath = pathname.replace(`/${currentLang}`, `/${toggleLang}`);
 
+  const indexOf: Record<string, string> = { home: '00', about: '01', stack: '02', projects: '03', contact: '05' };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 transition-all duration-500 ease-out pointer-events-none">
-      <div className={`max-w-7xl mx-auto flex items-center justify-between pointer-events-auto mt-4 lg:mt-8 px-6 lg:px-8 py-3 rounded-full border-glass transition-all duration-500 ${
-        scrolled
-          ? 'bg-dark-bg/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]'
-          : 'bg-subtle backdrop-blur-sm'
-      }`}>
-        <button onClick={() => scrollTo('hero')} className="font-display font-black text-2xl tracking-tighter cursor-pointer">
-          A<span className="text-primary">.</span>M<span className="text-secondary">.</span>P
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-dark-bg/75 backdrop-blur border-b border-line">
+      <div className="max-w-7xl mx-auto h-[60px] px-6 flex items-center justify-between">
+        <button onClick={() => scrollTo('hero')} className="font-mono font-semibold text-primary tracking-[0.1em] cursor-pointer">
+          AMP://
         </button>
 
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-6 h-full">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.key}
               onClick={() => scrollTo(item.section)}
-              className={`px-4 py-2 rounded-full text-sm font-bold tracking-wider uppercase transition-all duration-300 ${
+              className={`h-full flex items-center gap-2 font-mono text-xs uppercase tracking-wider border-b transition-colors cursor-pointer ${
                 activeSection === item.section
-                  ? 'text-heading bg-subtle-hover'
-                  : 'text-muted hover:text-heading bg-subtle-hover'
+                  ? 'text-heading border-primary'
+                  : 'text-muted hover:text-heading border-transparent'
               }`}
             >
+              <span className="text-primary">{indexOf[item.key]}</span>
               {dict[item.key]}
             </button>
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
-          <Link href={newPath} className="hidden md:flex h-10 px-4 rounded-full items-center justify-center bg-subtle-hover transition-colors border-glass">
-            <span className="font-bold tracking-widest text-xs uppercase opacity-70">{currentLang === 'es' ? 'EN' : 'ES'}</span>
+        <div className="flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-2 font-mono text-[11px] text-muted">
+            <span className="dot-live" />
+            ONLINE
+          </div>
+          <Link href={newPath} className="hidden md:flex h-9 w-9 items-center justify-center border border-line hover:border-primary transition-colors font-mono text-xs uppercase text-heading">
+            {currentLang === 'es' ? 'EN' : 'ES'}
           </Link>
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden h-10 w-10 rounded-full flex items-center justify-center bg-subtle-hover transition-colors border-glass"
+            className="md:hidden h-9 w-9 flex items-center justify-center border border-line hover:border-primary transition-colors cursor-pointer"
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -103,34 +105,31 @@ export default function Navbar({ dict, currentLang }: { dict: Record<string, str
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            id="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="pointer-events-auto max-w-7xl mx-auto mt-2 mx-6 rounded-3xl p-4 border-glass bg-dark-bg/95 backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+            className="absolute top-full left-0 right-0 bg-dark-bg/95 border-b border-line"
           >
-            <div className="flex flex-col gap-1">
-              {NAV_ITEMS.map((item, i) => (
-                <motion.button
+            <div className="flex flex-col px-6 py-2">
+              {NAV_ITEMS.map((item) => (
+                <button
                   key={item.key}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.04 }}
                   onClick={() => scrollTo(item.section)}
-                  className={`text-left px-5 py-4 rounded-2xl text-base font-bold tracking-wider uppercase transition-all ${
-                    activeSection === item.section
-                      ? 'text-heading bg-subtle-hover'
-                      : 'text-muted hover:text-heading bg-subtle-hover'
+                  className={`text-left py-4 flex gap-3 font-mono text-sm uppercase tracking-wider border-b border-line transition-colors ${
+                    activeSection === item.section ? 'text-heading' : 'text-muted hover:text-heading'
                   }`}
                 >
+                  <span className="text-primary">{indexOf[item.key]}</span>
                   {dict[item.key]}
-                </motion.button>
+                </button>
               ))}
               <Link
                 href={newPath}
-                className="mt-2 px-5 py-4 rounded-2xl text-base font-bold tracking-wider uppercase text-muted hover:text-heading bg-subtle-hover transition-all text-center border-t border-glass pt-5"
+                className="py-4 font-mono text-sm uppercase tracking-wider text-muted hover:text-primary transition-colors"
               >
-                {currentLang === 'es' ? 'EN 🇬🇧' : 'ES 🇪🇸'}
+                {currentLang === 'es' ? 'EN' : 'ES'}
               </Link>
             </div>
           </motion.div>

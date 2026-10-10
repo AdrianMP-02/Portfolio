@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Chakra_Petch, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
 import EasterEgg from "@/components/EasterEgg";
+import BackgroundFX from "@/components/BackgroundFX";
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { generateJsonLd } from "@/lib/seo";
@@ -17,8 +18,15 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const chakraPetch = Chakra_Petch({
+  variable: "--font-chakra",
+  weight: ["500", "700"],
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  weight: ["400", "600"],
   subsets: ["latin"],
 });
 
@@ -106,7 +114,7 @@ export default async function RootLayout({
   });
 
   return (
-    <html lang={validLang} className="dark" data-scroll-behavior="smooth">
+    <html lang={validLang} className={`dark ${inter.variable} ${chakraPetch.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth">
       <head>
         <script
           type="application/ld+json"
@@ -117,15 +125,17 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#3b82f6" />
+        <meta name="theme-color" content="#07070a" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Adrian Portfolio" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-dark-bg text-white selection:bg-primary/30 transition-colors duration-300`}
+        className={`antialiased min-h-screen bg-dark-bg text-white selection:bg-primary/30 transition-colors duration-300`}
       >
+        <div aria-hidden className="site-bg" />
+        <BackgroundFX />
         <VercelAnalytics />
         <SpeedInsights />
 

@@ -1,5 +1,6 @@
-import { Code, ExternalLink, Star, GitFork, Github } from 'lucide-react';
-import { StaggerContainer, StaggerItem } from './AnimationWrapper';
+import { ExternalLink, Star, GitFork, Github } from 'lucide-react';
+import ProjectSlider from './ProjectSlider';
+import { SLIDE } from './slideClasses';
 import Link from 'next/link';
 
 interface GithubRepo {
@@ -15,7 +16,13 @@ interface GithubRepo {
   fork: boolean;
 }
 
-export default async function GithubProjects({ dict }: { dict?: Record<string, string> }) {
+export default async function GithubProjects({
+  dict,
+  lang,
+}: {
+  dict?: Record<string, string>;
+  lang: 'es' | 'en';
+}) {
   let repos: GithubRepo[] = [];
   try {
     const res = await fetch('https://api.github.com/users/AdrianMP-02/repos?type=public&sort=updated&per_page=6', {
@@ -73,75 +80,82 @@ export default async function GithubProjects({ dict }: { dict?: Record<string, s
   }
 
   return (
-    <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    <ProjectSlider label={lang === 'es' ? 'Repositorios de GitHub' : 'GitHub repositories'} lang={lang}>
       {repos.map((repo, index) => (
-        <StaggerItem key={repo.id} index={index}>
-          <div className="glass-morphism h-full flex flex-col group border-glass hover:border-primary/50 rounded-3xl p-8 relative overflow-hidden transition-all duration-500 hover:-translate-y-2">
-            {/* Subtle glow effect on hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-            {/* In Development Ribbon */}
-            {repo.topics?.includes('wip') && (
-              <div className="absolute -right-[3.25rem] top-7 font-display rotate-45 bg-gradient-to-r from-amber-500/80 to-orange-600/80 text-white text-[10px] font-black tracking-widest py-1 w-44 text-center shadow-lg backdrop-blur-md border border-white/20 z-20">
-                EN DESARROLLO
-              </div>
-            )}
-
-            <div className="flex-1 relative z-10">
-              <div className="flex justify-between items-start mb-6">
-                <div className="w-14 h-14 bg-subtle rounded-2xl flex items-center justify-center border-glass group-hover:border-primary/50 group-hover:shadow-[0_0_15px_var(--glow-primary-40)] transition-all duration-300">
-                  <Code className="text-muted-light group-hover:text-primary transition-colors" size={28} />
-                </div>
-                <div className="flex gap-2">
-                  {repo.homepage && repo.homepage !== "" && (
-                    <Link href={repo.homepage} target="_blank" className="p-2 text-muted-light hover:text-heading bg-subtle bg-subtle-hover border-glass rounded-full transition-colors">
-                      <ExternalLink size={18} />
-                    </Link>
-                  )}
-                  <Link href={repo.html_url} target="_blank" className="p-2 text-muted-light hover:text-heading bg-subtle bg-subtle-hover border-glass rounded-full transition-colors">
-                    <Github size={18} />
+          <div
+            key={repo.id}
+            className={`panel clip-cut flex flex-col p-6 hover:border-primary transition-[border-color] duration-[250ms] ${SLIDE}`}
+          >
+            <div className="flex justify-between items-start mb-4">
+              <span aria-hidden="true" className="font-mono text-[11px] text-[#6b6b78]">{`REPO_0${index + 1}`}</span>
+              <div className="flex gap-2">
+                {repo.homepage && repo.homepage !== "" && (
+                  <Link
+                    href={repo.homepage}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${repo.name} website`}
+                    className="w-8 h-8 border border-line flex items-center justify-center text-muted hover:border-primary hover:text-primary transition-colors"
+                  >
+                    <ExternalLink size={15} />
                   </Link>
-                </div>
+                )}
+                <Link
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${repo.name} on GitHub`}
+                  className="w-8 h-8 border border-line flex items-center justify-center text-muted hover:border-primary hover:text-primary transition-colors"
+                >
+                  <Github size={15} />
+                </Link>
               </div>
-              <Link href={repo.html_url} target="_blank">
-                <h3 className="text-2xl font-display font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
-                  {repo.name}
-                </h3>
-              </Link>
-              <p className="text-slate-400 text-sm mb-6 line-clamp-3 leading-relaxed">
+            </div>
+
+            <div className="flex-1">
+              <div className="flex items-center flex-wrap gap-2 mb-3">
+                <Link href={repo.html_url} target="_blank" rel="noreferrer">
+                  <h3 className="font-mono text-lg text-heading break-all">
+                    <span className="text-primary">~/</span>
+                    {repo.name}
+                  </h3>
+                </Link>
+                {repo.topics?.includes('wip') && (
+                  <span className="font-mono text-[11px] border border-accent text-accent px-2 py-0.5">WIP</span>
+                )}
+              </div>
+              <p className="text-[14px] text-muted mb-6 line-clamp-3 leading-relaxed">
                 {repo.description || dict?.error || 'Código fuente y repositorio disponible en GitHub'}
               </p>
             </div>
 
-            <div className="mt-auto relative z-10 pt-4">
+            <div className="mt-auto pt-4">
               <div className="flex flex-wrap gap-2 mb-4">
                 {repo.language && (
-                  <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
+                  <span className="font-mono text-[11px] border border-secondary/40 text-secondary px-2 py-1">
                     {repo.language}
                   </span>
                 )}
                 {repo.topics?.filter(t => t.toLowerCase() !== 'wip').slice(0, 3).map(topic => (
-                  <span key={topic} className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20">
+                  <span key={topic} className="font-mono text-[11px] border border-line text-muted px-2 py-1">
                     {topic}
                   </span>
                 ))}
               </div>
 
-              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-slate-500">
-                <div className="flex items-center gap-1.5 hover:text-yellow-400 transition-colors">
-                  <Star size={14} />
+              <div className="flex items-center gap-4 font-mono text-[11px] text-muted">
+                <div className="flex items-center gap-1.5">
+                  <Star size={13} />
                   <span>{repo.stargazers_count}</span>
                 </div>
-                <div className="flex items-center gap-1.5 hover:text-white transition-colors">
-                  <GitFork size={14} />
+                <div className="flex items-center gap-1.5">
+                  <GitFork size={13} />
                   <span>{repo.forks_count}</span>
                 </div>
               </div>
             </div>
           </div>
-        </StaggerItem>
       ))}
-    </StaggerContainer>
+    </ProjectSlider>
   );
 }
-

@@ -1,5 +1,6 @@
 import GithubProjects from "@/components/GithubProjects";
 import { Suspense } from "react";
+import { SLIDE } from "@/components/slideClasses";
 import HomeClient from "./HomeClient";
 import { getDictionary } from "@/lib/dictionaries";
 
@@ -11,13 +12,13 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   return (
     <HomeClient dict={dict} lang={validLang}>
       <Suspense fallback={
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {[1, 2, 3, 4, 5, 6].map(i => (
-            <div key={i} className="h-[280px] rounded-3xl glass-morphism animate-pulse" />
+        <div className="flex gap-4 overflow-hidden">
+          {[1, 2, 3].map(i => (
+            <div key={i} className={`h-[260px] panel clip-cut animate-pulse ${SLIDE}`} />
           ))}
         </div>
       }>
-        <GithubProjects dict={dict.projects} />
+        <GithubProjects dict={dict.projects} lang={validLang} />
       </Suspense>
     </HomeClient>
   );

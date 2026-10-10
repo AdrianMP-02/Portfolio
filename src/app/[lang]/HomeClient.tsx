@@ -6,6 +6,8 @@ import { ReactNode } from "react";
 import type { Dictionary } from "@/types/i18n";
 import ProductionProjects from "@/components/ProductionProjects";
 
+const LEVELS = [4, 5, 3, 4, 5, 4];
+
 export default function HomeClient({ children, dict, lang }: { children: ReactNode, dict: Dictionary, lang: 'es' | 'en' }) {
   const { scrollYProgress } = useScroll();
   const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
@@ -14,263 +16,173 @@ export default function HomeClient({ children, dict, lang }: { children: ReactNo
 
   return (
     <>
-      <div className="fixed inset-0 -z-10 bg-dark-bg">
-        <div className="absolute inset-0 mesh-gradient-bg"></div>
-        <div className="absolute inset-0 grid-bg opacity-30"></div>
-        <div className="absolute inset-0 star-field opacity-20 animate-pulse-slow"></div>
-        <div className="absolute top-0 left-0 w-full h-full opacity-30 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]"></div>
-      </div>
-
       {/* HERO SECTION */}
-      <header id="hero" className="relative min-h-screen flex items-center px-6 lg:px-24 overflow-hidden pt-20 lg:pt-0">
-        <div className="grid lg:grid-cols-2 w-full gap-12 items-center">
-          <motion.div
-            style={{ opacity: opacityHero }}
-            className="relative z-10 space-y-8 text-center lg:text-left"
-          >
+      <header id="hero" className="relative scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6 min-h-[88vh] pt-28 pb-16 grid lg:grid-cols-[1.3fr_1fr] gap-12 items-center">
+          <motion.div style={{ opacity: opacityHero }} className="relative z-10">
             <motion.p
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-primary font-display font-bold tracking-[0.5em] uppercase text-sm opacity-80"
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="font-mono text-xs text-secondary tracking-[.2em] uppercase mb-6"
             >
-              {dict.hero.badge}
+              <span className="text-primary">&gt; </span>{dict.hero.badge}
             </motion.p>
             <motion.h1
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 1, type: "spring" }}
-              className="hero-text font-display"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="font-display uppercase glitch font-bold text-heading"
+              style={{ fontSize: 'clamp(64px,10vw,140px)', lineHeight: 0.88 }}
             >
-              Adrián <br /> M. P.
+              Adrián <br />
+              <span className="text-primary" style={{ textShadow: '0 0 28px rgba(243,230,0,.25)' }}>M.P.</span>
             </motion.h1>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-xl lg:text-2xl text-muted-light font-light max-w-lg leading-relaxed mx-auto lg:mx-0"
+              transition={{ delay: 0.35, duration: 0.5 }}
+              className="text-[18px] lg:text-[19px] text-muted-light max-w-xl leading-relaxed mt-8"
             >
-              {dict.hero.subtitle} <span className="text-heading font-medium italic underline decoration-primary/50 underline-offset-8">{dict.hero.highlight}</span>
+              {dict.hero.subtitle} <b className="text-heading font-medium">{dict.hero.highlight}</b>
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="pt-6"
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="flex flex-wrap gap-4 mt-10"
             >
-              <Link href="#arsenal" className="group relative inline-flex items-center gap-6 bg-white text-black px-10 py-6 rounded-2xl font-black text-xl transition-all hover:scale-105 active:scale-95 glow-pulse">
-                {dict.hero.cta}
-                <span className="material-symbols-outlined font-black group-hover:translate-x-2 transition-transform">east</span>
-              </Link>
+              <Link href="#arsenal" className="btn-cyber btn-cyber-primary">{dict.hero.cta}_</Link>
+              <Link href="#contact" className="btn-cyber btn-cyber-ghost">{dict.navbar.contact}</Link>
             </motion.div>
           </motion.div>
 
-          <div className="relative hidden lg:flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1.5, type: "spring" }}
-              className="relative w-[500px] h-[500px]"
-            >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 via-secondary/20 to-accent/20 blur-3xl animate-pulse" />
-              <div className="absolute inset-0 border-[0.5px] border-white/10 rounded-full scale-110" />
-              <div className="absolute inset-0 border-[0.5px] border-primary/20 rounded-full scale-125 opacity-50" />
-              <div className="absolute inset-10 rounded-full glass-morphism overflow-hidden flex items-center justify-center group animate-float">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-50" />
-                <div className="w-64 h-64 rounded-full border border-white/20 flex items-center justify-center animate-[spin_20s_linear_infinite]">
-                  <div className="w-48 h-48 rounded-full border-t-2 border-primary/40" />
-                </div>
-                <div className="absolute w-80 h-80 border border-secondary/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
-              </div>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="panel hud-corners font-mono text-[13px]"
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-line text-muted">
+              <span>~/adrian/whoami.ts</span>
+              <span className="tracking-widest">● ● ●</span>
+            </div>
+            <pre className="whitespace-pre-wrap leading-[1.9] text-muted p-5 m-0 font-mono">
+              <span className="text-secondary">const</span> adrian = {'{'}{'\n'}
+              {'  '}role:  <span className="text-primary">&quot;Web Developer&quot;</span>,{'\n'}
+              {'  '}now:   <span className="text-primary">&quot;Intern @ MadisonMK&quot;</span>,{'\n'}
+              {'  '}stack: [<span className="text-primary">&quot;Next&quot;</span>, <span className="text-primary">&quot;Node&quot;</span>, <span className="text-primary">&quot;React&quot;</span>, <span className="text-primary">&quot;PHP&quot;</span>, <span className="text-primary">&quot;MySQL&quot;</span>],{'\n'}
+              {'  '}shipped: <span className="text-primary">&quot;{dict.about.stats[0].value}&quot;</span>,{'\n'}
+              {'};'}{'\n'}
+              <span className="text-[#6b6b78]">{'// system online'}</span>{'\n'}
+              <span className="text-primary">❯</span> <span className="term-cursor" />
+            </pre>
+          </motion.div>
         </div>
       </header>
 
-      {/* STORYTELLING ABOUT SECTION */}
-      <section id="about" className="py-24 lg:py-48 px-6 lg:px-24">
-        <div className="grid lg:grid-cols-2 gap-24 items-start">
-          <div className="sticky top-32 hidden lg:block">
-            <motion.h2
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="text-8xl font-black font-display tracking-tight text-white/10 leading-none"
-            >
-              <span className="text-heading">{dict.about.title_1}</span> <br />
-              <span className="text-primary italic">{dict.about.title_2}</span> <br />
-              <span className="text-heading">{dict.about.title_3}</span>
-            </motion.h2>
-          </div>
-          <div className="block lg:hidden text-center mb-12">
-            <h2 className="text-6xl font-black font-display tracking-tight leading-none">
-              <span className="text-heading">{dict.about.title_1}</span> <br />
-              <span className="text-primary italic">{dict.about.title_2}</span> {dict.about.title_3}
+      {/* ABOUT */}
+      <section id="about" className="scroll-mt-20 max-w-7xl mx-auto px-6 py-24 lg:py-32">
+        <div className="flex items-end justify-between border-b border-line pb-5 mb-10">
+          <div>
+            <div className="section-index">{`// 01 — ${dict.navbar.about}`}</div>
+            <h2 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl break-words leading-none mt-2">
+              {dict.about.title_1} {dict.about.title_2} <span className="text-primary">{dict.about.title_3}</span>
             </h2>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="space-y-16"
-          >
-            <p className="text-3xl lg:text-5xl leading-[1.3] text-body font-light font-sans">
-              {dict.about.p1_1}
-              <span className="text-heading font-bold border-b-4 border-primary/50 pb-1 mx-2">{dict.about.p1_highlight}</span>
-              {dict.about.p1_2}
-            </p>
-            <div className="h-px w-full bg-gradient-to-r from-primary via-secondary to-transparent"></div>
-            <p className="text-xl lg:text-2xl text-muted font-light max-w-2xl leading-relaxed">
-              {dict.about.p2}
-            </p>
-          </motion.div>
+          <div className="hidden md:block font-mono text-xs text-muted">{dict.hero.badge}</div>
         </div>
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.2 } },
-            hidden: {},
-          }}
-          className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start"
         >
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="glass-morphism p-8 rounded-3xl text-center group hover:border-primary/50 transition-colors relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="text-6xl font-black font-display text-heading mb-2 group-hover:text-primary transition-colors">{dict.about.stats[0].value}</div>
-            <div className="text-xs uppercase tracking-[0.3em] font-bold text-muted">{dict.about.stats[0].label}</div>
-          </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="glass-morphism p-8 rounded-3xl text-center group hover:border-secondary/50 transition-colors relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="text-6xl font-black font-display text-heading mb-2 group-hover:text-secondary transition-colors">{dict.about.stats[1].value}</div>
-            <div className="text-xs uppercase tracking-[0.3em] font-bold text-muted">{dict.about.stats[1].label}</div>
-          </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="glass-morphism p-8 rounded-3xl text-center group hover:border-accent/50 transition-colors relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="text-6xl font-black font-display text-heading mb-2 group-hover:text-accent transition-colors">{dict.about.stats[2].value}</div>
-            <div className="text-xs uppercase tracking-[0.3em] font-bold text-muted">{dict.about.stats[2].label}</div>
-          </motion.div>
+          <div className="space-y-6 text-lg leading-relaxed text-muted-light">
+            <p>
+              {dict.about.p1_1}
+              <span className="text-heading font-medium border-b border-primary mx-1">{dict.about.p1_highlight}</span>
+              {dict.about.p1_2}
+            </p>
+            <p className="text-muted">{dict.about.p2}</p>
+          </div>
+          <div className="grid grid-cols-3">
+            {dict.about.stats.slice(0, 3).map((stat, i) => (
+              <div key={i} className={`panel group p-3 sm:p-6 text-center ${i > 0 ? '-ml-px' : ''}`}>
+                <div className="font-display text-3xl sm:text-5xl text-heading group-hover:text-primary transition-colors">{stat.value}</div>
+                <div className="font-mono text-[11px] text-muted uppercase tracking-normal sm:tracking-widest break-words mt-2">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </motion.div>
       </section>
 
-      {/* ARSENAL (Bento Grid 2.0) */}
-      <section id="arsenal" className="py-32 px-6 lg:px-24 bg-subtle">
-        <div className="mb-20 text-center lg:text-left">
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl lg:text-6xl font-display font-black mb-4"
-          >
-            {dict.arsenal.title}
-          </motion.h3>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-slate-500 text-lg lg:text-xl max-w-2xl mx-auto lg:mx-0"
-          >
-            {dict.arsenal.subtitle}
-          </motion.p>
+      {/* ARSENAL */}
+      <section id="arsenal" className="scroll-mt-20 max-w-7xl mx-auto px-6 py-24 lg:py-32">
+        <div className="flex items-end justify-between border-b border-line pb-5 mb-6">
+          <div>
+            <div className="section-index">{`// 02 — ${dict.navbar.stack}`}</div>
+            <h2 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl break-words leading-none mt-2">{dict.arsenal.title}</h2>
+          </div>
+          <div className="hidden md:block font-mono text-xs text-muted">{dict.arsenal.items.length} MODULES</div>
         </div>
+        <p className="text-muted max-w-2xl mb-10">{dict.arsenal.subtitle}</p>
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.15 } },
-            hidden: {},
-          }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-line"
         >
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }} className="md:col-span-2 bento-card p-10 group">
-            <div className="absolute -right-10 -top-10 w-40 h-40 bg-primary/10 blur-3xl rounded-full group-hover:bg-primary/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-20">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-                <span className="material-symbols-outlined text-4xl">{dict.arsenal.items[0].icon}</span>
-              </div>
-              <span className="px-4 py-1 rounded-full bg-subtle border-glass text-[10px] font-black tracking-widest uppercase">{dict.arsenal.items[0].badge}</span>
-            </div>
-            <div>
-              <h4 className="text-4xl lg:text-5xl font-black mb-4">{dict.arsenal.items[0].title}</h4>
-              <p className="text-muted-light text-base lg:text-lg leading-relaxed">{dict.arsenal.items[0].desc}</p>
-            </div>
-          </motion.div>
-
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }} className="md:col-span-2 bento-card p-10 group">
-            <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-secondary/10 blur-3xl rounded-full group-hover:bg-secondary/20 transition-all"></div>
-            <div className="flex justify-between items-start mb-20">
-              <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
-                <span className="material-symbols-outlined text-4xl">{dict.arsenal.items[1].icon}</span>
-              </div>
-              <span className="px-4 py-1 rounded-full bg-subtle border-glass text-[10px] font-black tracking-widest uppercase">{dict.arsenal.items[1].badge}</span>
-            </div>
-            <div>
-              <h4 className="text-4xl lg:text-5xl font-black mb-4">{dict.arsenal.items[1].title}</h4>
-              <p className="text-slate-400 text-base lg:text-lg leading-relaxed">{dict.arsenal.items[1].desc}</p>
-            </div>
-          </motion.div>
-
-          {/* Rendering the remaining 4 items generically if they exist, or using hardcoded index for layout matching */}
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }} className="bento-card p-8 group">
-            <div className="w-12 h-12 rounded-xl bg-subtle flex items-center justify-center mb-8 border-glass group-hover:bg-primary/20 transition-colors">
-              <span className="font-black italic text-primary">{dict.arsenal.items[2].icon}</span>
-            </div>
-            <h4 className="text-2xl font-black mb-2">{dict.arsenal.items[2].badge}</h4>
-            <p className="text-muted text-sm">{dict.arsenal.items[2].desc}</p>
-          </motion.div>
-
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }} className="bento-card p-8 group">
-            <div className="w-12 h-12 rounded-xl bg-subtle flex items-center justify-center mb-8 border-glass group-hover:bg-secondary/20 transition-colors">
-              <span className="material-symbols-outlined text-secondary">{dict.arsenal.items[3].icon}</span>
-            </div>
-            <h4 className="text-2xl font-black mb-2">{dict.arsenal.items[3].badge}</h4>
-            <p className="text-muted text-sm">{dict.arsenal.items[3].desc}</p>
-          </motion.div>
-
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }} className="bento-card p-8 group">
-            <div className="w-12 h-12 rounded-xl bg-subtle flex items-center justify-center mb-8 border-glass bg-subtle-hover transition-colors">
-              <span className="material-symbols-outlined text-heading">{dict.arsenal.items[4].icon}</span>
-            </div>
-            <h4 className="text-2xl font-black mb-2">{dict.arsenal.items[4].badge}</h4>
-            <p className="text-muted text-sm">{dict.arsenal.items[4].desc}</p>
-          </motion.div>
-
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }} className="bento-card p-8 group">
-            <div className="w-12 h-12 rounded-xl bg-subtle flex items-center justify-center mb-8 border-glass group-hover:bg-accent/20 transition-colors">
-              <span className="material-symbols-outlined text-accent">{dict.arsenal.items[5].icon}</span>
-            </div>
-            <h4 className="text-2xl font-black mb-2">{dict.arsenal.items[5].badge}</h4>
-            <p className="text-muted text-sm">{dict.arsenal.items[5].desc}</p>
-          </motion.div>
-
-          <motion.div variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }} className="col-span-1 md:col-span-4 mt-8">
-            <h4 className="text-xl font-display font-bold text-heading mb-6 pl-2 border-l-4 border-primary/50">{dict.arsenal.tools_title}</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['Git', 'Docker', 'Figma', 'VS Code'].map(tool => (
-                <div key={tool} className="glass-morphism p-4 rounded-2xl flex items-center justify-center gap-4 bg-subtle-hover transition-colors cursor-default">
-                  <span className="font-bold text-sm text-body">{tool}</span>
+          {dict.arsenal.items.map((item, i) => {
+            const title = item.title ?? (item.icon === 'PHP' ? 'PHP' : item.badge);
+            const label = title === item.badge ? `MODULE_0${i + 1}` : item.badge;
+            const level = LEVELS[i] ?? 4;
+            return (
+              <div key={i} className="group p-7 border-r border-b border-line hover:bg-panel transition-colors">
+                <div className="font-mono text-[11px] text-secondary tracking-[.2em] uppercase mb-4">{label}</div>
+                <h3 className="font-display uppercase text-2xl mb-3">{title}</h3>
+                <p className="text-muted text-sm leading-relaxed mb-6">{item.desc}</p>
+                <div className="flex gap-1">
+                  {[0, 1, 2, 3, 4].map(n => (
+                    <span
+                      key={n}
+                      className={`w-[22px] h-1 transition-colors ${n < level ? 'bg-muted group-hover:bg-primary' : 'bg-[#2a2a38]'}`}
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
-          </motion.div>
+              </div>
+            );
+          })}
         </motion.div>
+
+        <div className="mt-12">
+          <h4 className="font-mono text-xs text-secondary tracking-[.2em] uppercase mb-4">{dict.arsenal.tools_title}</h4>
+          <div className="flex flex-wrap gap-3">
+            {['Git', 'Docker', 'Figma', 'VS Code'].map(tool => (
+              <span key={tool} className="font-mono text-xs uppercase tracking-widest text-muted-light border border-line px-4 py-2 hover:border-primary hover:text-primary transition-colors cursor-default">
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* LATEST CREATIONS (GITHUB PROJECTS) */}
-      <section id="projects" className="py-24 lg:py-48 px-6 lg:px-24">
-        <div className="flex items-end justify-between mb-24 lg:mb-32">
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-6xl lg:text-8xl font-display font-black leading-[0.8]">{dict.projects.title_1} <br /><span className="text-primary italic">{dict.projects.title_2}</span></h3>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="hidden lg:block text-right">
-            <span className="text-muted font-black text-sm uppercase tracking-[0.4em]">{dict.projects.badge}</span>
-            <p className="text-heading font-display text-xl mt-2 italic">{dict.projects.subtitle}</p>
-          </motion.div>
+      <section id="projects" className="scroll-mt-20 max-w-7xl mx-auto px-6 py-24 lg:py-32">
+        <div className="flex items-end justify-between border-b border-line pb-5 mb-6">
+          <div>
+            <div className="section-index">{`// 03 — ${dict.navbar.projects}`}</div>
+            <h2 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl break-words leading-none mt-2">
+              {dict.projects.title_1} <span className="text-primary">{dict.projects.title_2}</span>
+            </h2>
+          </div>
+          <div className="hidden md:block font-mono text-xs text-muted">{dict.projects.badge}</div>
         </div>
+        <p className="text-muted max-w-2xl mb-10">{dict.projects.subtitle}</p>
 
         {children}
       </section>

@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { Send, Loader } from 'lucide-react';
 
 interface FieldLabels {
   label: string;
@@ -66,86 +66,100 @@ export default function ContactForm({ lang }: { lang: 'es' | 'en' }) {
     }
   };
 
+  const labelCls = 'block font-mono text-[11px] uppercase tracking-[.2em] text-muted mb-2';
+  const fieldCls =
+    'w-full bg-panel border border-line px-4 py-3 font-mono text-sm text-heading placeholder:text-[#6b6b78] caret-primary outline-none transition-colors focus:border-primary';
+
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto space-y-5">
+    <form onSubmit={handleSubmit} className="w-full space-y-5">
       <div>
-        <label className="block text-xs font-bold uppercase tracking-[0.2em] text-muted mb-2">
+        <label htmlFor="contact-name" className={labelCls}>
+          <span aria-hidden="true" className="text-primary">&gt; </span>
           {t.name.label}
         </label>
         <input
+          id="contact-name"
+          name="name"
+          autoComplete="name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
           placeholder={t.name.placeholder}
-          className="w-full px-5 py-4 rounded-2xl bg-subtle border-glass text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50 focus:shadow-[0_0_20px_var(--glow-primary-10)] transition-all text-sm"
+          className={fieldCls}
         />
       </div>
 
       <div>
-        <label className="block text-xs font-bold uppercase tracking-[0.2em] text-muted mb-2">
+        <label htmlFor="contact-email" className={labelCls}>
+          <span aria-hidden="true" className="text-primary">&gt; </span>
           {t.email.label}
         </label>
         <input
+          id="contact-email"
+          name="email"
+          autoComplete="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder={t.email.placeholder}
-          className="w-full px-5 py-4 rounded-2xl bg-subtle border-glass text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50 focus:shadow-[0_0_20px_var(--glow-primary-10)] transition-all text-sm"
+          className={fieldCls}
         />
       </div>
 
       <div>
-        <label className="block text-xs font-bold uppercase tracking-[0.2em] text-muted mb-2">
+        <label htmlFor="contact-message" className={labelCls}>
+          <span aria-hidden="true" className="text-primary">&gt; </span>
           {t.message.label}
         </label>
         <textarea
+          id="contact-message"
+          name="message"
+          autoComplete="off"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
           rows={5}
           placeholder={t.message.placeholder}
-          className="w-full px-5 py-4 rounded-2xl bg-subtle border-glass text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50 focus:shadow-[0_0_20px_var(--glow-primary-10)] transition-all text-sm resize-none"
+          className={`${fieldCls} resize-none`}
         />
       </div>
 
-      <motion.button
+      <button
         type="submit"
         disabled={status === 'loading'}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full flex items-center justify-center gap-3 bg-white text-black px-8 py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-all hover:shadow-[0_0_30px_var(--glow-primary-20)] disabled:opacity-50 border border-white/10"
+        className="btn-cyber btn-cyber-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === 'loading' ? (
-          <Loader size={18} className="animate-spin" />
+          <Loader size={16} className="animate-spin" />
         ) : (
-          <Send size={18} />
+          <Send size={16} />
         )}
         {status === 'loading' ? '...' : t.send}
-      </motion.button>
+      </button>
 
       <AnimatePresence>
         {status === 'success' && (
           <motion.div
+            role="status"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-3 px-5 py-4 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-bold"
+            className="border border-primary/40 bg-primary/5 text-primary px-4 py-3 font-mono text-xs"
           >
-            <CheckCircle size={18} />
-            {t.success}
+            [OK] {t.success}
           </motion.div>
         )}
         {status === 'error' && (
           <motion.div
+            role="alert"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-3 px-5 py-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold"
+            className="border border-accent/40 bg-accent/5 text-accent px-4 py-3 font-mono text-xs"
           >
-            <AlertCircle size={18} />
-            {t.error}
+            [ERR] {t.error}
           </motion.div>
         )}
       </AnimatePresence>
