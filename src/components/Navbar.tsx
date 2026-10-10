@@ -21,7 +21,11 @@ export default function Navbar({ dict, currentLang }: { dict: Record<string, str
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];

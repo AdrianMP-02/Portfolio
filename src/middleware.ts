@@ -11,7 +11,7 @@ function getLocale(request: NextRequest) {
   const languages = new Negotiator({ headers }).languages()
   try {
     return match(languages, locales, defaultLocale)
-  } catch (_e) {
+  } catch {
     return defaultLocale;
   }
 }
